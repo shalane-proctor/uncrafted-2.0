@@ -20,9 +20,37 @@ export default function NavBar() {
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <Link passHref href="/">
-                <a className="nav-link">
-                  Home
-                </a>
+                <a className="nav-link">Home</a>
+              </Link>
+            </li>
+            <li>
+              <Link passHref href="/messages">
+                <a className="nav-link">Messages</a>
+              </Link>
+            </li>
+            <li>
+              <Link passHref href="/profile">
+                <a className="nav-link">Profile</a>
+              </Link>
+            </li>
+            <li>
+              <Link passHref href="/trades">
+                <a className="nav-link">Trades</a>
+              </Link>
+            </li>
+            <li>
+              <Link passHref href="/Messages/new">
+                <a className="nav-link">Send Message</a>
+              </Link>
+            </li>
+            <li>
+              <Link passHref href="/Items/new">
+                <a className="nav-link">Post</a>
+              </Link>
+            </li>
+            <li>
+              <Link passHref href="/Profile/new">
+                <a className="nav-link">Create Profile</a>
               </Link>
             </li>
             <button type="button" className="btn btn-danger" onClick={signOut}>
