@@ -1,7 +1,10 @@
-import React from 'react';
+import ProfileSection from '../components/ProfileSection';
+import { useAuth } from '../utils/context/authContext';
 
-export default function profile() {
+export default function ProfilePage() {
+  const { user } = useAuth();
+  console.warn(user);
   return (
-    <div>profile</div>
+    <ProfileSection displayName={user.displayName} photoURL={user.photoURL} email={user.email} />
   );
 }
