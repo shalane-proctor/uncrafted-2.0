@@ -1,25 +1,26 @@
-import { signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
+import { useEffect, useState } from 'react';
+import { getPosts } from '../api/itemsData';
+import PostCard from '../components/PostCard';
+// import PostDetails from '../components/PostDetails';
+// import { useAuth } from '../utils/context/authContext';
 
 function Home() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
+  const [posts, setPosts] = useState([]);
+  const getAllPosts = () => {
+    getPosts().then(setPosts);
+  };
+  useEffect(() => {
+    getAllPosts();
+  });
 
   return (
-    <div
-      className="text-center d-flex flex-column justify-content-center align-content-center"
-      style={{
-        height: '90vh',
-        padding: '30px',
-        maxWidth: '400px',
-        margin: '0 auto',
-      }}
-    >
-      <h1>Hello {user.displayName}! </h1>
-      <p>Click the button below to logout!</p>
-      <button className="btn btn-danger btn-lg copy-btn" type="button" onClick={signOut}>
-        Sign Out
-      </button>
-    </div>
+    <>
+      {posts.map((post) => (
+        <PostCard key={post.firebaseKey} firebaseKey={post.firebaseKey} amount={post.amount} color={post.color} image={post.image} itemName={post.itemName} />
+      ))}
+      {/* <PostDetails displayName={user.displayName} photoURL={user.photoURL} onUpdate={getAllPosts} /> */}
+    </>
   );
 }
 
