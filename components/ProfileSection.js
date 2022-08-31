@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Button, Figure } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
