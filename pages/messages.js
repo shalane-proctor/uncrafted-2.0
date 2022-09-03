@@ -1,7 +1,21 @@
-import React from 'react';
+import { React, useEffect, useState } from 'react';
+import { getMessages } from '../api/messagesData';
+import MessageCard from '../components/MessageCard';
 
-export default function messages() {
+export default function MessagesPage() {
+  const [messages, setMessages] = useState([]);
+  const getAllMessages = () => {
+    getMessages().then(setMessages);
+  };
+  useEffect(() => {
+    getAllMessages();
+  }, []);
+
   return (
-    <div>messages</div>
+    <>
+      {messages.map((message) => (
+        <MessageCard key={message.firebaseKey} messageObj={message} />
+      ))}
+    </>
   );
 }
