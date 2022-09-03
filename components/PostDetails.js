@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import React from 'react';
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import { Badge } from 'react-bootstrap';
@@ -34,8 +35,8 @@ export default function PostDetails({
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Posted by</Card.Subtitle>
           <Card.Subtitle className="mb-2">{displayName}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">View Profile</Card.Subtitle>
+          <Card.Subtitle className="mb-2 text-muted">Send Message</Card.Subtitle>
           <Card.Text>{description}</Card.Text>
           <Card.Link href={`Items/edit/${firebaseKey}`}>Edit</Card.Link>
           <Card.Link onClick={deleteThisPost}>Delete</Card.Link>
@@ -49,22 +50,30 @@ export default function PostDetails({
 }
 
 PostDetails.propTypes = {
-  amount: PropTypes.string.isRequired,
-  color: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  draft: PropTypes.string.isRequired,
-  firebaseKey: PropTypes.string.isRequired,
+  amount: PropTypes.string,
+  color: PropTypes.string,
+  description: PropTypes.string,
+  draft: PropTypes.bool,
+  firebaseKey: PropTypes.string,
   image: PropTypes.string,
-  itemName: PropTypes.string.isRequired,
+  itemName: PropTypes.string,
   displayName: PropTypes.string.isRequired,
   photoURL: PropTypes.string.isRequired,
   // ownerProfileID: PropTypes.string.isRequired,
-  pending: PropTypes.string.isRequired,
+  pending: PropTypes.bool,
   tradePref: PropTypes.string,
   onUpdate: PropTypes.func.isRequired,
 };
 
 PostDetails.defaultProps = {
   image: 'https://cdn.shopify.com/s/files/1/0969/9128/files/feature4.png?8761787851395034074',
-  tradePref: 'Open to options',
+  tradePref: 'Open to all offers',
+  amount: 'N/A',
+  color: 'N/A',
+  description: 'N/A',
+  draft: false,
+  firebaseKey: '',
+  itemName: 'N/A',
+  // ownerProfileID: PropTypes.string.isRequired,
+  pending: false,
 };

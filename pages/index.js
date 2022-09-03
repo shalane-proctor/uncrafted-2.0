@@ -12,7 +12,7 @@ function Home() {
   };
   useEffect(() => {
     getAllPosts();
-  });
+  }, []);
 
   return (
     <>
