@@ -11,7 +11,7 @@ const initialState = {
   amount: '',
   color: '',
   description: '',
-  draft: '',
+  draft: false,
   image: '',
   itemName: '',
   pending: false,
