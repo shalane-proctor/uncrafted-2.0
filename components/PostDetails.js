@@ -5,16 +5,21 @@ import PropTypes from 'prop-types';
 import { Badge } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { useRouter } from 'next/router';
 import { deletePost } from '../api/itemsData';
 
 export default function PostDetails({
-  amount, color, description, draft, firebaseKey, image, itemName, pending, tradePref, photoURL, displayName, onUpdate,
+  amount, color, description, draft, firebaseKey, image, itemName, pending, tradePref, photoURL, displayName, ownerProfileId,
 }) {
+  const router = useRouter();
   const deleteThisPost = () => {
     if (window.confirm(`Delete ${itemName}?`)) {
-      deletePost(firebaseKey).then(() => onUpdate());
+      deletePost(firebaseKey).then(() => router.push('/'));
     }
   };
+  // const handleClick = () => {
+  //   router.push(`/Messages/create/${ownerProfileId}`);
+  // };
   return (
     <>
       <Card style={{ width: '18rem' }}>
@@ -36,7 +41,7 @@ export default function PostDetails({
           <Card.Subtitle className="mb-2 text-muted">Posted by</Card.Subtitle>
           <Card.Subtitle className="mb-2">{displayName}</Card.Subtitle>
           <Card.Subtitle className="mb-2 text-muted">View Profile</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">Send Message</Card.Subtitle>
+          <Card.Link className="mb-2 text-muted" href={`Messages/create/${ownerProfileId}`}>Send Message</Card.Link>
           <Card.Text>{description}</Card.Text>
           <Card.Link href={`Items/edit/${firebaseKey}`}>Edit</Card.Link>
           <Card.Link onClick={deleteThisPost}>Delete</Card.Link>
@@ -57,12 +62,11 @@ PostDetails.propTypes = {
   firebaseKey: PropTypes.string,
   image: PropTypes.string,
   itemName: PropTypes.string,
-  displayName: PropTypes.string.isRequired,
-  photoURL: PropTypes.string.isRequired,
-  // ownerProfileID: PropTypes.string.isRequired,
+  displayName: PropTypes.string,
+  photoURL: PropTypes.string,
   pending: PropTypes.bool,
   tradePref: PropTypes.string,
-  onUpdate: PropTypes.func.isRequired,
+  ownerProfileId: PropTypes.string.isRequired,
 };
 
 PostDetails.defaultProps = {
@@ -74,6 +78,7 @@ PostDetails.defaultProps = {
   draft: false,
   firebaseKey: '',
   itemName: 'N/A',
-  // ownerProfileID: PropTypes.string.isRequired,
   pending: false,
+  displayName: '',
+  photoURL: '',
 };
