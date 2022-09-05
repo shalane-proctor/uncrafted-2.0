@@ -40,7 +40,7 @@ export default function PostForm({ obj }) {
       updatePosts(formInput).then(() => router.push('/'));
     } else {
       const payload = {
-        ...formInput, uid: user.uid, ownerProfileID: user.uid, pending: obj.pending,
+        ...formInput, uid: user.uid, photoURL: user.photoURL, displayName: user.displayName, ownerProfileID: user.uid,
       };
       createPosts(payload).then(() => {
         router.push('/');
@@ -86,13 +86,16 @@ PostForm.propTypes = {
     amount: PropTypes.string,
     color: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
-    draft: PropTypes.string.isRequired,
+    draft: PropTypes.bool.isRequired,
     firebaseKey: PropTypes.string,
     image: PropTypes.string,
     itemName: PropTypes.string.isRequired,
     ownerProfileID: PropTypes.string,
     tradePref: PropTypes.string,
     pending: PropTypes.bool,
+    uid: PropTypes.string,
+    photoURL: PropTypes.string,
+    displayName: PropTypes.string,
   }),
 };
 

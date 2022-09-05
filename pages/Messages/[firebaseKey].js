@@ -4,7 +4,7 @@ import { getSingleMessage } from '../../api/messagesData';
 import MessageDetails from '../../components/MessageDetails';
 
 export default function ViewMessageDetails() {
-  const [messageDetails, setMessageDetails] = useState({});
+  const [messageDetails, setMessageDetails] = useState();
   const router = useRouter();
   const { firebaseKey } = router.query;
 
