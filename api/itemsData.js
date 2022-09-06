@@ -17,7 +17,7 @@ const getPosts = () => new Promise((resolve, reject) => {
 
 const getMyPosts = (ownerProfileID) => new Promise((resolve, reject) => {
   axios
-    .get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo=${ownerProfileID}`)
+    .get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo="${ownerProfileID}"`)
     .then((response) => {
       if (response?.data) {
         resolve(Object.values(response.data));

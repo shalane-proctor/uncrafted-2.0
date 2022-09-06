@@ -4,7 +4,7 @@ import { getSinglePost } from '../../api/itemsData';
 import PostDetails from '../../components/PostDetails';
 
 export default function ViewPostDetails() {
-  const [postDetails, setPostDetails] = useState({});
+  const [postDetail, setPostDetails] = useState({});
   const router = useRouter();
   const { firebaseKey } = router.query;
 
@@ -12,22 +12,14 @@ export default function ViewPostDetails() {
     getSinglePost(firebaseKey).then(setPostDetails);
   }, [firebaseKey]);
 
+  // eslint-disable-next-line no-console
+  console.log(postDetail);
+
   return (
     <div>
       <PostDetails
-        key={postDetails.firebaseKey}
-        amount={postDetails.amount}
-        color={postDetails.color}
-        description={postDetails.description}
-        draft={postDetails.draft}
-        firebaseKey={postDetails.firebaseKey}
-        image={postDetails.image}
-        itemName={postDetails.itemName}
-        pending={postDetails.pending}
-        tradePref={postDetails.tradePref}
-        photoURL={postDetails.photoURL}
-        displayName={postDetails.displayName}
-        ownerProfileId={postDetails.ownerProfileId}
+        key={postDetail.firebaseKey}
+        postObj={postDetail}
       />
     </div>
   );

@@ -1,7 +1,11 @@
-import React from 'react';
+import { getProfilePosts, getSingleProfile } from './profileData';
 
-export default function mergeData() {
-  return (
-    <div>mergeData</div>
-  );
-}
+const viewProfileDetails = (profileFirebaseKey) => new Promise((resolve, reject) => {
+  Promise.all([getSingleProfile(profileFirebaseKey), getProfilePosts(profileFirebaseKey)])
+    .then(([profileObject, profilePostsArray]) => {
+      resolve({ ...profileObject, posts: profilePostsArray });
+    })
+    .catch((error) => reject(error));
+});
+
+export default viewProfileDetails;
