@@ -1,0 +1,57 @@
+
+ {
+ "-NA7F4UDQm9QjXm_LXSN": {
+   "firebaseKey": "-NA7F4UDQm9QjXm_LXSN",
+   "messageBody": "test",
+   "new": true,
+   "profileFromFirebaseKey": "",
+   "profileToFirebaseKey": "",
+   "userNameFrom": "testName2",
+   "userNameTo": "testName1",
+   "tradeItemId": "",
+   "tradeId": ""
+ },
+  "-NAChic6Z8eJ9s1J9-1C": {
+    "firebaseKey": "-NAChic6Z8eJ9s1J9-1C",
+    "messageBody": "Hi there! Can I give you my address for the trade?",
+    "new": false,
+    "profileFromFirebaseKey": "test",
+    "profileToFirebaseKey": "test",
+    "userNameFrom": "SewSow",
+    "userNameTo": "PurplePariah",
+    "tradeItemId": "",
+    "tradeId": ""
+  },
+  "-NACi1qduzMv9STMsFDa": {
+    "firebaseKey": "-NACi1qduzMv9STMsFDa",
+    "messageBody": "Sure! Send it over! I can drop it off later.",
+    "new": true,
+    "profileFromFirebaseKey": "test",
+    "profileToFirebaseKey": "test",
+    "userNameFrom": "PurplePariah",
+    "userNameTo": "SewSow",
+    "tradeItemId": "",
+    "tradeId": ""
+  },
+  "-NACiq1jzxixwLYEf41X": {
+    "firebaseKey": "-NACiq1jzxixwLYEf41X",
+    "messageBody": "Would you be willing to trade that clay for $15?",
+    "new": true,
+    "profileFromFirebaseKey": "test",
+    "profileToFirebaseKey": "test",
+    "userNameFrom": "PurplePariah",
+    "userNameTo": "CraftyCrafterson",
+        "tradeItemId": "",
+    "tradeId": ""
+  },
+  "-NACjDstrlMLbRgE1KW-": {
+    "messageBody": "Let's do $10 and that sick sparkly yarn you have post and call it a deal!",
+    "new": false,
+    "profileFromFirebaseKey": "test",
+    "profileToFirebaseKey": "Vxdj1MVlnNSBtaOoCH5Kw5Gl4Dy1",
+    "userNameFrom": "CraftyCrafterson",
+    "userNameTo": "PurplePariah",
+    "tradeItemId": "",
+    "tradeId": ""
+  }
+}

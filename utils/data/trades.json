@@ -1,0 +1,26 @@
+{
+  "firebasekey1": {
+    "firebaseKey": "firebasekey1",
+    "itemWantedFirebaseKey": "-NACk5fbCTsEKQJs2XmN",
+    "itemOfferedFirebaseKey": "-NAClAuzW1hqiNoPfSoX",
+    "pending": false
+  },
+  "firebasekey2": {
+    "firebaseKey": "firebasekey2",
+    "itemWantedFirebaseKey": "-NAClzzTzJ3xRqtsKkEc",
+    "itemOfferedFirebaseKey": "-NB3VTtEKFgupnzCvIwt",
+    "pending": false
+  },
+  "firebasekey3": {
+    "firebaseKey": "firebasekey3",
+    "itemWantedFirebaseKey": "-NB3VTtEKFgupnzCvIwt",
+    "itemOfferedFirebaseKey": "-NAClAuzW1hqiNoPfSoX",
+    "pending": false
+  },
+  "firebasekey4": {
+    "firebaseKey": "firebasekey4",
+    "itemWantedFirebaseKey": "-NACk5fbCTsEKQJs2XmN",
+    "itemOfferedFirebaseKey": "-NAClzzTzJ3xRqtsKkEc",
+    "pending": false
+  }
+}

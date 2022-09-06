@@ -23,6 +23,13 @@ const getSingleProfile = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getMyProfile = (uid) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/profiles.json?orderBy="uid"&equalTo="${uid}"`)
+    .then((response) => resolve(response.data))
+    .catch(reject);
+});
+
 const createProfiles = (profileObj) => new Promise((resolve, reject) => {
   axios
     .post(`${dbUrl}/profiles.json`, profileObj)
@@ -47,6 +54,10 @@ const deleteProfile = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getProfilePosts = (ownerProfileID) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo="${ownerProfileID}"`).then((response) => resolve(Object.values(response.data))).catch((error) => reject(error));
+});
+
 export {
-  getProfiles, getSingleProfile, createProfiles, updateProfile, deleteProfile,
+  getProfiles, getMyProfile, getSingleProfile, createProfiles, updateProfile, deleteProfile, getProfilePosts,
 };

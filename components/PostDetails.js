@@ -8,42 +8,41 @@ import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router';
 import { deletePost } from '../api/itemsData';
 
-export default function PostDetails({
-  amount, color, description, draft, firebaseKey, image, itemName, pending, tradePref, photoURL, displayName, ownerProfileId,
-}) {
+export default function PostDetails({ postObj }) {
   const router = useRouter();
   const deleteThisPost = () => {
-    if (window.confirm(`Delete ${itemName}?`)) {
-      deletePost(firebaseKey).then(() => router.push('/'));
+    if (window.confirm(`Delete ${postObj.itemName}?`)) {
+      deletePost(postObj.firebaseKey).then(() => router.push('/'));
     }
   };
-  // const handleClick = () => {
-  //   router.push(`/Messages/create/${ownerProfileId}`);
-  // };
   return (
     <>
       <Card style={{ width: '18rem' }}>
         <Card.Body>
-          <div>{pending ? <Badge bg="dark">PENDING</Badge> : ''}</div>
-          <div>{draft ? <Badge bg="secondary">DRAFT</Badge> : ''}</div>
-          <Card.Img variant="top" src={image} />
-          <Card.Title>{itemName}</Card.Title>
-          <Card.Text>Color: {color}</Card.Text>
-          <Card.Text>Amount: {amount}</Card.Text>
-          <Card.Text>Prefered Trade: {tradePref}</Card.Text>
+          <div>{postObj.pending ? <Badge bg="dark">PENDING</Badge> : ''}</div>
+          <div>{postObj.draft ? <Badge bg="secondary">DRAFT</Badge> : ''}</div>
+          <Card.Img variant="top" src={postObj.image} />
+          <Card.Title>{postObj.itemName}</Card.Title>
+          <Card.Text>Color: {postObj.color}</Card.Text>
+          <Card.Text>Amount: {postObj.amount}</Card.Text>
+          <Card.Text>Prefered Trade: {postObj.tradePref}</Card.Text>
         </Card.Body>
       </Card>
       <Card style={{ width: '18rem' }}>
         <Card.Body>
           <Card.Title>
-            <img className="thumbnail-image" src={photoURL} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+            <img className="thumbnail-image" src={postObj.photoURL} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Posted by</Card.Subtitle>
-          <Card.Subtitle className="mb-2">{displayName}</Card.Subtitle>
-          <Card.Subtitle className="mb-2 text-muted">View Profile</Card.Subtitle>
-          <Card.Link className="mb-2 text-muted" href={`Messages/create/${ownerProfileId}`}>Send Message</Card.Link>
-          <Card.Text>{description}</Card.Text>
-          <Card.Link href={`Items/edit/${firebaseKey}`}>Edit</Card.Link>
+          <Card.Subtitle className="mb-2">{postObj.userName}</Card.Subtitle>
+          <Link href={`/Profile/${postObj?.ownerProfileID}`} passHref>
+            <Button className="mb-2 text-muted">View Profile</Button>
+          </Link>
+          <Link href={`/Messages/create/${postObj?.ownerProfileID}`} passHref>
+            <Button>Send Message</Button>
+          </Link>
+          <Card.Text>{postObj.description}</Card.Text>
+          <Card.Link href={`Items/edit/${postObj.firebaseKey}`}>Edit</Card.Link>
           <Card.Link onClick={deleteThisPost}>Delete</Card.Link>
         </Card.Body>
       </Card>
@@ -55,30 +54,34 @@ export default function PostDetails({
 }
 
 PostDetails.propTypes = {
-  amount: PropTypes.string,
-  color: PropTypes.string,
-  description: PropTypes.string,
-  draft: PropTypes.bool,
-  firebaseKey: PropTypes.string,
-  image: PropTypes.string,
-  itemName: PropTypes.string,
-  displayName: PropTypes.string,
-  photoURL: PropTypes.string,
-  pending: PropTypes.bool,
-  tradePref: PropTypes.string,
-  ownerProfileId: PropTypes.string.isRequired,
+  postObj: PropTypes.shape({
+    amount: PropTypes.string,
+    color: PropTypes.string,
+    description: PropTypes.string,
+    draft: PropTypes.bool,
+    firebaseKey: PropTypes.string,
+    image: PropTypes.string,
+    itemName: PropTypes.string,
+    userName: PropTypes.string,
+    photoURL: PropTypes.string,
+    pending: PropTypes.bool,
+    tradePref: PropTypes.string,
+    ownerProfileID: PropTypes.string,
+  }),
 };
 
 PostDetails.defaultProps = {
-  image: 'https://cdn.shopify.com/s/files/1/0969/9128/files/feature4.png?8761787851395034074',
-  tradePref: 'Open to all offers',
-  amount: 'N/A',
-  color: 'N/A',
-  description: 'N/A',
-  draft: false,
-  firebaseKey: '',
-  itemName: 'N/A',
-  pending: false,
-  displayName: '',
-  photoURL: '',
+  postObj: ({
+    image: 'https://cdn.shopify.com/s/files/1/0969/9128/files/feature4.png?8761787851395034074',
+    tradePref: 'Open to all offers',
+    amount: 'N/A',
+    color: 'N/A',
+    description: 'N/A',
+    draft: false,
+    firebaseKey: '',
+    itemName: 'N/A',
+    pending: false,
+    userName: '',
+    photoURL: '',
+  }),
 };
