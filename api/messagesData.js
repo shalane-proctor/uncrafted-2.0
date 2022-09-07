@@ -23,9 +23,9 @@ const getSingleMessage = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createMessages = (postObj) => new Promise((resolve, reject) => {
+const createMessages = (messageObj) => new Promise((resolve, reject) => {
   axios
-    .post(`${dbUrl}/messages.json`, postObj)
+    .post(`${dbUrl}/messages.json`, messageObj)
     .then((response) => {
       const payload = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/messages/${response.data.name}.json`, payload).then(resolve);

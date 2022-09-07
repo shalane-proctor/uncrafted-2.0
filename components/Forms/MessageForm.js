@@ -1,86 +1,63 @@
-// import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/router';
-// import PropTypes from 'prop-types';
-// import FloatingLabel from 'react-bootstrap/FloatingLabel';
-// import Form from 'react-bootstrap/Form';
-// import { Button } from 'react-bootstrap';
-// import { createPosts } from '../../api/itemsData';
-// import { useAuth } from '../../utils/context/authContext';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import PropTypes from 'prop-types';
+import Form from 'react-bootstrap/Form';
+import { Button } from 'react-bootstrap';
+import { createMessages } from '../../api/messagesData';
 
-// const initialState = {
-//   messageBody: '',
-//   profilePhotofromURL: '',
-//   profilePhotoToURL: '',
-//   userNameFrom: '',
-//   userNameTo: '',
-//   firebaseKey: '',
-// };
+export default function MessageForm({
+  profileToFirebaseKey, profileToUserName, profileFromFirebaseKey, profileFromUserName,
+}) {
+  const [formInput, setFormInput] = useState();
+  const router = useRouter();
 
-// export default function MessageForm({ messageObj }) {
-//   const [formInput, setFormInput] = useState(initialState);
-//   const router = useRouter();
-//   const { user } = useAuth();
+  useEffect(() => {
+    setFormInput();
+  }, [profileFromFirebaseKey, profileFromUserName]);
 
-//   useEffect(() => {
-//     if (messageObj.firebaseKey) setFormInput(messageObj);
-//   }, [messageObj, user]);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormInput((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
 
-//   const handleChange = (e) => {
-//     const { name, value } = e.target;
-//     setFormInput((prevState) => ({
-//       ...prevState,
-//       [name]: value,
-//     }));
-//   };
-
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
-//     if (messageObj.firebaseKey) {
-//       updateMessages(formInput).then(() => router.push('/'));
-//     } else {
-//       const payload = {
-//         ...formInput,
-//         uid: user.uid,
-//         photoURL: user.photoURL,
-//         displayName: user.displayName,
-//         ownerProfileID: user.uid,
-//       };
-//       createPosts(payload).then(() => {
-//         router.push('/');
-//       });
-//     }
-//   };
-//   return (
-//     <Form>
-//       <h1>Send Message</h1>
-//       <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-//         <Form.Label>Sending message to:</Form.Label>
-//         <Form.Control type="text" placeholder="" />
-//       </Form.Group>
-//       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-//         <Form.Label>Message</Form.Label>
-//         <Form.Control type="text" as="textarea" rows={3} placeholder="" />
-//       </Form.Group>
-//     </Form>
-//   );
-// }
-
-// MessageForm.propTypes = {
-//   messageObj: PropTypes.shape({
-//     messageBody: PropTypes.string,
-//     userNameFrom: PropTypes.string,
-//     userNameTo: PropTypes.string,
-//     firebaseKey: PropTypes.string,
-//   }),
-// };
-
-// PostForm.defaultProps = {
-//   messageObj: initialState,
-// };
-import React from 'react';
-
-export default function MessageForm() {
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const payload = {
+      ...formInput,
+      profileToFirebaseKey,
+      profileFromFirebaseKey,
+      profileToUserName,
+      profileFromUserName,
+    };
+    createMessages(payload).then(() => {
+      router.push('/messages');
+    });
+  };
   return (
-    <div>MessageForm</div>
+    <Form onSubmit={handleSubmit}>
+      <h1>Send Message</h1>
+      <h5>Sending message to: {profileToUserName} </h5>
+      <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+        <Form.Label>Message</Form.Label>
+        <Form.Control type="text" as="textarea" name="messageBody" rows={3} placeholder="" onChange={handleChange} />
+      </Form.Group>
+      <Button type="submit">Send</Button>
+    </Form>
   );
 }
+MessageForm.propTypes = {
+  profileToFirebaseKey: PropTypes.string,
+  profileToUserName: PropTypes.string,
+  profileFromFirebaseKey: PropTypes.string,
+  profileFromUserName: PropTypes.string,
+};
+
+MessageForm.defaultProps = {
+  profileToFirebaseKey: '',
+  profileToUserName: '',
+  profileFromFirebaseKey: '',
+  profileFromUserName: '',
+};

@@ -54,8 +54,8 @@ const deleteProfile = (firebaseKey) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getProfilePosts = (ownerProfileID) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo="${ownerProfileID}"`).then((response) => resolve(Object.values(response.data))).catch((error) => reject(error));
+const getProfilePosts = (firebaseKey) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo="${firebaseKey}"`).then((response) => resolve(Object.values(response.data))).catch((error) => reject(error));
 });
 
 export {
