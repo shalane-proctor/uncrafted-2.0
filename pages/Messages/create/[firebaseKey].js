@@ -1,28 +1,27 @@
 import { useRouter } from 'next/router';
-import { React, useEffect, useState } from 'react';
-// import { getSinglePost } from '../../../api/itemsData';
-// import { createMessages, getSingleMessage } from '../../../api/messagesData';
-import { getMyProfile, getSingleProfile } from '../../../api/profileData';
+import { useEffect, useState } from 'react';
+import { sendMessage } from '../../../api/mergeData';
 import MessageForm from '../../../components/Forms/MessageForm';
 import { useAuth } from '../../../utils/context/authContext';
 
 export default function NewMessage() {
-  const { user } = useAuth();
-  const [to, setTo] = useState();
-  const [from, setFrom] = useState();
+  const [profiles, setProfiles] = useState();
   const router = useRouter();
   const { firebaseKey } = router.query;
+  const { user } = useAuth();
 
   useEffect(() => {
-    getSingleProfile(firebaseKey).then(setTo);
-  }, [firebaseKey]);
-  useEffect(() => {
-    getMyProfile(user.uid).then(setFrom);
-  }, [user.uid]);
-  console.warn(from);
+    sendMessage(firebaseKey, user.uid).then(setProfiles);
+  }, [firebaseKey, user]);
+  console.warn(profiles);
   return (
     <>
-      <MessageForm profileToFirebaseKey={firebaseKey} profileToUserName={to?.userName} profileFromUserName={from?.userName} profileFromFirebaseKey={from?.firebaseKey} />
+      <MessageForm
+        profileToFirebaseKey={firebaseKey}
+        profileToUserName={profiles}
+        profileFromFirebaseKey={profiles}
+        ProfileFromUserName={profiles}
+      />
     </>
   );
 }

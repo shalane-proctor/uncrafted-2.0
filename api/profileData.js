@@ -26,7 +26,7 @@ const getSingleProfile = (firebaseKey) => new Promise((resolve, reject) => {
 const getMyProfile = (uid) => new Promise((resolve, reject) => {
   axios
     .get(`${dbUrl}/profiles.json?orderBy="uid"&equalTo="${uid}"`)
-    .then((response) => resolve(response.data))
+    .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
 
