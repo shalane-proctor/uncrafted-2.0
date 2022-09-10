@@ -30,7 +30,7 @@ const getMyProfile = (uid) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createProfiles = (profileObj) => new Promise((resolve, reject) => {
+const createProfile = (profileObj) => new Promise((resolve, reject) => {
   axios
     .post(`${dbUrl}/profiles.json`, profileObj)
     .then((response) => {
@@ -59,5 +59,5 @@ const getProfilePosts = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getProfiles, getMyProfile, getSingleProfile, createProfiles, updateProfile, deleteProfile, getProfilePosts,
+  getProfiles, getMyProfile, getSingleProfile, createProfile, updateProfile, deleteProfile, getProfilePosts,
 };

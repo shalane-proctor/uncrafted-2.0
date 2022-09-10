@@ -13,14 +13,14 @@ export default function NewMessage() {
   useEffect(() => {
     sendMessage(firebaseKey, user.uid).then(setProfiles);
   }, [firebaseKey, user]);
-  console.warn(profiles);
+
   return (
     <>
       <MessageForm
         profileToFirebaseKey={firebaseKey}
-        profileToUserName={profiles}
-        profileFromFirebaseKey={profiles}
-        ProfileFromUserName={profiles}
+        profileToUserName={profiles?.to.userName}
+        profileFromFirebaseKey={profiles?.from.firebaseKey}
+        ProfileFromUserName={profiles?.from.userName}
       />
     </>
   );

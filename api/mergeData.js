@@ -18,10 +18,11 @@ const viewProfileDetails = (profileFirebaseKey) => new Promise((resolve, reject)
 });
 
 const sendMessage = (profileFirebaseKey, uid) => new Promise((resolve, reject) => {
-  Promise.all([getSingleProfile(profileFirebaseKey), getMyProfile(uid)])
-    .then((response) => {
-      resolve((response.data));
-    }).catch((error) => reject(error));
+  getSingleProfile(profileFirebaseKey).then((profileToObj) => {
+    getMyProfile(uid).then((profileFromObj) => {
+      resolve({ to: profileToObj, from: profileFromObj[0] });
+    });
+  }).catch((error) => reject(error));
 });
 
 export { viewProfileDetails, viewPostDetails, sendMessage };
