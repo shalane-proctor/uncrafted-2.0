@@ -1,22 +1,27 @@
-// import { useRouter } from 'next/router';
-// import { React, useState, useEffect } from 'react';
-// import { getSingleMessage } from '../../../api/messagesData';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { sendMessage } from '../../../api/mergeData';
+import MessageForm from '../../../components/Forms/MessageForm';
+import { useAuth } from '../../../utils/context/authContext';
 
-// export default function NewMessage() {
-//   const [newMessage, setNewMessage] = useState();
-//   // const [userToUid, setUserToUid] = useState();
-//   const router = useRouter();
-//   const { firebaseKey } = router.query;
+export default function NewMessage() {
+  const [profiles, setProfiles] = useState();
+  const router = useRouter();
+  const { firebaseKey } = router.query;
+  const { user } = useAuth();
 
-//   useEffect(() => {
-//     getSingleMessage(firebaseKey).then(setNewMessage);
-//   }, [firebaseKey]);
-// }
+  useEffect(() => {
+    sendMessage(firebaseKey, user.uid).then(setProfiles);
+  }, [firebaseKey, user]);
 
-import React from 'react';
-
-export default function firebaseKey() {
   return (
-    <div>asdf</div>
+    <>
+      <MessageForm
+        profileToFirebaseKey={firebaseKey}
+        profileToUserName={profiles?.to.userName}
+        profileFromFirebaseKey={profiles?.from.firebaseKey}
+        ProfileFromUserName={profiles?.from.userName}
+      />
+    </>
   );
 }

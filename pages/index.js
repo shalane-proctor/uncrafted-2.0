@@ -17,9 +17,8 @@ function Home() {
   return (
     <>
       {posts.map((post) => (
-        <PostCard key={post.firebaseKey} firebaseKey={post.firebaseKey} amount={post.amount} color={post.color} image={post.image} itemName={post.itemName} />
+        <PostCard key={post.firebaseKey} postObj={post} />
       ))}
-      {/* <PostDetails displayName={user.displayName} photoURL={user.photoURL} onUpdate={getAllPosts} /> */}
     </>
   );
 }

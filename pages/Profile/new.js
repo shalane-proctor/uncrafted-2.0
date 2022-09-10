@@ -1,5 +1,6 @@
 import React from 'react';
+import ProfileForm from '../../components/Forms/ProfileForm';
 
-export default function newTest() {
-  return <div>Test</div>;
+export default function newProfile() {
+  return <ProfileForm />;
 }

@@ -8,7 +8,7 @@ import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router';
 import { deletePost } from '../api/itemsData';
 
-export default function PostDetails({ postObj }) {
+export default function PostDetails({ postObj, profilePicture, userName }) {
   const router = useRouter();
   const deleteThisPost = () => {
     if (window.confirm(`Delete ${postObj.itemName}?`)) {
@@ -31,10 +31,10 @@ export default function PostDetails({ postObj }) {
       <Card style={{ width: '18rem' }}>
         <Card.Body>
           <Card.Title>
-            <img className="thumbnail-image" src={postObj.photoURL} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+            <img className="thumbnail-image" src={profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Posted by</Card.Subtitle>
-          <Card.Subtitle className="mb-2">{postObj.userName}</Card.Subtitle>
+          <Card.Subtitle className="mb-2">{userName}</Card.Subtitle>
           <Link href={`/Profile/${postObj?.ownerProfileID}`} passHref>
             <Button className="mb-2 text-muted">View Profile</Button>
           </Link>
@@ -62,16 +62,16 @@ PostDetails.propTypes = {
     firebaseKey: PropTypes.string,
     image: PropTypes.string,
     itemName: PropTypes.string,
-    userName: PropTypes.string,
-    photoURL: PropTypes.string,
     pending: PropTypes.bool,
     tradePref: PropTypes.string,
     ownerProfileID: PropTypes.string,
   }),
+  userName: PropTypes.string,
+  profilePicture: PropTypes.string,
 };
 
 PostDetails.defaultProps = {
-  postObj: ({
+  postObj: {
     image: 'https://cdn.shopify.com/s/files/1/0969/9128/files/feature4.png?8761787851395034074',
     tradePref: 'Open to all offers',
     amount: 'N/A',
@@ -83,5 +83,7 @@ PostDetails.defaultProps = {
     pending: false,
     userName: '',
     photoURL: '',
-  }),
+  },
+  userName: '',
+  profilePicture: '',
 };
