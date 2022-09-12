@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { sendMessage } from '../../../api/mergeData';
+import { retrieveProfiles } from '../../../api/mergeData';
 import MessageForm from '../../../components/Forms/MessageForm';
 import { useAuth } from '../../../utils/context/authContext';
 
@@ -11,7 +11,7 @@ export default function NewMessage() {
   const { user } = useAuth();
 
   useEffect(() => {
-    sendMessage(firebaseKey, user.uid).then(setProfiles);
+    retrieveProfiles(firebaseKey, user.uid).then(setProfiles);
   }, [firebaseKey, user]);
 
   return (

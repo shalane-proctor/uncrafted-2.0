@@ -20,3 +20,20 @@ a {
 body {
   background-color: #88effd;
 }
+.post-card {
+  flex: 0 0 fit-content;
+  justify-content: flex-start;
+  width: 400px;
+  height: auto;
+  margin: 20px;
+      inline-size: 150px;
+    overflow-wrap: break-word;
+    display: block;
+}
+.post-card-image {
+  justify-content: center;
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+  margin-top: 20px;
+}

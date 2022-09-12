@@ -15,9 +15,22 @@ const getPosts = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getMyPosts = (ownerProfileID) => new Promise((resolve, reject) => {
+const getzombiePosts = (ownerProfileID) => new Promise((resolve, reject) => {
   axios
     .get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo="${ownerProfileID}"`)
+    .then((response) => {
+      if (response?.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+
+const getMyPosts = (uid) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/items.json?orderBy="uid"&equalTo="${uid}"`)
     .then((response) => {
       if (response?.data) {
         resolve(Object.values(response.data));
@@ -62,4 +75,5 @@ export {
   createPosts,
   updatePosts,
   deletePost,
+  getzombiePosts,
 };

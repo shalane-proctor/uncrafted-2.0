@@ -13,9 +13,6 @@ export default function ViewThePostDetails() {
     viewPostDetails(firebaseKey).then(setPostDetails);
   }, [firebaseKey]);
 
-  // eslint-disable-next-line no-console
-  console.warn(postDetail);
-
   return (
     <div>
       <PostDetails

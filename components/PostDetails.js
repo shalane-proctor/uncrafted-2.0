@@ -7,9 +7,11 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router';
 import { deletePost } from '../api/itemsData';
+import { useAuth } from '../utils/context/authContext';
 
 export default function PostDetails({ postObj, profilePicture, userName }) {
   const router = useRouter();
+  const { user } = useAuth();
   const deleteThisPost = () => {
     if (window.confirm(`Delete ${postObj.itemName}?`)) {
       deletePost(postObj.firebaseKey).then(() => router.push('/'));
@@ -36,19 +38,43 @@ export default function PostDetails({ postObj, profilePicture, userName }) {
           <Card.Subtitle className="mb-2 text-muted">Posted by</Card.Subtitle>
           <Card.Subtitle className="mb-2">{userName}</Card.Subtitle>
           <Link href={`/Profile/${postObj?.ownerProfileID}`} passHref>
-            <Button className="mb-2 text-muted">View Profile</Button>
+            <Button className="mb-2">View Profile</Button>
           </Link>
-          <Link href={`/Messages/create/${postObj?.ownerProfileID}`} passHref>
-            <Button>Send Message</Button>
-          </Link>
+          <div>
+            {postObj.uid !== user.uid ? (
+              <>
+                <Link href={`/Messages/create/${postObj?.ownerProfileID}`} passHref>
+                  <Button>Send Message</Button>
+                </Link>
+              </>
+            ) : (
+              ''
+            )}
+          </div>
           <Card.Text>{postObj.description}</Card.Text>
-          <Card.Link href={`Items/edit/${postObj.firebaseKey}`}>Edit</Card.Link>
-          <Card.Link onClick={deleteThisPost}>Delete</Card.Link>
+          <div>
+            {postObj.uid === user.uid ? (
+              <>
+                <Card.Link href={`Items/edit/${postObj.firebaseKey}`}>Edit</Card.Link>
+                <Card.Link onClick={deleteThisPost}>Delete</Card.Link>
+              </>
+            ) : (
+              ''
+            )}
+          </div>
         </Card.Body>
       </Card>
-      <Link href="Trades/new" passHref>
-        <Button>Request Trade</Button>
-      </Link>
+      <div>
+        {postObj.uid !== user.uid ? (
+          <>
+            <Link href={`/Trades/create/${postObj?.ownerProfileID}`} passHref>
+              <Button>Request Trade</Button>
+            </Link>
+          </>
+        ) : (
+          ''
+        )}
+      </div>
     </>
   );
 }
@@ -65,6 +91,7 @@ PostDetails.propTypes = {
     pending: PropTypes.bool,
     tradePref: PropTypes.string,
     ownerProfileID: PropTypes.string,
+    uid: PropTypes.string,
   }),
   userName: PropTypes.string,
   profilePicture: PropTypes.string,
