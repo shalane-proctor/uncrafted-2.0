@@ -67,7 +67,7 @@ export default function PostDetails({ postObj, profilePicture, userName }) {
       <div>
         {postObj.uid !== user.uid ? (
           <>
-            <Link href={`/Trades/create/${postObj?.ownerProfileID}`} passHref>
+            <Link href={`/Trades/create/${postObj?.firebaseKey}`} passHref>
               <Button>Request Trade</Button>
             </Link>
           </>

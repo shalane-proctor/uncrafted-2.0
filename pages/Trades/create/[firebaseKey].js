@@ -20,9 +20,11 @@ export default function NewTrade() {
     <>
       <TradeForm
         itemWantedFirebaseKey={firebaseKey}
-        itemOfferedFirebaseKey={posts?.fromPosts}
-        offerTo={posts?.to}
-        offeredFrom={posts?.from}
+        itemOfferedFirebaseKey={posts?.offeredPosts?.firebaseKey}
+        offerTo={posts?.offeredTo}
+        offeredFrom={posts?.offeredFrom}
+        offeredPostObj={posts?.offeredPosts}
+        wantedPostObj={posts?.wantedPosts}
       />
     </>
   );

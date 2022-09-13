@@ -34,18 +34,22 @@ const retrieveProfiles = (profileFirebaseKey, uid) => new Promise((resolve, reje
   }).catch((error) => reject(error));
 });
 
-const retrieveProfilesPosts = (profileFirebaseKey, uid) => new Promise((resolve, reject) => {
-  getSingleProfile(profileFirebaseKey).then((profileToObj) => {
-    getMyProfile(uid).then((profileFromObj) => {
-      getMyPosts(uid).then((profileFromPosts) => {
-        resolve({
-          to: profileToObj,
-          from: profileFromObj[0],
-          fromPosts: profileFromPosts,
+const retrieveProfilesPosts = (postFirebaseKey, uid) => new Promise((resolve, reject) => {
+  getSinglePost(postFirebaseKey)
+    .then((postObj) => {
+      getSingleProfile(postObj.ownerProfileID).then((profileToObj) => {
+        getMyProfile(uid).then((profileFromObj) => {
+          getMyPosts(uid).then((profileFromPosts) => {
+            resolve({
+              wantedPosts: postObj,
+              offeredTo: profileToObj,
+              offeredFrom: profileFromObj[0],
+              offeredPosts: profileFromPosts,
+            });
+          });
         });
       });
-    });
-  })
+    })
     .catch((error) => reject(error));
 });
 
