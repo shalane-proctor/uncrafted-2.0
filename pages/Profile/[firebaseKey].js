@@ -16,12 +16,15 @@ export default function ProfilePage() {
   console.warn(profile);
 
   return (
-    <><ProfileSection key={profile.firebaseKey} profileObj={profile} />
+    <>
+      <ProfileSection key={profile.firebaseKey} profileObj={profile} />
       <h1>My Posts</h1>
-      <div>
-        {profile.posts?.map((post) => (
-          <PostCard key={post.firebaseKey} postObj={post} />
-        ))}
+      <div className="text-center my-4">
+        <div className="d-flex">
+          {profile.posts?.map((post) => (
+            <PostCard key={post.firebaseKey} postObj={post} />
+          ))}
+        </div>
       </div>
       <span>
         <Button href="/Items/new">New Post</Button>

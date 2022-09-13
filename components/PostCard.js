@@ -4,14 +4,9 @@ import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 export default function PostCard({ postObj }) {
-  // const handleClick = () => {
-  //   <Link passHref href={`/Items/${firebaseKey}`}>
-  //     <a className="nav-link" />
-  //   </Link>;
-  // };
   return (
-    <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src={postObj?.image} />
+    <Card className="post-card">
+      <Card.Img src={postObj?.image} className="post-card-image" />
       <Card.Body>
         <Card.Title>{postObj?.itemName}</Card.Title>
         <Card.Text>Color: {postObj?.color}</Card.Text>
