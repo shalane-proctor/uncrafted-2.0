@@ -56,7 +56,7 @@ export default function PostForm({ obj }) {
           <Form.Control as="textarea" placeholder="Paint" name="itemName" value={formInput.itemName} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Color" className="mb-3">
-          <Form.Control as="textarea" placeholder="Color" name="color" value={formInput.color} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Color" name="color" value={formInput?.color} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Amount" className="mb-3">
           <Form.Control as="textarea" placeholder="Amount" name="amount" value={formInput.amount} onChange={handleChange} required />
@@ -84,12 +84,12 @@ export default function PostForm({ obj }) {
 PostForm.propTypes = {
   obj: PropTypes.shape({
     amount: PropTypes.string,
-    color: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
-    draft: PropTypes.bool.isRequired,
+    color: PropTypes.string,
+    description: PropTypes.string,
+    draft: PropTypes.bool,
     firebaseKey: PropTypes.string,
     image: PropTypes.string,
-    itemName: PropTypes.string.isRequired,
+    itemName: PropTypes.string,
     ownerProfileID: PropTypes.string,
     tradePref: PropTypes.string,
     pending: PropTypes.bool,
