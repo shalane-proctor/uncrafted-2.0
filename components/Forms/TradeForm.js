@@ -9,10 +9,11 @@ import { createTrades, updateTrades } from '../../api/tradesData';
 import { getMyPosts } from '../../api/itemsData';
 
 export default function TradeForm({
-  itemOfferedFirebaseKey, itemWantedFirebaseKey, firebaseKey, offerTo, offeredFrom, offeredPostObj, wantedPostObj,
+  itemWantedFirebaseKey, firebaseKey, offerTo, offeredFrom, offeredPostObj, wantedPostObj,
 }) {
   const [formInput, setFormInput] = useState();
   const [posts, setPosts] = useState();
+  const [selected, setSelected] = useState();
   const { user } = useAuth();
   const router = useRouter();
 
@@ -21,8 +22,11 @@ export default function TradeForm({
     if (firebaseKey) setFormInput(firebaseKey);
   }, [firebaseKey, user]);
 
+  console.warn(posts);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setSelected(posts.find((post) => post.firebaseKey === e.target.value));
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -36,18 +40,17 @@ export default function TradeForm({
     } else {
       const payload = {
         ...formInput,
-        itemOfferedFirebaseKey,
         itemWantedFirebaseKey,
-        offerTo,
-        offeredFrom,
-        wantedPostObj,
-        offeredPostObj,
+        offerTo: offerTo.firebaseKey,
+        offeredFrom: offeredFrom.firebaseKey,
       };
       createTrades(payload).then(() => {
-        router.push(`/Trades/${firebaseKey}`);
+        router.push('/');
       });
     }
   };
+
+  console.warn(formInput);
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -56,24 +59,24 @@ export default function TradeForm({
           <div className="d-flex">
             {firebaseKey ? (
               <Card className="post-card">
-                <Card.Img src={offeredPostObj?.image} className="post-card-image" />
+                <Card.Img src={offeredPostObj.image} className="post-card-image" />
                 <Card.Body>
-                  <Card.Title>{offeredPostObj?.itemName}</Card.Title>
-                  <Card.Text>Color: {offeredPostObj?.color}</Card.Text>
-                  <Card.Text>Amount: {offeredPostObj?.amount}</Card.Text>
-                  <Link href={`/Items/${offeredPostObj?.firebaseKey}`} passHref>
+                  <Card.Title>{offeredPostObj.itemName}</Card.Title>
+                  <Card.Text>Color: {offeredPostObj.color}</Card.Text>
+                  <Card.Text>Amount: {offeredPostObj.amount}</Card.Text>
+                  <Link href={`/Items/${offeredPostObj.firebaseKey}`} passHref>
                     <Button variant="primary">View</Button>
                   </Link>
                 </Card.Body>
               </Card>
             ) : (
               <Card className="post-card">
-                <Card.Img src={wantedPostObj?.image} className="post-card-image" />
+                <Card.Img src={wantedPostObj.image} className="post-card-image" />
                 <Card.Body>
-                  <Card.Title>{wantedPostObj?.itemName}</Card.Title>
-                  <Card.Text>Color: {wantedPostObj?.color}</Card.Text>
-                  <Card.Text>Amount: {wantedPostObj?.amount}</Card.Text>
-                  <Link href={`/Items/${wantedPostObj?.firebaseKey}`} passHref>
+                  <Card.Title>{wantedPostObj.itemName}</Card.Title>
+                  <Card.Text>Color: {wantedPostObj.color}</Card.Text>
+                  <Card.Text>Amount: {wantedPostObj.amount}</Card.Text>
+                  <Link href={`/Items/${wantedPostObj.firebaseKey}`} passHref>
                     <Button variant="primary">View</Button>
                   </Link>
                 </Card.Body>
@@ -89,40 +92,38 @@ export default function TradeForm({
         {firebaseKey ? (
           ''
         ) : (
-          <Form.Select onChange={handleChange} aria-label="Default select example">
-            <option>Choose your offer</option>
-            <option value="1">Cash</option>
-            <option value="2">Message for other options</option>
+          <Form.Select onChange={handleChange} value={offeredPostObj.firebaseKey} name="itemOfferedFirebaseKey" required>
+            <option value="">Choose your offer</option>
+            <option key="cash" value="Cash">Cash</option>
             {posts?.map((post) => (
-              <option key={post.firebaseKey} defaultValue={post.firebaseKey} value={itemOfferedFirebaseKey?.firebaseKey === post.firebaseKey}>
+              <option key={post.firebaseKey} value={post.firebaseKey} defaultValue={post.firebaseKey === offeredPostObj.firebaseKey}>
                 {post.itemName}
               </option>
             ))}
-            ;
           </Form.Select>
-        )}{' '}
+        )}
         <div className="text-center my-4">
           <div className="d-flex">
             {firebaseKey ? (
               <Card className="post-card" onChange={handleChange}>
-                <Card.Img src={wantedPostObj?.image} className="post-card-image" />
+                <Card.Img src={wantedPostObj.image} className="post-card-image" />
                 <Card.Body>
-                  <Card.Title>{wantedPostObj?.itemName}</Card.Title>
-                  <Card.Text>Color: {wantedPostObj?.color}</Card.Text>
-                  <Card.Text>Amount: {wantedPostObj?.amount}</Card.Text>
-                  <Link href={`/Items/${wantedPostObj?.firebaseKey}`} passHref>
+                  <Card.Title>{wantedPostObj.itemName}</Card.Title>
+                  <Card.Text>Color: {wantedPostObj.color}</Card.Text>
+                  <Card.Text>Amount: {wantedPostObj.amount}</Card.Text>
+                  <Link href={`/Items/${wantedPostObj.firebaseKey}`} passHref>
                     <Button variant="primary">View</Button>
                   </Link>
                 </Card.Body>
               </Card>
             ) : (
-              <Card className="post-card">
-                <Card.Img src={offeredPostObj?.image} className="post-card-image" />
+              <Card onChange={handleChange} className="post-card">
+                <Card.Img src={selected?.image} className="post-card-image" />
                 <Card.Body>
-                  <Card.Title>{offeredPostObj?.itemName}</Card.Title>
-                  <Card.Text>Color: {offeredPostObj?.color}</Card.Text>
-                  <Card.Text>Amount: {offeredPostObj?.amount}</Card.Text>
-                  <Link href={`/Items/${offeredPostObj?.firebaseKey}`} passHref>
+                  <Card.Title>{selected?.itemName}</Card.Title>
+                  <Card.Text>Color: {selected?.color}</Card.Text>
+                  <Card.Text>Amount: {selected?.amount}</Card.Text>
+                  <Link href={`/Items/${selected?.firebaseKey}`} passHref>
                     <Button variant="primary">View</Button>
                   </Link>
                 </Card.Body>
@@ -138,14 +139,15 @@ export default function TradeForm({
   );
 }
 TradeForm.propTypes = {
-  itemOfferedFirebaseKey: PropTypes.string,
   itemWantedFirebaseKey: PropTypes.string,
   firebaseKey: PropTypes.string,
-  offerTo: PropTypes.shape({}).isRequired,
-  offeredFrom: PropTypes.shape({}).isRequired,
-  offeredPostObj: PropTypes.arrayOf(
-    PropTypes.shape,
-  ).isRequired,
+  offerTo: PropTypes.shape({
+    firebaseKey: PropTypes.string,
+  }),
+  offeredFrom: PropTypes.shape({
+    firebaseKey: PropTypes.string,
+  }),
+  offeredPostObj: PropTypes.arrayOf(PropTypes.shape),
   wantedPostObj: PropTypes.shape({
     amount: PropTypes.string,
     color: PropTypes.string,
@@ -156,10 +158,16 @@ TradeForm.propTypes = {
 };
 
 TradeForm.defaultProps = {
-  itemOfferedFirebaseKey: '',
   itemWantedFirebaseKey: '',
   firebaseKey: '',
   wantedPostObj: {
     image: 'https://cdn.shopify.com/s/files/1/0969/9128/files/feature4.png?8761787851395034074',
   },
+  offerTo: ({
+    firebaseKey: '',
+  }),
+  offeredFrom: {
+    firebaseKey: '',
+  },
+  offeredPostObj: [{}],
 };
