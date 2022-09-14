@@ -22,7 +22,7 @@ export default function TradeForm({
     if (firebaseKey) setFormInput(firebaseKey);
   }, [firebaseKey, user]);
 
-  console.warn(posts);
+  // console.warn(posts);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -50,11 +50,11 @@ export default function TradeForm({
     }
   };
 
-  console.warn(formInput);
+  // console.warn(formInput);
 
   return (
     <Form onSubmit={handleSubmit}>
-      <div style={{ width: '50%' }}>
+      <div style={{ width: '50%', marginTop: '45px', float: 'left' }}>
         <div className="text-center my-4">
           <div className="d-flex">
             {firebaseKey ? (
@@ -84,17 +84,19 @@ export default function TradeForm({
             )}
           </div>
         </div>
-        <Button style={{ marginBottom: '20px' }} variant="primary" type="submit">
+        <Button variant="primary" type="submit">
           {firebaseKey ? 'Accept' : 'Offer'} Trade
         </Button>
       </div>
-      <div style={{ width: '50%' }}>
+      <div style={{ width: '50%', marginTop: '10px', float: 'right' }}>
         {firebaseKey ? (
           ''
         ) : (
           <Form.Select onChange={handleChange} value={offeredPostObj.firebaseKey} name="itemOfferedFirebaseKey" required>
             <option value="">Choose your offer</option>
-            <option key="cash" value="Cash">Cash</option>
+            <option key="cash" value="Cash">
+              Cash
+            </option>
             {posts?.map((post) => (
               <option key={post.firebaseKey} value={post.firebaseKey} defaultValue={post.firebaseKey === offeredPostObj.firebaseKey}>
                 {post.itemName}
