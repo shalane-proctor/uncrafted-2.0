@@ -30,6 +30,13 @@ export default function ProfilePage() {
         <Button href="/Items/new">New Post</Button>
       </span>
       <h1>My Trades</h1>
+      <div className="text-center my-4">
+        <div className="d-flex">
+          {profile.posts?.map((post) => (
+            <PostCard key={post.firebaseKey} postObj={post} />
+          ))}
+        </div>
+      </div>
       <h4>Trade offers</h4>
       <h4>Trade Requests</h4>
     </>

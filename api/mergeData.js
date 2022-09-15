@@ -1,6 +1,6 @@
 import { getMyPosts, getSinglePost } from './itemsData';
 import { getMyProfile, getProfilePosts, getSingleProfile } from './profileData';
-import { getMyTrades, getSingleTrade } from './tradesData';
+import { getMyOfferedTrades, getMyRequestedTrades, getSingleTrade } from './tradesData';
 
 const viewPostDetails = (postFirebaseKey) => new Promise((resolve, reject) => {
   getSinglePost(postFirebaseKey).then((postObj) => {
@@ -12,18 +12,24 @@ const viewPostDetails = (postFirebaseKey) => new Promise((resolve, reject) => {
 
 const viewProfileDetails = (profileFirebaseKey) => new Promise((resolve, reject) => {
   Promise.all([getSingleProfile(profileFirebaseKey), getProfilePosts(profileFirebaseKey), getSingleTrade(profileFirebaseKey)])
-    .then(([profileObject, profilePostsArray]) => {
-      resolve({ ...profileObject, posts: profilePostsArray });
+    .then(([profileObject, profilePostsArray, tradeObj]) => {
+      resolve({ ...profileObject, posts: profilePostsArray, trades: tradeObj });
     })
     .catch((error) => reject(error));
 });
 
 const viewMyProfile = (uid) => new Promise((resolve, reject) => {
-  Promise.all([getMyProfile(uid), getMyPosts(uid), getMyTrades(uid)])
-    .then(([profileObject, profilePostsArray]) => {
-      resolve({ ...profileObject, posts: profilePostsArray });
-    })
-    .catch((error) => reject(error));
+  getMyProfile(uid).then((profileObj) => {
+    getMyPosts(uid).then((postObj) => {
+      getMyRequestedTrades(profileObj[0].firebaseKey).then((offeredtradeObj) => {
+        getMyOfferedTrades(profileObj[0].firebaseKey).then((requestedTradeObj) => {
+          resolve({
+            profile: profileObj[0], posts: postObj, offeredTrades: offeredtradeObj, requestedTrades: requestedTradeObj,
+          });
+        });
+      });
+    });
+  }).catch((error) => reject(error));
 });
 
 const retrieveProfiles = (profileFirebaseKey, uid) => new Promise((resolve, reject) => {
@@ -53,6 +59,22 @@ const retrieveProfilesPosts = (postFirebaseKey, uid) => new Promise((resolve, re
     .catch((error) => reject(error));
 });
 
+const viewTradeDetails = (uid, tradeFirbaseKey) => new Promise((resolve, reject) => {
+  getSingleTrade(tradeFirbaseKey).then((tradeObj) => {
+    retrieveProfiles(uid, tradeObj.itemWantedFirebaseKey).then((tradeItemsObj) => {
+      resolve({ tradeInfo: tradeItemsObj });
+    });
+  }).catch((error) => reject(error));
+});
+
+// const viewOfferTrades = (profileFirebaseKey) => new Promise((resolve, reject) => {
+//   getSingleTrade(postFirebaseKey).then((tradeObj) => {
+//     getSingleProfile(postObj.ownerProfileID).then((profileObj) => {
+//       resolve({ profileObj, ...postObj });
+//     });
+//   }).catch((error) => reject(error));
+// });
+
 export {
-  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile,
+  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails,
 };

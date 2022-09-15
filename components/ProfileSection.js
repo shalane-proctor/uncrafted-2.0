@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
-import { Figure } from 'react-bootstrap';
+import { Button, Figure } from 'react-bootstrap';
 import PropTypes from 'prop-types';
+import Link from 'next/link';
 // import Link from 'next/link';
 
 export default function ProfileSection({ profileObj }) {
@@ -9,8 +10,18 @@ export default function ProfileSection({ profileObj }) {
       <Figure>
         <img width={171} height={180} alt="171x180" src={profileObj.profilePicture} style={{ borderRadius: '50%' }} />
         <Figure.Caption>{profileObj.userName}</Figure.Caption>
-        {/* <Link href={profileObj.etsy}>Etsy</Link>
-        <Link href={profileObj.instagram}>Instagram</Link> */}
+        {profileObj.etsy === undefined ? ''
+          : (
+            <Link href={profileObj?.etsy} to={profileObj?.instagram} passHref>
+              <Button>Etsy</Button>
+            </Link>
+          )}
+        {profileObj.instagram === undefined ? ''
+          : (
+            <Link href={undefined ? '' : profileObj?.instagram} to={profileObj?.instagram} passHref>
+              <Button>Instagram</Button>
+            </Link>
+          )}
         <p>{profileObj.about}</p>
         <p>{profileObj.favoriteCrafts}</p>
       </Figure>

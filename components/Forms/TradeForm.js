@@ -97,11 +97,13 @@ export default function TradeForm({
             <option key="cash" value="Cash">
               Cash
             </option>
-            {posts?.map((post) => (
-              <option key={post.firebaseKey} value={post.firebaseKey} defaultValue={post.firebaseKey === offeredPostObj.firebaseKey}>
-                {post.itemName}
-              </option>
-            ))}
+            {posts?.map((post) => {
+              if (post.draft === true) { return ''; } return (
+                <option key={post.draft === true ? '' : post.firebaseKey} value={post.draft === true ? '' : post.firebaseKey} defaultValue={post.draft === true ? '' : post.firebaseKey === offeredPostObj.firebaseKey}>
+                  {post.draft === true ? '' : post.itemName}
+                </option>
+              );
+            })};
           </Form.Select>
         )}
         <div className="text-center my-4">
