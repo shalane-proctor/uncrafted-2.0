@@ -6,6 +6,7 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { createPosts, updatePosts } from '../../api/itemsData';
 import { useAuth } from '../../utils/context/authContext';
+import { getMyProfile } from '../../api/profileData';
 
 const initialState = {
   amount: '',
@@ -19,10 +20,12 @@ const initialState = {
 };
 export default function PostForm({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
+  const [profile, setProfile] = useState();
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
+    getMyProfile(user.uid).then(setProfile);
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
 
@@ -40,7 +43,11 @@ export default function PostForm({ obj }) {
       updatePosts(formInput).then(() => router.push('/'));
     } else {
       const payload = {
-        ...formInput, uid: user.uid, photoURL: user.photoURL, displayName: user.displayName, ownerProfileID: user.uid,
+        ...formInput,
+        uid: user.uid,
+        profilePicture: profile[0].profilePicture,
+        userName: profile[0].userName,
+        ownerProfileID: profile[0].firebaseKey,
       };
       createPosts(payload).then(() => {
         router.push('/');
@@ -94,8 +101,9 @@ PostForm.propTypes = {
     tradePref: PropTypes.string,
     pending: PropTypes.bool,
     uid: PropTypes.string,
-    photoURL: PropTypes.string,
+    userName: PropTypes.string,
     displayName: PropTypes.string,
+    profilePicture: PropTypes.string,
   }),
 };
 

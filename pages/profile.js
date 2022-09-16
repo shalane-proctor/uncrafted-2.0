@@ -2,30 +2,29 @@ import { React, useEffect, useState } from 'react';
 import {
   Button, Col, Container, Row,
 } from 'react-bootstrap';
+import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
-import { viewMyProfile, viewTradeDetails } from '../api/mergeData';
+import { viewMyProfile } from '../api/mergeData';
 import ProfileSection from '../components/ProfileSection';
 import PostCard from '../components/PostCard';
 import TradeCard from '../components/TradeCard';
 
 export default function ProfilePage() {
   const [myProfile, setMyProfile] = useState({});
-  const [trades, setTrades] = useState();
+  // const [trades, setTrades] = useState();
   const { user } = useAuth();
 
   useEffect(() => {
     viewMyProfile(user.uid).then(setMyProfile);
   }, [user]);
-  console.warn(myProfile);
 
-  useEffect(() => {
-    viewTradeDetails(myProfile.firebaseKey).then(setTrades);
-  }, []);
-
-  console.warn(trades);
+  // console.warn(trades, myProfile);
 
   return (
     <>
+      <Link href={`/Profile/edit/${myProfile.profile?.firebaseKey}`} passHref>
+        <Button>Edit Profile</Button>
+      </Link>
       <ProfileSection key={myProfile} profileObj={myProfile.profile} />
       <h1>My Posts</h1>
       <div className="text-center my-4">
@@ -36,7 +35,9 @@ export default function ProfilePage() {
         </div>
       </div>
       <span>
-        <Button href="/Items/new">New Post</Button>
+        <Link href="/Items/new" passHref>
+          <Button>New Post</Button>
+        </Link>
       </span>
       <h1>My Trades</h1>
       <h4>Trade offers</h4>
