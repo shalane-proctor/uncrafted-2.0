@@ -58,7 +58,7 @@ export default function TradeForm({
         ...formInput,
         itemWantedFirebaseKey,
         offerTo: offerTo.firebaseKey,
-        offeredFrom: firebaseKey,
+        offeredFrom: offeredFrom.firebaseKey,
       };
       const updateTradeWanted = {
         firebaseKey: wantedPostObj.firebaseKey,

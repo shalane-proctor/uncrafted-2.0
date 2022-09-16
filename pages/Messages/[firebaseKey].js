@@ -1,3 +1,5 @@
+// import { Button } from 'bootstrap';
+// import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { React, useState, useEffect } from 'react';
 import { RetrieveMessageDetails } from '../../api/mergeData';
@@ -22,6 +24,9 @@ export default function ViewMessageDetails() {
         // onUpdate={() => {
         //   <Link href="/" passHref />;}
       />
+      {/* <Link href={`/Messages/create/${messageDetails?.profileFromFirebaseKey}`} passHref>
+        <Button>Reply</Button>
+      </Link> */}
     </div>
   );
 }

@@ -1,7 +1,9 @@
 import { getMyPosts, getSinglePost } from './itemsData';
 import { getSingleMessage } from './messagesData';
-import { getMyProfile, getProfilePosts, getSingleProfile } from './profileData';
-import { getMyOfferedTrades, getMyRequestedTrades, getSingleTrade } from './tradesData';
+import {
+  getFromProfileTrades, getMyProfile, getProfilePosts, getSingleProfile, getToProfileTrades,
+} from './profileData';
+import { getSingleTrade } from './tradesData';
 
 const viewPostDetails = (postFirebaseKey) => new Promise((resolve, reject) => {
   getSinglePost(postFirebaseKey).then((postObj) => {
@@ -12,9 +14,11 @@ const viewPostDetails = (postFirebaseKey) => new Promise((resolve, reject) => {
 });
 
 const viewProfileDetails = (profileFirebaseKey) => new Promise((resolve, reject) => {
-  Promise.all([getSingleProfile(profileFirebaseKey), getProfilePosts(profileFirebaseKey), getSingleTrade(profileFirebaseKey)])
-    .then(([profileObject, profilePostsArray, tradeObj]) => {
-      resolve({ ...profileObject, posts: profilePostsArray, trades: tradeObj });
+  Promise.all([getSingleProfile(profileFirebaseKey), getProfilePosts(profileFirebaseKey), getFromProfileTrades(profileFirebaseKey), getToProfileTrades(profileFirebaseKey)])
+    .then(([profileObject, profilePostsArray, tradeFromObj, tradeToObj]) => {
+      resolve({
+        ...profileObject, posts: profilePostsArray, tradesFrom: tradeFromObj, tradeTo: tradeToObj,
+      });
     })
     .catch((error) => reject(error));
 });
@@ -44,19 +48,6 @@ const viewMyProfile = (uid) => new Promise((resolve, reject) => {
       });
     });
   }).catch((error) => reject(error));
-});
-
-const GetMyTradePosts = (firebaseKey) => new Promise((resolve, reject) => {
-  getMyOfferedTrades(firebaseKey).then((offeredTrades) => {
-    getMyRequestedTrades(firebaseKey).then((requestedTrades) => {
-      getSinglePost(offeredTrades.itemWantedFirebaseKey).then((offeredPosts) => {
-        getSinglePost(requestedTrades.itemOfferedFirebaseKey).then((requestedPosts) => {
-          resolve({ offerPosts: offeredPosts, requestPosts: requestedPosts });
-        });
-        //   });
-      });
-    }).catch((error) => reject(error));
-  });
 });
 
 const retrieveProfiles = (profileFirebaseKey, uid) => new Promise((resolve, reject) => {
@@ -91,12 +82,12 @@ const RetrieveMessageDetails = (messageFirebaseKey) => new Promise((resolve, rej
     .then((messageObj) => {
       getSingleProfile(messageObj.profileFromFirebaseKey).then((fromProfileObj) => {
         getSingleProfile(messageObj.profileToFirebaseKey).then((toProfileObj) => {
-          resolve({ messageObj, fromProfile: fromProfileObj, toProfile: toProfileObj });
+          resolve({ ...messageObj, fromProfile: fromProfileObj, toProfile: toProfileObj });
         });
       });
     }).catch((error) => reject(error));
 });
 
 export {
-  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails, GetMyTradePosts, RetrieveMessageDetails,
+  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails, RetrieveMessageDetails,
 };

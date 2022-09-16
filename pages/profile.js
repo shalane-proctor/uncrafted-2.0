@@ -17,8 +17,7 @@ export default function ProfilePage() {
   useEffect(() => {
     viewMyProfile(user.uid).then(setMyProfile);
   }, [user]);
-
-  // console.warn(trades, myProfile);
+  console.warn(myProfile);
 
   return (
     <>
