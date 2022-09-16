@@ -55,7 +55,7 @@ export default function PostDetails({ postObj, profilePicture, userName }) {
           <div>
             {postObj.uid === user.uid ? (
               <>
-                <Card.Link href={`Items/edit/${postObj.firebaseKey}`}>Edit</Card.Link>
+                <Card.Link href={`/Items/edit/${postObj.firebaseKey}`}>Edit</Card.Link>
                 <Card.Link onClick={deleteThisPost}>Delete</Card.Link>
               </>
             ) : (
