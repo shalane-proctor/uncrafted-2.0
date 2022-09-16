@@ -17,7 +17,7 @@ const initialState = {
   userName: '',
 };
 export default function ProfileForm({ profileObj }) {
-  const [formInput, setFormInput] = useState(initialState);
+  const [formInput, setFormInput] = useState();
   const router = useRouter();
   const { user } = useAuth();
 
@@ -47,27 +47,30 @@ export default function ProfileForm({ profileObj }) {
       });
     }
   };
+
+  console.log(formInput);
+
   return (
     <>
       <Form onSubmit={handleSubmit}>
         <h1>{profileObj.firebaseKey ? 'Update' : 'Create'} your profile</h1>
         <FloatingLabel controlId="floatingTextarea" label="Username" className="mb-3">
-          <Form.Control as="textarea" placeholder="Paint" name="userName" value={formInput.userName} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Paint" name="userName" value={formInput?.userName} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Favorite Crafts" className="mb-3">
-          <Form.Control as="textarea" placeholder="Crafts" name="favoriteCrafts" value={formInput.favoriteCrafts} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Crafts" name="favoriteCrafts" value={formInput?.favoriteCrafts} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Etsy" className="mb-3">
-          <Form.Control as="textarea" placeholder="Etsy" name="etsy" value={formInput.etsy} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Etsy" name="etsy" value={formInput?.etsy} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="instagram" className="mb-3">
-          <Form.Control as="textarea" placeholder="instagram" name="instagram" value={formInput.instagram} onChange={handleChange} />
+          <Form.Control as="textarea" placeholder="instagram" name="instagram" value={formInput?.instagram} onChange={handleChange} />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Profile Picture" className="mb-3">
-          <Form.Control as="textarea" placeholder="profilePicture" name="profilePicture" value={formInput.profilePicture} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="profilePicture" name="profilePicture" value={formInput?.profilePicture} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea2" label="Tell us about you">
-          <Form.Control as="textarea" placeholder="Desription" style={{ height: '100px' }} name="about" value={formInput.about} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Desription" style={{ height: '100px' }} name="about" value={formInput?.about} onChange={handleChange} required />
         </FloatingLabel>
         <Button variant="primary" type="submit">
           {profileObj.firebaseKey ? 'Update' : 'Create'} Profile
