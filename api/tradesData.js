@@ -66,7 +66,7 @@ const updateTrades = (tradeObj) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
+const deleteTrade = (firebaseKey) => new Promise((resolve, reject) => {
   axios
     .delete(`${dbUrl}/trades/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
@@ -74,5 +74,5 @@ const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getTrades, getMyOfferedTrades, getMyRequestedTrades, getSingleTrade, createTrades, updateTrades, deletePost,
+  getTrades, getMyOfferedTrades, getMyRequestedTrades, getSingleTrade, createTrades, updateTrades, deleteTrade,
 };

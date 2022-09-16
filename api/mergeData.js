@@ -18,18 +18,44 @@ const viewProfileDetails = (profileFirebaseKey) => new Promise((resolve, reject)
     .catch((error) => reject(error));
 });
 
-const viewMyProfile = (uid) => new Promise((resolve, reject) => {
-  getMyProfile(uid).then((profileObj) => {
-    getMyPosts(uid).then((postObj) => {
-      getMyRequestedTrades(profileObj[0].firebaseKey).then((offeredtradeObj) => {
-        getMyOfferedTrades(profileObj[0].firebaseKey).then((requestedTradeObj) => {
-          resolve({
-            profile: profileObj[0], posts: postObj, offeredTrades: offeredtradeObj, requestedTrades: requestedTradeObj,
+const viewTradeDetails = (tradeFirebaseKey) => new Promise((resolve, reject) => {
+  getSingleTrade(tradeFirebaseKey).then((tradeObj) => {
+    getSinglePost(tradeObj?.itemOfferedFirebaseKey).then((postOfferedObj) => {
+      getSinglePost(tradeObj?.itemWantedFirebaseKey).then((postWantedObj) => {
+        getSingleProfile(tradeObj?.offeredFrom).then((offerFromObj) => {
+          getSingleProfile(tradeObj?.offerTo).then((offerToObj) => {
+            resolve({
+              tradeObj, offer: postOfferedObj, want: postWantedObj, from: offerFromObj, to: offerToObj,
+            });
           });
         });
       });
     });
   }).catch((error) => reject(error));
+});
+
+const viewMyProfile = (uid) => new Promise((resolve, reject) => {
+  getMyProfile(uid).then((profileObj) => {
+    getMyPosts(uid).then((postObj) => {
+      resolve({
+        profile: profileObj[0],
+        posts: postObj,
+      });
+    });
+  }).catch((error) => reject(error));
+});
+
+const GetMyTradePosts = (firebaseKey) => new Promise((resolve, reject) => {
+  getMyOfferedTrades(firebaseKey).then((offeredTrades) => {
+    getMyRequestedTrades(firebaseKey).then((requestedTrades) => {
+      getSinglePost(offeredTrades.itemWantedFirebaseKey).then((offeredPosts) => {
+        getSinglePost(requestedTrades.itemOfferedFirebaseKey).then((requestedPosts) => {
+          resolve({ offerPosts: offeredPosts, requestPosts: requestedPosts });
+        });
+        //   });
+      });
+    }).catch((error) => reject(error));
+  });
 });
 
 const retrieveProfiles = (profileFirebaseKey, uid) => new Promise((resolve, reject) => {
@@ -59,22 +85,14 @@ const retrieveProfilesPosts = (postFirebaseKey, uid) => new Promise((resolve, re
     .catch((error) => reject(error));
 });
 
-const viewTradeDetails = (uid, tradeFirbaseKey) => new Promise((resolve, reject) => {
-  getSingleTrade(tradeFirbaseKey).then((tradeObj) => {
-    retrieveProfiles(uid, tradeObj.itemWantedFirebaseKey).then((tradeItemsObj) => {
-      resolve({ tradeInfo: tradeItemsObj });
-    });
-  }).catch((error) => reject(error));
-});
-
-// const viewOfferTrades = (profileFirebaseKey) => new Promise((resolve, reject) => {
-//   getSingleTrade(postFirebaseKey).then((tradeObj) => {
-//     getSingleProfile(postObj.ownerProfileID).then((profileObj) => {
-//       resolve({ profileObj, ...postObj });
+// const viewTradeDetails = (uid, tradeFirbaseKey) => new Promise((resolve, reject) => {
+//   getSingleTrade(tradeFirbaseKey).then((tradeObj) => {
+//     retrieveProfiles(uid, tradeObj.itemWantedFirebaseKey).then((tradeItemsObj) => {
+//       resolve({ tradeInfo: tradeItemsObj });
 //     });
 //   }).catch((error) => reject(error));
 // });
 
 export {
-  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails,
+  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails, GetMyTradePosts,
 };

@@ -3,19 +3,26 @@ import {
   Button, Col, Container, Row,
 } from 'react-bootstrap';
 import { useAuth } from '../utils/context/authContext';
-import { viewMyProfile } from '../api/mergeData';
+import { viewMyProfile, viewTradeDetails } from '../api/mergeData';
 import ProfileSection from '../components/ProfileSection';
 import PostCard from '../components/PostCard';
 import TradeCard from '../components/TradeCard';
 
 export default function ProfilePage() {
   const [myProfile, setMyProfile] = useState({});
+  const [trades, setTrades] = useState();
   const { user } = useAuth();
 
   useEffect(() => {
     viewMyProfile(user.uid).then(setMyProfile);
   }, [user]);
   console.warn(myProfile);
+
+  useEffect(() => {
+    viewTradeDetails(myProfile.firebaseKey).then(setTrades);
+  }, []);
+
+  console.warn(trades);
 
   return (
     <>
@@ -45,11 +52,11 @@ export default function ProfilePage() {
         <Row>
           <Col>
             <div className="text-center my-4">
-              <div className="d-flex">
+              {/* <div className="d-flex">
                 {myProfile.requestedTrades?.map((trade) => (
-                  <TradeCard key={trade.firebaseKey} tradeObj={trade} />
+                  <TradeCard key={trade.firebaseKey} tradeFirebaseKey={trade.itemWantedFireBaseKey} />
                 ))}
-              </div>
+              </div> */}
             </div>
           </Col>
         </Row>

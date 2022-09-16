@@ -15,7 +15,7 @@ export default function TradeCard({ tradeObj }) {
           <Card.Title> {tradeObj?.itemName}</Card.Title>
           <Card.Text>Color: {tradeObj?.color}</Card.Text>
           <Card.Text>Amount: {tradeObj?.amount}</Card.Text>
-          <Link href={`/Trades/${tradeObj?.firebaseKey}`} passHref>
+          <Link href={`/Trades/update/${tradeObj?.firebaseKey}`} passHref>
             <Button variant="primary">View Trade</Button>
           </Link>
         </Card.Body>
