@@ -62,6 +62,14 @@ const updatePosts = (postObj) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const updateTradedPost = (postObj) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/items/${postObj.firebaseKey}.json`).then((response) => {
+      axios.patch(postObj).then(resolve(response.data))
+        .catch(reject);
+    });
+});
+
 const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
   axios.delete(`${dbUrl}/items/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
@@ -69,11 +77,5 @@ const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getPosts,
-  getMyPosts,
-  getSinglePost,
-  createPosts,
-  updatePosts,
-  deletePost,
-  getzombiePosts,
+  getPosts, getMyPosts, getSinglePost, createPosts, updatePosts, deletePost, getzombiePosts, updateTradedPost,
 };

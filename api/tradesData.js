@@ -16,9 +16,21 @@ const getTrades = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getMyTrades = (uid) => new Promise((resolve, reject) => {
+const getMyOfferedTrades = (profileFirebaseKey) => new Promise((resolve, reject) => {
   axios
-    .get(`${dbUrl}/trades.json?orderBy="uid"&equalTo="${uid}"`)
+    .get(`${dbUrl}/trades.json?orderBy="offerTo"&equalTo="${profileFirebaseKey}"`)
+    .then((response) => {
+      if (response?.data) {
+        resolve(Object.values(response.data));
+      } else {
+        resolve([]);
+      }
+    })
+    .catch(reject);
+});
+const getMyRequestedTrades = (profileFirebaseKey) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/trades.json?orderBy="offeredFrom"&equalTo="${profileFirebaseKey}"`)
     .then((response) => {
       if (response?.data) {
         resolve(Object.values(response.data));
@@ -54,7 +66,7 @@ const updateTrades = (tradeObj) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
+const deleteTrade = (firebaseKey) => new Promise((resolve, reject) => {
   axios
     .delete(`${dbUrl}/trades/${firebaseKey}.json`)
     .then((response) => resolve(response.data))
@@ -62,5 +74,5 @@ const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getTrades, getMyTrades, getSingleTrade, createTrades, updateTrades, deletePost,
+  getTrades, getMyOfferedTrades, getMyRequestedTrades, getSingleTrade, createTrades, updateTrades, deleteTrade,
 };

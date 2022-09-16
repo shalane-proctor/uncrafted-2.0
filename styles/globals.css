@@ -20,15 +20,18 @@ a {
 body {
   background-color: #88effd;
 }
+.d-flex {
+  flex-wrap: wrap;
+}
 .post-card {
   flex: 0 0 fit-content;
+  flex-wrap: wrap;
   justify-content: flex-start;
-  width: 400px;
+  min-width: 250px;
   height: auto;
   margin: 20px;
-      inline-size: 150px;
-    overflow-wrap: break-word;
-    display: block;
+  inline-size: 150px;
+  overflow-wrap: break-word;
 }
 .post-card-image {
   justify-content: center;
