@@ -15,19 +15,6 @@ const getPosts = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getzombiePosts = (ownerProfileID) => new Promise((resolve, reject) => {
-  axios
-    .get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo="${ownerProfileID}"`)
-    .then((response) => {
-      if (response?.data) {
-        resolve(Object.values(response.data));
-      } else {
-        resolve([]);
-      }
-    })
-    .catch(reject);
-});
-
 const getMyPosts = (uid) => new Promise((resolve, reject) => {
   axios
     .get(`${dbUrl}/items.json?orderBy="uid"&equalTo="${uid}"`)
@@ -77,5 +64,5 @@ const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getPosts, getMyPosts, getSinglePost, createPosts, updatePosts, deletePost, getzombiePosts, updateTradedPost,
+  getPosts, getMyPosts, getSinglePost, createPosts, updatePosts, deletePost, updateTradedPost,
 };

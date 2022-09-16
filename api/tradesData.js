@@ -16,9 +16,9 @@ const getTrades = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const getMyOfferedTrades = (profileFirebaseKey) => new Promise((resolve, reject) => {
+const getMyTrades = (profileFirebaseKey) => new Promise((resolve, reject) => {
   axios
-    .get(`${dbUrl}/trades.json?orderBy="offerTo"&equalTo="${profileFirebaseKey}"`)
+    .get(`${dbUrl}/trades.json?orderBy="uid"&equalTo="${profileFirebaseKey}"`)
     .then((response) => {
       if (response?.data) {
         resolve(Object.values(response.data));
@@ -31,13 +31,7 @@ const getMyOfferedTrades = (profileFirebaseKey) => new Promise((resolve, reject)
 const getMyRequestedTrades = (profileFirebaseKey) => new Promise((resolve, reject) => {
   axios
     .get(`${dbUrl}/trades.json?orderBy="offeredFrom"&equalTo="${profileFirebaseKey}"`)
-    .then((response) => {
-      if (response?.data) {
-        resolve(Object.values(response.data));
-      } else {
-        resolve([]);
-      }
-    })
+    .then((response) => resolve(response.data))
     .catch(reject);
 });
 
@@ -74,5 +68,5 @@ const deleteTrade = (firebaseKey) => new Promise((resolve, reject) => {
 });
 
 export {
-  getTrades, getMyOfferedTrades, getMyRequestedTrades, getSingleTrade, createTrades, updateTrades, deleteTrade,
+  getTrades, getMyTrades, getMyRequestedTrades, getSingleTrade, createTrades, updateTrades, deleteTrade,
 };

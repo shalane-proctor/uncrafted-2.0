@@ -1,33 +1,59 @@
 /* eslint-disable @next/next/no-img-element */
 import PropTypes from 'prop-types';
-import { Button } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
 
 export default function MessageDetails({ messageObj }) {
   return (
-    <Card>
-      <Card.Header as="h5">Message {messageObj.userNameFrom ? `From: ${messageObj.userNameFrom}` : `To: ${messageObj.userNameTo}`}</Card.Header>
-      <Card.Body>
-        <img className="thumbnail-image" src={messageObj.userNameFrom ? messageObj.profilePhotofromURL : messageObj.profilePhotoToURL} style={{ width: '30%', borderRadius: '50%' }} alt="Profile Pic" />
-        <Card.Title>{messageObj.messageBody}</Card.Title>
+    <>
+      <Card>
         <Card.Title>
-          <Card.Link href={`Messages/${messageObj.firebaseKey}`}>View</Card.Link>
-          <Card.Link href="#">Delete</Card.Link>
+          <img className="thumbnail-image" src={messageObj.fromProfile.profilePicture} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {messageObj?.ProfileFromUserName}
         </Card.Title>
-        <Button variant="primary">Reply</Button>
-      </Card.Body>
-    </Card>
+        <Card.Title>
+          <img className="thumbnail-image" src={messageObj?.toProfile.profilePicture} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" />
+          Message to: {messageObj?.profileToUserName}
+        </Card.Title>
+      </Card>
+      <Card style={{ height: '600px' }}>
+        <Card.Body>
+          <Card.Title>Message:</Card.Title>
+          <Card.Title>{messageObj.messageBody}</Card.Title>
+        </Card.Body>
+      </Card>
+    </>
   );
 }
 
 MessageDetails.propTypes = {
   messageObj: PropTypes.shape({
-    messageBody: PropTypes.string.isRequired,
-    profileFromFirebaseKey: PropTypes.string.isRequired,
-    profilePhotofromURL: PropTypes.string.isRequired,
-    profilePhotoToURL: PropTypes.string.isRequired,
-    userNameFrom: PropTypes.string.isRequired,
-    userNameTo: PropTypes.string.isRequired,
-    firebaseKey: PropTypes.string.isRequired,
-  }).isRequired,
+    messageBody: PropTypes.string,
+    profileToFirebaseKey: PropTypes.string,
+    profileFromFirebaseKey: PropTypes.string,
+    ProfileFromUserName: PropTypes.string,
+    profileToUserName: PropTypes.string,
+    firebaseKey: PropTypes.string,
+    fromProfile: PropTypes.shape({
+      profilePicture: PropTypes.string,
+    }),
+    toProfile: PropTypes.shape({
+      profilePicture: PropTypes.string,
+    }),
+  }),
+};
+
+MessageDetails.defaultProps = {
+  messageObj: {
+    messageBody: '',
+    profileToFirebaseKey: '',
+    profileFromFirebaseKey: '',
+    userNameFrom: '',
+    userNameTo: '',
+    firebaseKey: '',
+    fromProfile: {
+      profilePicture: '',
+    },
+    toProfile: {
+      profilePicture: '',
+    },
+  },
 };

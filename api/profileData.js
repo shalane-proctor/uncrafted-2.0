@@ -58,6 +58,20 @@ const getProfilePosts = (firebaseKey) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/items.json?orderBy="ownerProfileID"&equalTo="${firebaseKey}"`).then((response) => resolve(Object.values(response.data))).catch((error) => reject(error));
 });
 
+const getToProfileTrades = (firebaseKey) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/trades.json?orderBy="offerTo"&equalTo="${firebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
+const getFromProfileTrades = (firebaseKey) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/trades.json?orderBy="offeredFrom"&equalTo="${firebaseKey}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
 export {
-  getProfiles, getMyProfile, getSingleProfile, createProfile, updateProfile, deleteProfile, getProfilePosts,
+  getProfiles, getMyProfile, getSingleProfile, createProfile, updateProfile, deleteProfile, getProfilePosts, getFromProfileTrades, getToProfileTrades,
 };
