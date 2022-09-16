@@ -21,12 +21,7 @@ export default function ViewMessageDetails() {
       <MessageDetails
         key={messageDetails?.firebaseKey}
         messageObj={messageDetails}
-        // onUpdate={() => {
-        //   <Link href="/" passHref />;}
       />
-      {/* <Link href={`/Messages/create/${messageDetails?.profileFromFirebaseKey}`} passHref>
-        <Button>Reply</Button>
-      </Link> */}
     </div>
   );
 }

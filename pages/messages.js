@@ -11,10 +11,12 @@ export default function MessagesPage() {
     getAllMessages();
   }, []);
 
+  console.warn(messages);
+
   return (
     <>
       {messages.map((message) => (
-        <MessageCard key={message.firebaseKey} messageObj={message} />
+        <MessageCard key={message.firebaseKey} messageObj={message} onUpdate={getAllMessages} />
       ))}
     </>
   );

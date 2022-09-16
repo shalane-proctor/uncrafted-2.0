@@ -34,6 +34,22 @@ TradeCard.propTypes = {
     firebaseKey: PropTypes.string,
     pending: PropTypes.bool,
   }),
+  // offerFromObj: PropTypes.shape({
+  //   amount: PropTypes.string,
+  //   color: PropTypes.string,
+  //   image: PropTypes.string,
+  //   itemName: PropTypes.string,
+  //   firebaseKey: PropTypes.string,
+  //   pending: PropTypes.bool,
+  // }),
+  // offerToObj: PropTypes.shape({
+  //   amount: PropTypes.string,
+  //   color: PropTypes.string,
+  //   image: PropTypes.string,
+  //   itemName: PropTypes.string,
+  //   firebaseKey: PropTypes.string,
+  //   pending: PropTypes.bool,
+  // }),
 };
 
 TradeCard.defaultProps = {

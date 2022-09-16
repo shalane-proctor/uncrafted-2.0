@@ -53,9 +53,8 @@ const createTrades = (tradeObj) => new Promise((resolve, reject) => {
 });
 
 const updateTrades = (tradeObj) => new Promise((resolve, reject) => {
-  const payload = { pending: false };
   axios
-    .patch(`${dbUrl}/trades/${tradeObj.firebaseKey}.json`, tradeObj, payload)
+    .patch(`${dbUrl}/trades/${tradeObj.firebaseKey}.json`, tradeObj)
     .then((response) => resolve(response.data))
     .catch(reject);
 });

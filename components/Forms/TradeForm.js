@@ -52,13 +52,15 @@ export default function TradeForm({
       };
       updateTradedPost(updateWanted).then();
       updateTradedPost(offeredPostObj, updateOffered).then();
-      updateTrades(formInput).then(() => router.push(`/Trades/${firebaseKey}`));
+      updateTrades(firebaseKey).then(() => router.push(`/Trades/${firebaseKey}`));
     } else {
       const payload = {
         ...formInput,
         itemWantedFirebaseKey,
         offerTo: offerTo.firebaseKey,
         offeredFrom: offeredFrom.firebaseKey,
+        toUid: offerTo.uid,
+        uid: user.uid,
       };
       const updateTradeWanted = {
         firebaseKey: wantedPostObj.firebaseKey,
@@ -104,12 +106,12 @@ export default function TradeForm({
                   </Card.Body>
                 </Card>
                 <Card className="post-card">
-                  <Card.Img src={offeredPostObj.image} className="post-card-image" />
+                  <Card.Img src={offeredPostObj?.image} className="post-card-image" />
                   <Card.Body>
-                    <Card.Title>{offeredPostObj.itemName}</Card.Title>
-                    <Card.Text>Color: {offeredPostObj.color}</Card.Text>
-                    <Card.Text>Amount: {offeredPostObj.amount}</Card.Text>
-                    <Link href={`/Items/${offeredPostObj.firebaseKey}`} passHref>
+                    <Card.Title>{offeredPostObj?.itemName}</Card.Title>
+                    <Card.Text>Color: {offeredPostObj?.color}</Card.Text>
+                    <Card.Text>Amount: {offeredPostObj?.amount}</Card.Text>
+                    <Link href={`/Items/${offeredPostObj?.firebaseKey}`} passHref>
                       <Button variant="primary">View</Button>
                     </Link>
                   </Card.Body>

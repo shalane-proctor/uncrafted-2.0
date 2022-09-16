@@ -18,7 +18,8 @@ function Home() {
     <div className="text-center my-4">
       <div className="d-flex">
         {posts.map((post) => (
-          <PostCard key={post?.firebaseKey} postObj={post} />
+          post.draft === true ? ''
+            : <PostCard key={post.firebaseKey} postObj={post} />
         ))}
       </div>
     </div>
