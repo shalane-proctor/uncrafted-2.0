@@ -1,4 +1,5 @@
 import { getMyPosts, getSinglePost } from './itemsData';
+import { getSingleMessage } from './messagesData';
 import { getMyProfile, getProfilePosts, getSingleProfile } from './profileData';
 import { getMyOfferedTrades, getMyRequestedTrades, getSingleTrade } from './tradesData';
 
@@ -85,14 +86,17 @@ const retrieveProfilesPosts = (postFirebaseKey, uid) => new Promise((resolve, re
     .catch((error) => reject(error));
 });
 
-// const viewTradeDetails = (uid, tradeFirbaseKey) => new Promise((resolve, reject) => {
-//   getSingleTrade(tradeFirbaseKey).then((tradeObj) => {
-//     retrieveProfiles(uid, tradeObj.itemWantedFirebaseKey).then((tradeItemsObj) => {
-//       resolve({ tradeInfo: tradeItemsObj });
-//     });
-//   }).catch((error) => reject(error));
-// });
+const RetrieveMessageDetails = (messageFirebaseKey) => new Promise((resolve, reject) => {
+  getSingleMessage(messageFirebaseKey)
+    .then((messageObj) => {
+      getSingleProfile(messageObj.profileFromFirebaseKey).then((fromProfileObj) => {
+        getSingleProfile(messageObj.profileToFirebaseKey).then((toProfileObj) => {
+          resolve({ messageObj, fromProfile: fromProfileObj, toProfile: toProfileObj });
+        });
+      });
+    }).catch((error) => reject(error));
+});
 
 export {
-  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails, GetMyTradePosts,
+  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails, GetMyTradePosts, RetrieveMessageDetails,
 };

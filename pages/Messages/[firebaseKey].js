@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { React, useState, useEffect } from 'react';
-import { getSingleMessage } from '../../api/messagesData';
+import { RetrieveMessageDetails } from '../../api/mergeData';
 import MessageDetails from '../../components/MessageDetails';
 
 export default function ViewMessageDetails() {
@@ -9,12 +9,15 @@ export default function ViewMessageDetails() {
   const { firebaseKey } = router.query;
 
   useEffect(() => {
-    getSingleMessage(firebaseKey).then(setMessageDetails);
+    RetrieveMessageDetails(firebaseKey).then(setMessageDetails);
   }, [firebaseKey]);
+
+  console.warn(messageDetails);
+
   return (
     <div>
       <MessageDetails
-        key={messageDetails.firebaseKey}
+        key={messageDetails?.firebaseKey}
         messageObj={messageDetails}
         // onUpdate={() => {
         //   <Link href="/" passHref />;}

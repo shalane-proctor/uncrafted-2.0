@@ -6,9 +6,9 @@ import Card from 'react-bootstrap/Card';
 export default function MessageDetails({ messageObj }) {
   return (
     <Card>
-      <Card.Header as="h5">Message {messageObj.userNameFrom ? `From: ${messageObj.userNameFrom}` : `To: ${messageObj.userNameTo}`}</Card.Header>
+      <Card.Header as="h5">Message {messageObj?.userNameFrom ? `From: ${messageObj?.userNameFrom}` : `To: ${messageObj?.userNameTo}`}</Card.Header>
       <Card.Body>
-        <img className="thumbnail-image" src={messageObj.userNameFrom ? messageObj.profilePhotofromURL : messageObj.profilePhotoToURL} style={{ width: '30%', borderRadius: '50%' }} alt="Profile Pic" />
+        <img className="thumbnail-image" src={messageObj?.userNameFrom ? messageObj?.profilePhotofromURL : messageObj?.profilePhotoToURL} style={{ width: '30%', borderRadius: '50%' }} alt="Profile Pic" />
         <Card.Title>{messageObj.messageBody}</Card.Title>
         <Card.Title>
           <Card.Link href={`Messages/${messageObj.firebaseKey}`}>View</Card.Link>
@@ -22,12 +22,24 @@ export default function MessageDetails({ messageObj }) {
 
 MessageDetails.propTypes = {
   messageObj: PropTypes.shape({
-    messageBody: PropTypes.string.isRequired,
-    profileFromFirebaseKey: PropTypes.string.isRequired,
-    profilePhotofromURL: PropTypes.string.isRequired,
-    profilePhotoToURL: PropTypes.string.isRequired,
-    userNameFrom: PropTypes.string.isRequired,
-    userNameTo: PropTypes.string.isRequired,
-    firebaseKey: PropTypes.string.isRequired,
-  }).isRequired,
+    messageBody: PropTypes.string,
+    profileFromFirebaseKey: PropTypes.string,
+    profilePhotofromURL: PropTypes.string,
+    profilePhotoToURL: PropTypes.string,
+    userNameFrom: PropTypes.string,
+    userNameTo: PropTypes.string,
+    firebaseKey: PropTypes.string,
+  }),
+};
+
+MessageDetails.defaultProps = {
+  messageObj: ({
+    messageBody: '',
+    profileFromFirebaseKey: '',
+    profilePhotofromURL: '',
+    profilePhotoToURL: '',
+    userNameFrom: '',
+    userNameTo: '',
+    firebaseKey: '',
+  }),
 };
