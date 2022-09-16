@@ -48,8 +48,6 @@ export default function ProfileForm({ profileObj }) {
     }
   };
 
-  console.log(formInput);
-
   return (
     <>
       <Form onSubmit={handleSubmit}>
