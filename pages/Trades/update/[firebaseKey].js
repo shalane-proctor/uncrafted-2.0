@@ -22,6 +22,7 @@ export default function NewTrade() {
         offeredFrom={updateItem?.from}
         offeredPostObj={updateItem?.offer}
         wantedPostObj={updateItem?.want}
+        trade={updateItem?.tradeObj}
       />
     </>
   );

@@ -8,20 +8,16 @@ import Card from 'react-bootstrap/Card';
 export default function TradeCard({ tradeObj }) {
   return (
     <>
-      <div> {tradeObj.pending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
       <Card className="post-card">
-        <Card.Img src={tradeObj?.image} className="post-card-image" />
+        <div> {tradeObj.pending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
         <Card.Body>
-          <Card.Title> {tradeObj?.itemName}</Card.Title>
-          <Card.Text>Color: {tradeObj?.color}</Card.Text>
-          <Card.Text>Amount: {tradeObj?.amount}</Card.Text>
+          <Card.Title>{tradeObj.pending === true ? ('New Trade!') : 'Trade'}</Card.Title>
           <Link href={`/Trades/update/${tradeObj?.firebaseKey}`} passHref>
             <Button variant="primary">View Trade</Button>
           </Link>
         </Card.Body>
       </Card>
     </>
-
   );
 }
 
@@ -33,7 +29,24 @@ TradeCard.propTypes = {
     itemName: PropTypes.string,
     firebaseKey: PropTypes.string,
     pending: PropTypes.bool,
+    completed: PropTypes.bool,
   }),
+  // offerFromObj: PropTypes.shape({
+  //   amount: PropTypes.string,
+  //   color: PropTypes.string,
+  //   image: PropTypes.string,
+  //   itemName: PropTypes.string,
+  //   firebaseKey: PropTypes.string,
+  //   pending: PropTypes.bool,
+  // }),
+  // offerToObj: PropTypes.shape({
+  //   amount: PropTypes.string,
+  //   color: PropTypes.string,
+  //   image: PropTypes.string,
+  //   itemName: PropTypes.string,
+  //   firebaseKey: PropTypes.string,
+  //   pending: PropTypes.bool,
+  // }),
 };
 
 TradeCard.defaultProps = {

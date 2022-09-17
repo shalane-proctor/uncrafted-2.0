@@ -77,6 +77,20 @@ const retrieveProfilesPosts = (postFirebaseKey, uid) => new Promise((resolve, re
     .catch((error) => reject(error));
 });
 
+const retrieveAllMyTrades = (uid) => new Promise((resolve, reject) => {
+  getMyProfile(uid).then((profileObj) => {
+    getToProfileTrades(profileObj[0]?.firebaseKey).then((tradesToProfile) => {
+      getFromProfileTrades(profileObj[0]?.firebaseKey).then((tradeFromProfile) => {
+        resolve({
+          profileObj,
+          tradeTo: tradesToProfile,
+          tradesFrom: tradeFromProfile,
+        });
+      });
+    });
+  }).catch((error) => reject(error));
+});
+
 const RetrieveMessageDetails = (messageFirebaseKey) => new Promise((resolve, reject) => {
   getSingleMessage(messageFirebaseKey)
     .then((messageObj) => {
@@ -89,5 +103,5 @@ const RetrieveMessageDetails = (messageFirebaseKey) => new Promise((resolve, rej
 });
 
 export {
-  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails, RetrieveMessageDetails,
+  viewProfileDetails, viewPostDetails, retrieveProfiles, retrieveProfilesPosts, viewMyProfile, viewTradeDetails, RetrieveMessageDetails, retrieveAllMyTrades,
 };

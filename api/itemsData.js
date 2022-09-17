@@ -51,10 +51,9 @@ const updatePosts = (postObj) => new Promise((resolve, reject) => {
 
 const updateTradedPost = (postObj) => new Promise((resolve, reject) => {
   axios
-    .get(`${dbUrl}/items/${postObj.firebaseKey}.json`).then((response) => {
-      axios.patch(postObj).then(resolve(response.data))
-        .catch(reject);
-    });
+    .patch(`${dbUrl}/items/${postObj.firebaseKey}.json`, postObj)
+    .then((response) => resolve(response.data))
+    .catch(reject);
 });
 
 const deletePost = (firebaseKey) => new Promise((resolve, reject) => {
