@@ -12,8 +12,6 @@ export default function NewTrade() {
     viewTradeDetails(firebaseKey).then(setUpdateItem);
   }, [firebaseKey]);
 
-  console.warn(updateItem);
-
   return (
     <>
       <TradeForm

@@ -11,8 +11,6 @@ export default function MessagesPage() {
     getAllMessages();
   }, []);
 
-  console.warn(messages);
-
   return (
     <>
       {messages.map((message) => (
