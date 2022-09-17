@@ -96,7 +96,10 @@ PostForm.propTypes = {
     amount: PropTypes.string,
     color: PropTypes.string,
     description: PropTypes.string,
-    draft: PropTypes.bool,
+    draft: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.bool,
+    ]),
     firebaseKey: PropTypes.string,
     image: PropTypes.string,
     itemName: PropTypes.string,
