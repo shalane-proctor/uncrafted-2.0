@@ -23,9 +23,11 @@ export default function ProfilePage() {
 
   return (
     <>
-      <Link href={`/Profile/edit/${myProfile.profile?.firebaseKey}`} passHref>
-        <Button>Edit Profile</Button>
-      </Link>
+      {myProfile?.profile?.firebaseKey === undefined ? '' : (
+        <Link href={`/Profile/edit/${myProfile.profile?.firebaseKey}`} passHref>
+          <Button>Edit Profile</Button>
+        </Link>
+      )}
       <ProfileSection key={myProfile} profileObj={myProfile.profile} />
       <h1>My Posts</h1>
       <div className="text-center my-4">
@@ -36,9 +38,11 @@ export default function ProfilePage() {
         </div>
       </div>
       <span>
-        <Link href="/Items/new" passHref>
-          <Button>New Post</Button>
-        </Link>
+        {myProfile?.profile?.firebaseKey === undefined ? '' : (
+          <Link href="/Items/new" passHref>
+            <Button>New Post</Button>
+          </Link>
+        )}
       </span>
       <h1>My Trades</h1>
       <h4>Trade offers</h4>
