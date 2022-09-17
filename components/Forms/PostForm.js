@@ -12,25 +12,28 @@ const initialState = {
   amount: '',
   color: '',
   description: '',
-  draft: false,
   image: '',
   itemName: '',
   pending: false,
+  draft: false,
   tradePref: '',
 };
 export default function PostForm({ obj }) {
-  const [formInput, setFormInput] = useState(initialState);
+  const [formInput, setFormInput] = useState();
   const [profile, setProfile] = useState();
+  const [checked, setChecked] = useState(obj?.draft);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
     getMyProfile(user.uid).then(setProfile);
+    setChecked(obj?.draft);
     if (obj.firebaseKey) setFormInput(obj);
   }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    setChecked(e.target.checked);
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -54,34 +57,34 @@ export default function PostForm({ obj }) {
       });
     }
   };
-
+  console.log(obj);
   return (
     <>
       <Form onSubmit={handleSubmit}>
         <h1>{obj.firebaseKey ? 'Update' : 'Post'} a Trade</h1>
         <FloatingLabel controlId="floatingTextarea" label="What do you want to trade?" className="mb-3">
-          <Form.Control as="textarea" placeholder="Paint" name="itemName" value={formInput.itemName} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Paint" name="itemName" value={formInput?.itemName} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Color" className="mb-3">
           <Form.Control as="textarea" placeholder="Color" name="color" value={formInput?.color} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Amount" className="mb-3">
-          <Form.Control as="textarea" placeholder="Amount" name="amount" value={formInput.amount} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Amount" name="amount" value={formInput?.amount} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Image URL" className="mb-3">
-          <Form.Control as="textarea" placeholder="Image" name="image" value={formInput.image} onChange={handleChange} />
+          <Form.Control as="textarea" placeholder="Image" name="image" value={formInput?.image} onChange={handleChange} />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Trade preferences" className="mb-3">
-          <Form.Control as="textarea" placeholder="preferences" name="tradePref" value={formInput.tradePref} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="preferences" name="tradePref" value={formInput?.tradePref} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea2" label="Tell us about it">
-          <Form.Control as="textarea" placeholder="Desription" style={{ height: '100px' }} name="description" value={formInput.description} onChange={handleChange} required />
+          <Form.Control as="textarea" placeholder="Desription" style={{ height: '100px' }} name="description" value={formInput?.description} onChange={handleChange} required />
         </FloatingLabel>
         <Button variant="primary" type="submit">
           {obj.firebaseKey ? 'Update' : 'Post'} Item
         </Button>
         <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Draft" name="draft" value={formInput.draft} onChange={handleChange} />
+          <Form.Check type="checkbox" label="Draft" name="draft" defaultChecked={checked} onChange={handleChange} />
         </Form.Group>
       </Form>
     </>
@@ -108,5 +111,7 @@ PostForm.propTypes = {
 };
 
 PostForm.defaultProps = {
-  obj: initialState,
+  obj: {
+    initialState,
+  },
 };
