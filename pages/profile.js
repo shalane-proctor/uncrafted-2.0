@@ -4,20 +4,22 @@ import {
 } from 'react-bootstrap';
 import Link from 'next/link';
 import { useAuth } from '../utils/context/authContext';
-import { viewMyProfile } from '../api/mergeData';
+import { retrieveAllMyTrades, viewMyProfile } from '../api/mergeData';
 import ProfileSection from '../components/ProfileSection';
 import PostCard from '../components/PostCard';
 import TradeCard from '../components/TradeCard';
 
 export default function ProfilePage() {
   const [myProfile, setMyProfile] = useState({});
-  // const [trades, setTrades] = useState();
+  const [trades, setTrades] = useState([]);
   const { user } = useAuth();
 
   useEffect(() => {
     viewMyProfile(user.uid).then(setMyProfile);
+    retrieveAllMyTrades(user.uid).then(setTrades);
   }, [user]);
   console.warn(myProfile);
+  console.warn(trades);
 
   return (
     <>
@@ -41,27 +43,23 @@ export default function ProfilePage() {
       <h1>My Trades</h1>
       <h4>Trade offers</h4>
       <div className="text-center my-4">
-        <div className="d-flex">
-          {myProfile.offeredTrades?.map((trade) => (
-            <TradeCard key={trade.firebaseKey} tradeObj={trade.itemWantedFireBaseKey} />
-          ))}
-        </div>
+        <div className="d-flex">{trades.tradesFrom?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
       </div>
       <h4>Trade Requests</h4>
       <Container>
         <Row>
           <Col>
             <div className="text-center my-4">
-              {/* <div className="d-flex">
-                {myProfile.requestedTrades?.map((trade) => (
-                  <TradeCard key={trade.firebaseKey} tradeFirebaseKey={trade.itemWantedFireBaseKey} />
-                ))}
-              </div> */}
+              <div className="d-flex">{trades.tradeTo?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
+            </div>
+            <h4>Past Trades</h4>
+            <div className="text-center my-4">
+              <div className="d-flex">{trades.tradeTo?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
+              <div className="d-flex">{trades.tradesFrom?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
             </div>
           </Col>
         </Row>
       </Container>
-
     </>
   );
 }

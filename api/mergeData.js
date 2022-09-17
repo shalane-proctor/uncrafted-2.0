@@ -79,11 +79,13 @@ const retrieveProfilesPosts = (postFirebaseKey, uid) => new Promise((resolve, re
 
 const retrieveAllMyTrades = (uid) => new Promise((resolve, reject) => {
   getMyProfile(uid).then((profileObj) => {
-    Promise.all([getToProfileTrades(profileObj.firebaseKey), getFromProfileTrades(profileObj.firebaseKey)]).then(([tradesToProfile, tradeFromProfile]) => {
-      resolve({
-        ...profileObj,
-        tradeTo: tradesToProfile,
-        tradesFrom: tradeFromProfile,
+    getToProfileTrades(profileObj[0]?.firebaseKey).then((tradesToProfile) => {
+      getFromProfileTrades(profileObj[0]?.firebaseKey).then((tradeFromProfile) => {
+        resolve({
+          profileObj,
+          tradeTo: tradesToProfile,
+          tradesFrom: tradeFromProfile,
+        });
       });
     });
   }).catch((error) => reject(error));
