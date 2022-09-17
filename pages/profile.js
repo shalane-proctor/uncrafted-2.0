@@ -18,8 +18,6 @@ export default function ProfilePage() {
     viewMyProfile(user.uid).then(setMyProfile);
     retrieveAllMyTrades(user.uid).then(setTrades);
   }, [user]);
-  console.warn(myProfile);
-  console.warn(trades);
 
   return (
     <>

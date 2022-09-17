@@ -12,7 +12,6 @@ export default function ProfilePage() {
   useEffect(() => {
     viewProfileDetails(firebaseKey).then(setProfile);
   }, [firebaseKey]);
-  console.warn(profile);
 
   return (
     <>

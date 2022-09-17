@@ -14,8 +14,6 @@ export default function ViewMessageDetails() {
     RetrieveMessageDetails(firebaseKey).then(setMessageDetails);
   }, [firebaseKey]);
 
-  console.warn(messageDetails);
-
   return (
     <div>
       <MessageDetails

@@ -14,8 +14,6 @@ export default function NewTrade() {
     retrieveProfilesPosts(firebaseKey, user.uid).then(setPosts);
   }, [firebaseKey, user]);
 
-  console.warn(posts);
-
   return (
     <>
       <TradeForm itemWantedFirebaseKey={firebaseKey} offerTo={posts?.offeredTo} offeredFrom={posts?.offeredFrom} offeredPostObj={posts?.offeredPosts} wantedPostObj={posts?.wantedPosts} />

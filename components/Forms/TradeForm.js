@@ -10,7 +10,7 @@ import { createTrades, deleteTrade, updateTrades } from '../../api/tradesData';
 import { getMyPosts, updateTradedPost } from '../../api/itemsData';
 
 export default function TradeForm({
-  itemWantedFirebaseKey, firebaseKey, offerTo, offeredFrom, offeredPostObj, wantedPostObj, tradeObj,
+  itemWantedFirebaseKey, firebaseKey, offerTo, offeredFrom, offeredPostObj, wantedPostObj,
 }) {
   const [formInput, setFormInput] = useState();
   const [posts, setPosts] = useState();
@@ -92,9 +92,6 @@ export default function TradeForm({
       });
     }
   };
-
-  console.warn(selected?.firebaseKey, tradeObj);
-
   return (
     <Form onSubmit={handleSubmit}>
       <div style={{ width: '50%', marginTop: '45px', float: 'left' }}>
