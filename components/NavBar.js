@@ -8,15 +8,18 @@ export default function NavBar() {
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
         <Link passHref href="/">
-          <a className="navbar-brand">
-            Uncrafted
-          </a>
+          <a className="navbar-brand">Uncrafted</a>
         </Link>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul className="navbar-nav me-auto">
+            <li>
+              <Link passHref href="/">
+                <a className="nav-link">Home</a>
+              </Link>
+            </li>
             <li>
               <Link passHref href="/profile">
                 <a className="nav-link">Profile</a>
@@ -25,11 +28,6 @@ export default function NavBar() {
             <li>
               <Link passHref href="/messages">
                 <a className="nav-link">Messages</a>
-              </Link>
-            </li>
-            <li>
-              <Link passHref href="/trades">
-                <a className="nav-link">Trades</a>
               </Link>
             </li>
             <li>
