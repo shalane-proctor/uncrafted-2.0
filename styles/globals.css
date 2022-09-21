@@ -6,6 +6,14 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background: url(/corkboard.png) no-repeat center center fixed !important;
+  -webkit-background-size: cover !important; /* For WebKit*/
+  -moz-background-size: cover !important;    /* Mozilla*/
+  -o-background-size: cover !important;      /* Opera*/
+  background-size: cover !important;   
 }
 
 a {
@@ -14,7 +22,10 @@ a {
 }
 
 * {
-  box-sizing: border-box;
+   box-sizing:border-box;
+  -webkit-box-sizing:border-box;
+  -ms-box-sizing:border-box;
+  -moz-box-sizing:border-box;
 }
 
 body {
@@ -24,19 +35,131 @@ body {
   flex-wrap: wrap;
 }
 .post-card {
-  flex: 0 0 fit-content;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  min-width: 250px;
-  height: auto;
-  margin: 20px;
-  inline-size: 150px;
-  overflow-wrap: break-word;
+  flex: 0 0 fit-content !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  min-width: 375px !important;
+  height: auto !important;
+  margin: 20px !important;
+  inline-size: 150px !important;
+  overflow-wrap: break-word !important;
+  background: 0 !important;
+  border: 0 !important;
+}
+.post-details-card{
+  flex-wrap: wrap !important;
+  min-width: 20rem !important;
+  min-height: 20rem !important;
+  background: 0 !important;
+  border: 0 !important;
+   width: 50% !important;
+ float:left;
+
+ padding: 0px;
+}
+.post-card-image-details{
+  object-fit: cover !important;
+  border-radius: 55 !important;
+  width: 23rem !important;
+  height: 23rem !important;
+  margin-top: auto;
+  margin-top: 3.5rem !important;
+  margin-left: 8rem !important;
+  border: 0 !important;
+  transform: rotate(-3deg);
+  float: left;
+  box-sizing: border-box;
 }
 .post-card-image {
-  justify-content: center;
-  width: 200px;
-  height: 200px;
-  margin: 20px;
-  margin-top: 20px;
+  object-fit: cover !important;
+  border-radius: 55 !important;
+  width: 18rem !important;
+  height: 10rem !important;
+  margin-top: 22px !important;
+  margin-right: 1.5rem !important;
+  border: 0 !important;
+}
+.info-post-card-left{
+  float:left !important;
+  flex-wrap: wrap !important;
+  background: #00d7fdb6 !important;
+  border: 0 !important;
+   width: 50% !important;
+  margin-top: 1rem;
+  box-sizing: border-box;
+}
+.info-post-card-right{
+  min-width: 10rem !important;
+  height: auto !important;
+  background: #00d7fdb6 !important;
+  border: 0 !important;
+  margin-top: 5rem;
+  box-sizing: border-box;
+}
+.various-details{
+  margin: 20px !important;
+  background: #00d7fdb6 !important;
+  border: 0 !important;
+   width: 100% !important;
+   padding: 1.5rem;
+   border-radius: 20px;
+}
+.trade-card {
+  flex: 0 0 fit-content !important;
+  flex-wrap: wrap !important;
+  min-width: 180px !important;
+  justify-content: flex-start !important;
+  margin: 20px !important;
+  overflow-wrap: break-word !important;
+  background: 0 !important;
+  border: 0 !important;
+}
+.trade-card-select {
+  flex: 0 0 fit-content !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  min-width: 375px !important;
+  height: auto !important;
+  margin: 20px !important;
+  /* inline-size: 150px !important; */
+  overflow-wrap: break-word !important;
+  background: 0 !important;
+  border: 0 !important;
+}
+.trade-card-profile {
+  flex: 0 0 fit-content !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  min-width: 250px !important;
+  height: auto !important;
+  margin: 20px !important;
+  inline-size: 150px !important;
+  overflow-wrap: break-word !important;
+  background: 0 !important;
+  border: 0 !important;
+}
+.trade-form-current{
+ width: 50% !important;
+ margin-top: 6rem !important;
+ float:left;
+}
+.trade-form-pending{
+ width: 50% !important;
+ float:left !important;
+}
+.all-my-form-input {
+  color: slategrey !important;
+  background: #c4ffd9 !important;
+}
+.my-post-info-buttons {
+  background: rgb(143, 68, 255) !important;
+  border:rgb(143, 68, 255) !important;
+  margin: 2px !important;
+  color: white !important;
+}
+.my-buttons {
+  background: rgb(143, 68, 255) !important;
+  border:rgb(143, 68, 255) !important;
+  margin: 30px !important;
+  color: white !important;
 }

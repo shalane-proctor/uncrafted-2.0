@@ -7,7 +7,7 @@ import { getSingleTrade } from './tradesData';
 
 const viewPostDetails = (postFirebaseKey) => new Promise((resolve, reject) => {
   getSinglePost(postFirebaseKey).then((postObj) => {
-    getSingleProfile(postObj.ownerProfileID).then((profileObj) => {
+    getSingleProfile(postObj?.ownerProfileID).then((profileObj) => {
       resolve({ profileObj, ...postObj });
     });
   }).catch((error) => reject(error));

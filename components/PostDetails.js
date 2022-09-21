@@ -19,38 +19,45 @@ export default function PostDetails({ postObj, profilePicture, userName }) {
   };
   return (
     <>
-      <Card style={{ width: '18rem' }}>
+      <Card className="post-details-card">
         <Card.Body>
-          <div>{postObj.pending ? <Badge bg="dark">PENDING</Badge> : ''}</div>
           <div>{postObj.draft ? <Badge bg="secondary">DRAFT</Badge> : ''}</div>
-          <Card.Img variant="top" src={postObj.image} />
-          <Card.Title>{postObj.itemName}</Card.Title>
-          <Card.Text>Color: {postObj.color}</Card.Text>
-          <Card.Text>Amount: {postObj.amount}</Card.Text>
-          <Card.Text>Prefered Trade: {postObj.tradePref}</Card.Text>
+          <Card.Img src="/./stickyNote.png" alt="sticky note" height="500px" width="500px" />
+          <Card.ImgOverlay>
+            <Card.Img src={postObj.image} className="post-card-image-details mx-auto" />
+          </Card.ImgOverlay>
         </Card.Body>
       </Card>
-      <Card style={{ width: '18rem' }}>
+      <Card className="info-post-card-right">
         <Card.Body>
           <Card.Title>
-            <img className="thumbnail-image" src={profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+            <img className="thumbnail-image" src={profilePicture} alt="Profile Pic" style={{ width: '20%', borderRadius: '50%' }} />
           </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">Posted by</Card.Subtitle>
           <Card.Subtitle className="mb-2">{userName}</Card.Subtitle>
           <Link href={`/Profile/${postObj?.ownerProfileID}`} passHref>
-            <Button className="mb-2">View Profile</Button>
+            <Button className="my-post-info-buttons">View Profile</Button>
           </Link>
           <div>
             {postObj.uid !== user.uid ? (
               <>
                 <Link href={`/Messages/create/${postObj?.ownerProfileID}`} passHref>
-                  <Button>Send Message</Button>
+                  <Button className="my-post-info-buttons">Send Message</Button>
                 </Link>
               </>
             ) : (
               ''
             )}
           </div>
+        </Card.Body>
+      </Card>
+      <Card className="info-post-card-left">
+        <Card.Body>
+          <Card.Title style={{ margin: '2px' }}>{postObj.itemName}</Card.Title>
+          <Card.Text style={{ margin: '2px' }}>Color: {postObj.color}</Card.Text>
+          <Card.Text style={{ margin: '2px' }}>Amount: {postObj.amount}</Card.Text>
+          <Card.Text>Prefered Trade: {postObj.tradePref}</Card.Text>
+          <h5>Description:</h5>
           <Card.Text>{postObj.description}</Card.Text>
           <div>
             {postObj.uid === user.uid ? (
@@ -64,11 +71,13 @@ export default function PostDetails({ postObj, profilePicture, userName }) {
           </div>
         </Card.Body>
       </Card>
-      <div>
+      <div style={{ display: 'inline', float: 'right' }}>
         {postObj.uid !== user.uid ? (
           <>
             <Link href={`/Trades/create/${postObj?.firebaseKey}`} passHref>
-              <Button>Request Trade</Button>
+              <Button className="my-buttons" size="lg" style={{ float: 'right' }}>
+                Request Trade
+              </Button>
             </Link>
           </>
         ) : (

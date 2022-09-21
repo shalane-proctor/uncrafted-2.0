@@ -8,14 +8,17 @@ import Card from 'react-bootstrap/Card';
 export default function TradeCard({ tradeObj }) {
   return (
     <>
-      <Card className="post-card">
-        <div> {tradeObj.pending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
-        <Card.Body>
-          <Card.Title>{tradeObj.pending === true ? ('New Trade!') : 'Trade'}</Card.Title>
-          <Link href={`/Trades/update/${tradeObj?.firebaseKey}`} passHref>
-            <Button variant="primary">View Trade</Button>
-          </Link>
-        </Card.Body>
+      <Card className="trade-card">
+        <Card.Img src="/./pinkSticky.png" alt="sticky note" height="150px" width="200px" />
+        <Card.ImgOverlay>
+          <div> {tradeObj.pending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
+          <Card.Body>
+            <Card.Title>{tradeObj.pending === true ? ('New Trade!') : 'Trade'}</Card.Title>
+            <Link href={`/Trades/update/${tradeObj?.firebaseKey}`} passHref>
+              <Button variant="primary">View Trade</Button>
+            </Link>
+          </Card.Body>
+        </Card.ImgOverlay>
       </Card>
     </>
   );

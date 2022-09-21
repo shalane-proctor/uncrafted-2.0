@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
 import { getPosts } from '../api/itemsData';
 import PostCard from '../components/PostCard';
 // import PostDetails from '../components/PostDetails';
@@ -15,14 +16,23 @@ function Home() {
   }, []);
 
   return (
-    <div className="text-center my-4">
-      <div className="d-flex">
-        {posts.map((post) => (
-          post.draft === true || post.draft === 'on' ? ''
-            : <PostCard key={post.firebaseKey} postObj={post} />
-        ))}
+    <>
+      <Head>
+        <meta charset="UTF-8" />
+        <meta name="keywords" content="title, meta, nextjs" />
+        <meta name="author" content="Shalane Proctor" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Uncrafted</title>
+      </Head>
+      <div className="text-center my-4">
+        <div className="d-flex">
+          {posts.map((post) => (
+            post.draft === true || post.draft === 'on' ? ''
+              : <PostCard key={post.firebaseKey} postObj={post} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

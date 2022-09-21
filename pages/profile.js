@@ -3,6 +3,7 @@ import {
   Button, Col, Container, Row,
 } from 'react-bootstrap';
 import Link from 'next/link';
+import Head from 'next/head';
 import { useAuth } from '../utils/context/authContext';
 import { retrieveAllMyTrades, viewMyProfile } from '../api/mergeData';
 import ProfileSection from '../components/ProfileSection';
@@ -21,7 +22,13 @@ export default function ProfilePage() {
 
   return (
     <>
-      {myProfile?.profile?.firebaseKey === undefined ? '' : (
+      <Head>
+        <title>Uncrafted - My Profile</title>
+        <meta name="description" content="Meta description for the team page" />
+      </Head>
+      {myProfile?.profile?.firebaseKey === undefined ? (
+        ''
+      ) : (
         <Link href={`/Profile/edit/${myProfile.profile?.firebaseKey}`} passHref>
           <Button>Edit Profile</Button>
         </Link>
@@ -36,7 +43,9 @@ export default function ProfilePage() {
         </div>
       </div>
       <span>
-        {myProfile?.profile?.firebaseKey === undefined ? '' : (
+        {myProfile?.profile?.firebaseKey === undefined ? (
+          ''
+        ) : (
           <Link href="/Items/new" passHref>
             <Button>New Post</Button>
           </Link>

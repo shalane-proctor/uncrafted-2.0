@@ -14,23 +14,26 @@ export default function TradedCard({
       <div style={{ width: '50%', marginTop: '45px', float: 'left' }}>
         <div className="text-center my-4">
           <div className="d-flex">
-            <Card style={{ width: '50%', marginTop: '45px', float: 'left' }}>
-              <Card.Body>
-                <Card.Title>
-                  <img className="thumbnail-image" src={offerTo.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
-                </Card.Title>
-                <Card.Subtitle className="mb-2">{offerTo.userName}</Card.Subtitle>
-                <Link href={`/Profile/${wantedPostObj?.ownerProfileID}`} passHref>
-                  <Button className="mb-2">View Profile</Button>
-                </Link>
-                {offerTo.uid !== user.uid ? (
-                  <Link href={`/Messages/create/${wantedPostObj.ownerProfileID}`} passHref>
-                    <Button>Send Message</Button>
+            <Card className="post-card">
+              <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
+              <Card.ImgOverlay>
+                <Card.Body>
+                  <Card.Title>
+                    <img className="thumbnail-image" src={offerTo.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+                  </Card.Title>
+                  <Card.Subtitle className="mb-2">{offerTo.userName}</Card.Subtitle>
+                  <Link href={`/Profile/${wantedPostObj?.ownerProfileID}`} passHref>
+                    <Button className="mb-2">View Profile</Button>
                   </Link>
-                ) : (
-                  ''
-                )}
-              </Card.Body>
+                  {offerTo.uid !== user.uid ? (
+                    <Link href={`/Messages/create/${wantedPostObj.ownerProfileID}`} passHref>
+                      <Button>Send Message</Button>
+                    </Link>
+                  ) : (
+                    ''
+                  )}
+                </Card.Body>
+              </Card.ImgOverlay>
             </Card>
             <Card className="post-card">
               <Card.Img src={wantedPostObj.image} className="post-card-image" />
