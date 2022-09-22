@@ -57,35 +57,34 @@ export default function PostForm({ obj }) {
       });
     }
   };
-  console.log(obj);
   return (
     <>
-      <Form onSubmit={handleSubmit}>
-        <h1>{obj.firebaseKey ? 'Update' : 'Post'} a Trade</h1>
+      <Form onSubmit={handleSubmit} style={{ color: 'slategrey' }}>
+        <h1 style={{ color: 'aqua' }}>{obj.firebaseKey ? 'Update' : 'Post'} a Trade</h1>
         <FloatingLabel controlId="floatingTextarea" label="What do you want to trade?" className="mb-3">
-          <Form.Control as="textarea" placeholder="Paint" name="itemName" value={formInput?.itemName} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="Paint" name="itemName" value={formInput?.itemName} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Color" className="mb-3">
-          <Form.Control as="textarea" placeholder="Color" name="color" value={formInput?.color} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="Color" name="color" value={formInput?.color} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Amount" className="mb-3">
-          <Form.Control as="textarea" placeholder="Amount" name="amount" value={formInput?.amount} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="Amount" name="amount" value={formInput?.amount} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Image URL" className="mb-3">
-          <Form.Control as="textarea" placeholder="Image" name="image" value={formInput?.image} onChange={handleChange} />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="Image" name="image" value={formInput?.image} onChange={handleChange} />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Trade preferences" className="mb-3">
-          <Form.Control as="textarea" placeholder="preferences" name="tradePref" value={formInput?.tradePref} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="preferences" name="tradePref" value={formInput?.tradePref} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea2" label="Tell us about it">
-          <Form.Control as="textarea" placeholder="Desription" style={{ height: '100px' }} name="description" value={formInput?.description} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="Desription" style={{ height: '100px' }} name="description" value={formInput?.description} onChange={handleChange} required />
         </FloatingLabel>
-        <Button variant="primary" type="submit">
+        <Form.Group className="mb-3" controlId="formBasicCheckbox">
+          <Form.Check style={{ color: 'black' }} type="checkbox" label="Draft" name="draft" defaultChecked={checked} onChange={handleChange} />
+        </Form.Group>
+        <Button variant="primary" type="submit" className="my-buttons mb-3">
           {obj.firebaseKey ? 'Update' : 'Post'} Item
         </Button>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Draft" name="draft" defaultChecked={checked} onChange={handleChange} />
-        </Form.Group>
       </Form>
     </>
   );

@@ -5,7 +5,7 @@ import Card from 'react-bootstrap/Card';
 export default function MessageDetails({ messageObj }) {
   return (
     <>
-      <Card>
+      <Card className="various-details">
         <Card.Title>
           <img className="thumbnail-image" src={messageObj.fromProfile.profilePicture} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {messageObj?.ProfileFromUserName}
         </Card.Title>
@@ -14,7 +14,7 @@ export default function MessageDetails({ messageObj }) {
           Message to: {messageObj?.profileToUserName}
         </Card.Title>
       </Card>
-      <Card style={{ height: '600px' }}>
+      <Card style={{ height: '30rem', marginBottom: '10rem' }} className="various-details">
         <Card.Body>
           <Card.Title>Message:</Card.Title>
           <Card.Title>{messageObj.messageBody}</Card.Title>

@@ -94,51 +94,72 @@ export default function TradeForm({
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <div style={{ width: '50%', marginTop: '45px', float: 'left' }}>
+      <div className={firebaseKey ? 'trade-form-pending' : 'trade-form-current'}>
         <div className="text-center my-4">
           <div className="d-flex">
             <>
-              <Card style={{ width: '50%', marginTop: '45px', float: 'left' }}>
-                <Card.Body>
-                  <Card.Title>
-                    <img className="thumbnail-image" src={offerTo.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
-                  </Card.Title>
-                  <Card.Subtitle className="mb-2">{offerTo.userName}</Card.Subtitle>
-                  <Link href={`/Profile/${wantedPostObj?.ownerProfileID}`} passHref>
-                    <Button className="mb-2">View Profile</Button>
-                  </Link>
-                  {offerTo.uid !== user.uid ? (
-                    <Link href={`/Messages/create/${wantedPostObj.ownerProfileID}`} passHref>
-                      <Button>Send Message</Button>
+              <Card className="trade-card-profile">
+                <Card.Img src="/./pinkSticky.png" alt="sticky note" height="215px" width="200px" />
+                <Card.ImgOverlay>
+                  <Card.Body>
+                    <Card.Title>
+                      <img className="thumbnail-image" src={offerTo.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+                    </Card.Title>
+                    <Card.Subtitle className="mb-2">{offerTo.userName}</Card.Subtitle>
+                    <Link href={`/Profile/${wantedPostObj?.ownerProfileID}`} passHref>
+                      <Button className="mb-2" variant="outline-info">
+                        View Profile
+                      </Button>
                     </Link>
-                  ) : (
-                    ''
-                  )}
-                </Card.Body>
+                    {offerTo.uid !== user.uid ? (
+                      <Link href={`/Messages/create/${wantedPostObj.ownerProfileID}`} passHref>
+                        <Button variant="outline-info">Send Message</Button>
+                      </Link>
+                    ) : (
+                      ''
+                    )}
+                  </Card.Body>
+                </Card.ImgOverlay>
               </Card>
               <Card className="post-card">
-                <Card.Img src={wantedPostObj.image} className="post-card-image" />
-                <Card.Body>
-                  <Card.Title>{wantedPostObj.itemName}</Card.Title>
-                  <Card.Text>Color: {wantedPostObj.color}</Card.Text>
-                  <Card.Text>Amount: {wantedPostObj.amount}</Card.Text>
-                  <Link href={`/Items/${wantedPostObj.firebaseKey}`} passHref>
-                    <Button variant="primary">View</Button>
-                  </Link>
-                </Card.Body>
+                <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
+                <Card.ImgOverlay>
+                  <Card.Img src={wantedPostObj.image} className="post-card-image" />
+                  <Card.Body>
+                    <Card.Title>{wantedPostObj.itemName}</Card.Title>
+                    <Card.Text>Color: {wantedPostObj.color}</Card.Text>
+                    <Card.Text>Amount: {wantedPostObj.amount}</Card.Text>
+                    <Link href={`/Items/${wantedPostObj.firebaseKey}`} passHref>
+                      <Button variant="outline-info">View</Button>
+                    </Link>
+                  </Card.Body>
+                </Card.ImgOverlay>
               </Card>
             </>
           </div>
-          <Button style={{ display: 'flex', justifyContent: 'center' }} variant="primary" type="submit">
+          <Button style={{ display: 'flex', justifyContent: 'center' }} className="my-buttons" variant="info" type="submit" size="lg">
             {firebaseKey ? 'Accept' : 'Offer'} Trade
           </Button>
         </div>
       </div>
-      <div style={{ width: '50%', marginTop: '45px', float: 'right' }}>
+      <div>
         {firebaseKey ? (
           ''
         ) : (
-          <Form.Select onChange={handleChange} value={offeredPostObj.firebaseKey} name="itemOfferedFirebaseKey" required>
+          <Form.Select
+            style={{
+              width: '50%',
+              marginTop: '45px',
+              float: 'right',
+              color: 'slategrey',
+              background: '#c4ffd9',
+            }}
+            size="lg"
+            onChange={handleChange}
+            value={offeredPostObj.firebaseKey}
+            name="itemOfferedFirebaseKey"
+            required
+          >
             <option value="">Choose your offer</option>
             {posts?.map((post) => {
               if (post.draft === true) {
@@ -153,60 +174,73 @@ export default function TradeForm({
             ;
           </Form.Select>
         )}
-        <div style={{ width: '50%', marginTop: '45px', float: 'left' }}>
+        <div className="trade-form-pending">
           <div className="text-center my-4">
             <div className="d-flex">
-              <Card>
-                <Card.Body>
-                  <Card.Title>
-                    <img className="thumbnail-image" src={offeredFrom.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
-                  </Card.Title>
-                  <Card.Subtitle className="mb-2">{offeredFrom.userName}</Card.Subtitle>
-                  <Link href={`/Profile/${offeredPostObj?.ownerProfileID}`} passHref>
-                    <Button className="mb-2">View Profile</Button>
-                  </Link>
-                </Card.Body>
+              <Card className="trade-card-profile">
+                <Card.Img src="/./pinkSticky.png" alt="sticky note" height="215px" width="200px" />
+                <Card.ImgOverlay>
+                  <Card.Body>
+                    <Card.Title>
+                      <img className="thumbnail-image" src={offeredFrom.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+                    </Card.Title>
+                    <Card.Subtitle className="mb-2">{offeredFrom.userName}</Card.Subtitle>
+                    <Link href={`/Profile/${offeredPostObj?.ownerProfileID}`} passHref>
+                      <Button className="mb-2" variant="outline-info">
+                        View Profile
+                      </Button>
+                    </Link>
+                  </Card.Body>
+                </Card.ImgOverlay>
               </Card>
               {firebaseKey ? (
                 <>
                   <Card className="post-card">
-                    <Card.Img src={offeredPostObj?.image} className="post-card-image" />
-                    <Card.Body>
-                      <Card.Title>{offeredPostObj?.itemName}</Card.Title>
-                      <Card.Text>Color: {offeredPostObj?.color}</Card.Text>
-                      <Card.Text>Amount: {offeredPostObj?.amount}</Card.Text>
-                      <Link href={`/Items/${offeredPostObj?.firebaseKey}`} passHref>
-                        <Button variant="primary">View</Button>
-                      </Link>
-                    </Card.Body>
+                    <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
+                    <Card.ImgOverlay>
+                      <Card.Img src={offeredPostObj?.image} className="post-card-image" />
+                      <Card.Body>
+                        <Card.Title>{offeredPostObj?.itemName}</Card.Title>
+                        <Card.Text>Color: {offeredPostObj?.color}</Card.Text>
+                        <Card.Text>Amount: {offeredPostObj?.amount}</Card.Text>
+                        <Link href={`/Items/${offeredPostObj?.firebaseKey}`} passHref>
+                          <Button variant="outline-info">View</Button>
+                        </Link>
+                      </Card.Body>
+                    </Card.ImgOverlay>
                   </Card>
                 </>
               ) : (
                 <>
-                  <Card onChange={handleChange} className="post-card">
-                    <Card.Img src={selected?.image} className="post-card-image" />
-                    <Card.Body>
-                      <Card.Title>{selected?.itemName}</Card.Title>
-                      <Card.Text>Color: {selected?.color}</Card.Text>
-                      <Card.Text>Amount: {selected?.amount}</Card.Text>
-                      <Link href={`/Items/${selected?.firebaseKey}`} passHref>
-                        <Button variant="primary">View</Button>
-                      </Link>
-                    </Card.Body>
+                  <Card onChange={handleChange} className="trade-card-select">
+                    <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
+                    <Card.ImgOverlay>
+                      <Card.Img src={selected?.image} className="post-card-image" />
+                      <Card.Body>
+                        <Card.Title>{selected?.itemName}</Card.Title>
+                        <Card.Text>Color: {selected?.color}</Card.Text>
+                        <Card.Text>Amount: {selected?.amount}</Card.Text>
+                        <Link href={`/Items/${selected?.firebaseKey}`} passHref>
+                          <Button variant="outline-info">View</Button>
+                        </Link>
+                      </Card.Body>
+                    </Card.ImgOverlay>
                   </Card>
                 </>
               )}
             </div>
+            {firebaseKey ? (
+              <Button onClick={deleteThisTrade} variant="danger" size="lg">
+                Decline Trade
+              </Button>
+            ) : (
+              <Link href="/" passHref>
+                <Button variant="danger" size="lg">
+                  Cancel Trade
+                </Button>
+              </Link>
+            )}
           </div>
-          {firebaseKey ? (
-            <Button onClick={deleteThisTrade} variant="primary">
-              Decline Trade
-            </Button>
-          ) : (
-            <Link href="/" passHref>
-              <Button variant="primary">Cancel Trade</Button>
-            </Link>
-          )}
         </div>
       </div>
     </Form>
@@ -247,6 +281,7 @@ TradeForm.propTypes = {
     firebaseKey: PropTypes.string,
     ownerProfileID: PropTypes.string,
     uid: PropTypes.string,
+    pending: PropTypes.bool,
   }),
   tradeObj: PropTypes.shape({
     pending: PropTypes.bool,

@@ -7,23 +7,25 @@ import Link from 'next/link';
 export default function ProfileSection({ profileObj }) {
   return (
     <>
-      <Figure>
+      <Figure className="various-details">
         <img width={171} height={180} alt="171x180" src={profileObj.profilePicture} style={{ borderRadius: '50%' }} />
-        <Figure.Caption>{profileObj.userName}</Figure.Caption>
-        {profileObj.etsy === undefined ? ''
-          : (
-            <Link href={profileObj?.etsy} to={profileObj?.instagram} passHref>
-              <Button>Etsy</Button>
-            </Link>
-          )}
-        {profileObj.instagram === undefined ? ''
-          : (
-            <Link href={undefined ? '' : profileObj?.instagram} to={profileObj?.instagram} passHref>
-              <Button>Instagram</Button>
-            </Link>
-          )}
-        <p>{profileObj.about}</p>
-        <p>{profileObj.favoriteCrafts}</p>
+        <h2>{profileObj.userName}</h2>
+        {profileObj.etsy === undefined ? (
+          ''
+        ) : (
+          <Link href={profileObj?.etsy} to={profileObj?.instagram} passHref>
+            <Button className="profile-buttons">Etsy</Button>
+          </Link>
+        )}
+        {profileObj.instagram === undefined ? (
+          ''
+        ) : (
+          <Link href={undefined ? '' : profileObj?.instagram} to={profileObj?.instagram} passHref>
+            <Button className="profile-buttons">Instagram</Button>
+          </Link>
+        )}
+        <h4>{profileObj.about}</h4>
+        <h5>{profileObj.favoriteCrafts}</h5>
       </Figure>
     </>
   );
