@@ -50,24 +50,24 @@ export default function ProfileForm({ profileObj }) {
 
   return (
     <>
-      <Form onSubmit={handleSubmit} style={{ color: 'slategrey' }}>
-        <h1 style={{ color: 'aqua' }}>{profileObj.firebaseKey ? 'Update' : 'Create'} your profile</h1>
-        <FloatingLabel controlId="floatingTextarea" label="Username" className="mb-3">
+      <Form onSubmit={handleSubmit}>
+        <h1 className="form-titles">{profileObj.firebaseKey ? 'Update' : 'Create'} your profile</h1>
+        <FloatingLabel controlId="floatingTextarea" label="Username" className="mb-3 all-my-form-labels">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Paint" name="userName" value={formInput?.userName} onChange={handleChange} required />
         </FloatingLabel>
-        <FloatingLabel controlId="floatingTextarea" label="Favorite Crafts" className="mb-3">
+        <FloatingLabel controlId="floatingTextarea" label="Favorite Crafts" className="mb-3 all-my-form-labels">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Crafts" name="favoriteCrafts" value={formInput?.favoriteCrafts} onChange={handleChange} required />
         </FloatingLabel>
-        <FloatingLabel controlId="floatingTextarea" label="Etsy" className="mb-3">
+        <FloatingLabel controlId="floatingTextarea" label="Etsy" className="mb-3 all-my-form-labels">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Etsy" name="etsy" value={formInput?.etsy} onChange={handleChange} required />
         </FloatingLabel>
-        <FloatingLabel controlId="floatingTextarea" label="instagram" className="mb-3">
+        <FloatingLabel controlId="floatingTextarea" label="instagram" className="mb-3 all-my-form-labels">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="instagram" name="instagram" value={formInput?.instagram} onChange={handleChange} />
         </FloatingLabel>
-        <FloatingLabel controlId="floatingTextarea" label="Profile Picture" className="mb-3">
+        <FloatingLabel controlId="floatingTextarea" label="Profile Picture" className="mb-3 all-my-form-labels">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="profilePicture" name="profilePicture" value={formInput?.profilePicture} onChange={handleChange} required />
         </FloatingLabel>
-        <FloatingLabel controlId="floatingTextarea2" label="Tell us about you">
+        <FloatingLabel className="all-my-form-labels" controlId="floatingTextarea2" label="Tell us about you">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Desription" style={{ height: '100px' }} name="about" value={formInput?.about} onChange={handleChange} required />
         </FloatingLabel>
         <Button variant="info" size="lg" className="my-buttons" type="submit">

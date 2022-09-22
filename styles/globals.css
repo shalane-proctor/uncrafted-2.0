@@ -1,11 +1,12 @@
 @import 'bootstrap/dist/css/bootstrap.css';
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Gloria+Hallelujah&family=Indie+Flower&family=Shadows+Into+Light&display=swap');
+
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Amatic SC', cursive;
   height: 100%;
   padding: 0;
   margin: 0;
@@ -31,6 +32,7 @@ a {
 body {
   background-color: #88effd;
 }
+.navbar-wrapper > .container-fluid {   	padding-right: 0;   	padding-left: 0; }
 .d-flex {
   flex-wrap: wrap;
 }
@@ -40,7 +42,7 @@ body {
   justify-content: flex-start !important;
   min-width: 375px !important;
   height: auto !important;
-  margin: 20px !important;
+  margin: 20px 5px 20px 0px !important;
   inline-size: 150px !important;
   overflow-wrap: break-word !important;
   background: 0 !important;
@@ -48,28 +50,25 @@ body {
 }
 .post-details-card{
   flex-wrap: wrap !important;
-  min-width: 20rem !important;
-  min-height: 20rem !important;
+  min-width: 25rem !important;
   background: 0 !important;
   border: 0 !important;
-   width: 50% !important;
  float:left;
-
  padding: 0px;
 }
 .post-card-image-details{
   object-fit: cover !important;
   border-radius: 55 !important;
-  width: 23rem !important;
-  height: 23rem !important;
+  width: 17rem !important;
+  /* height: 23rem !important; */
   margin-top: auto;
   margin-top: 3.5rem !important;
-  margin-left: 8rem !important;
+  margin-left: 2.7rem !important;
   border: 0 !important;
   transform: rotate(-3deg);
-  float: left;
   box-sizing: border-box;
 }
+
 .post-card-image {
   object-fit: cover !important;
   border-radius: 55 !important;
@@ -90,6 +89,7 @@ body {
 }
 .info-post-card-right{
   min-width: 10rem !important;
+  width: 15rem !important;
   height: auto !important;
   background: #00d7fdb6 !important;
   border: 0 !important;
@@ -97,12 +97,26 @@ body {
   box-sizing: border-box;
 }
 .various-details{
-  margin: 20px !important;
   background: #00d7fdb6 !important;
   border: 0 !important;
    width: 100% !important;
    padding: 1.5rem;
    border-radius: 20px;
+   color: rgb(75, 78, 81);
+   margin-top: 1em;
+}
+@media only screen and (max-width: 600px) {
+  .post-card-image-details {
+    width: 16.5rem !important;
+    margin-top: 3.5rem !important;
+    margin-left: 1.8rem !important;
+  }
+  .post-details-card{
+    min-width: 24rem !important;
+  }
+  .info-post-card-left{
+    width: 23rem !important;
+  }
 }
 .trade-card {
   flex: 0 0 fit-content !important;
@@ -150,6 +164,15 @@ body {
 .all-my-form-input {
   color: slategrey !important;
   background: #c4ffd9 !important;
+  font-family: 'Amatic SC', cursive;
+}
+.all-my-form-labels{
+  color: slategrey !important;
+  font-family: 'Amatic SC', cursive;
+}
+.form-titles{
+  color: aqua;
+  font-family: 'Amatic SC', cursive;
 }
 .my-post-info-buttons {
   background: rgb(143, 68, 255) !important;
@@ -162,4 +185,10 @@ body {
   border:rgb(143, 68, 255) !important;
   margin: 30px !important;
   color: white !important;
+}
+.profile-buttons{
+  background: rgb(143, 68, 255) !important;
+  border:rgb(143, 68, 255) !important;
+  color: white !important;
+  margin: 1rem;
 }

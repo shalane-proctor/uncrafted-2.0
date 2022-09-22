@@ -40,13 +40,15 @@ export default function MessageForm({
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <h1>Send Message</h1>
-      <h5>Sending message to: {profileToUserName} </h5>
+      <h1 style={{ color: 'aqua' }}>Send Message</h1>
+      <h5 style={{ color: 'aqua' }}>Sending message to: {profileToUserName} </h5>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-        <Form.Label>Message</Form.Label>
-        <Form.Control type="text" as="textarea" name="messageBody" rows={3} placeholder="" onChange={handleChange} />
+        <Form.Label style={{ color: 'aqua' }}>Message</Form.Label>
+        <Form.Control className="all-my-form-input" type="text" as="textarea" name="messageBody" rows={3} placeholder="" onChange={handleChange} />
       </Form.Group>
-      <Button type="submit">Send</Button>
+      <Button size="lg" className="my-buttons" type="submit">
+        Send
+      </Button>
     </Form>
   );
 }

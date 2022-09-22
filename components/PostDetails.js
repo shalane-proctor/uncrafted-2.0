@@ -22,7 +22,7 @@ export default function PostDetails({ postObj, profilePicture, userName }) {
       <Card className="post-details-card">
         <Card.Body>
           <div>{postObj.draft ? <Badge bg="secondary">DRAFT</Badge> : ''}</div>
-          <Card.Img src="/./stickyNote.png" alt="sticky note" height="500px" width="500px" />
+          <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="500px" />
           <Card.ImgOverlay>
             <Card.Img src={postObj.image} className="post-card-image-details mx-auto" />
           </Card.ImgOverlay>

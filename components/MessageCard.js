@@ -10,13 +10,17 @@ export default function MessageCard({ messageObj, onUpdate }) {
     }
   };
   return (
-    <Card>
+    <Card className="various-details">
       <Card.Header as="h5">Message From: {messageObj.ProfileFromUserName}</Card.Header>
       <Card.Header as="h5"> To: {messageObj.profileToUserName}</Card.Header>
       <Card.Body>
         <Card.Title>
-          <Card.Link href={`Messages/${messageObj.firebaseKey}`}>View</Card.Link>
-          <Card.Link onClick={deleteThisMessage}>Delete</Card.Link>
+          <Card.Link style={{ fontSize: '1rem' }} href={`Messages/${messageObj.firebaseKey}`}>
+            View
+          </Card.Link>
+          <Card.Link style={{ fontSize: '1rem' }} onClick={deleteThisMessage}>
+            Delete
+          </Card.Link>
         </Card.Title>
         <Card.Text>{messageObj.messageBody}</Card.Text>
       </Card.Body>

@@ -14,14 +14,14 @@ export default function ProfileSection({ profileObj }) {
           ''
         ) : (
           <Link href={profileObj?.etsy} to={profileObj?.instagram} passHref>
-            <Button>Etsy</Button>
+            <Button className="profile-buttons">Etsy</Button>
           </Link>
         )}
         {profileObj.instagram === undefined ? (
           ''
         ) : (
           <Link href={undefined ? '' : profileObj?.instagram} to={profileObj?.instagram} passHref>
-            <Button>Instagram</Button>
+            <Button className="profile-buttons">Instagram</Button>
           </Link>
         )}
         <h4>{profileObj.about}</h4>

@@ -30,7 +30,9 @@ export default function ProfilePage() {
         ''
       ) : (
         <Link href={`/Profile/edit/${myProfile.profile?.firebaseKey}`} passHref>
-          <Button>Edit Profile</Button>
+          <Button className="profile-buttons">
+            Edit Profile
+          </Button>
         </Link>
       )}
       <ProfileSection key={myProfile} profileObj={myProfile.profile} />
