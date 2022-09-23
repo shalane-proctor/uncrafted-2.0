@@ -9,6 +9,7 @@ import { retrieveAllMyTrades, viewMyProfile } from '../api/mergeData';
 import ProfileSection from '../components/ProfileSection';
 import PostCard from '../components/PostCard';
 import TradeCard from '../components/TradeCard';
+import Footer from '../components/Footer';
 
 export default function ProfilePage() {
   const [myProfile, setMyProfile] = useState({});
@@ -21,58 +22,63 @@ export default function ProfilePage() {
   }, [user]);
 
   return (
-    <>
+    <div className="background-logo">
       <Head>
         <title>Uncrafted - My Profile</title>
-        <meta name="description" content="Meta description for the team page" />
+        <meta name="Profile" content="My profile page" />
       </Head>
-      {myProfile?.profile?.firebaseKey === undefined ? (
-        ''
-      ) : (
-        <Link href={`/Profile/edit/${myProfile.profile?.firebaseKey}`} passHref>
-          <Button className="profile-buttons">
-            Edit Profile
-          </Button>
-        </Link>
-      )}
-      <ProfileSection key={myProfile} profileObj={myProfile.profile} />
-      <h1>My Posts</h1>
-      <div className="text-center my-4">
-        <div className="d-flex">
-          {myProfile.posts?.map((post) => (
-            <PostCard key={post.firebaseKey} postObj={post} />
-          ))}
-        </div>
-      </div>
-      <span>
+      <div className="center-page">
         {myProfile?.profile?.firebaseKey === undefined ? (
           ''
         ) : (
-          <Link href="/Items/new" passHref>
-            <Button>New Post</Button>
+          <Link href={`/Profile/edit/${myProfile.profile?.firebaseKey}`} passHref>
+            <Button size="lg" className="profile-buttons">
+              Edit Profile
+            </Button>
           </Link>
         )}
-      </span>
-      <h1>My Trades</h1>
-      <h4>Trade offers</h4>
-      <div className="text-center my-4">
-        <div className="d-flex">{trades.tradesFrom?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
+        <ProfileSection key={myProfile} profileObj={myProfile.profile} />
+        <span>
+          {myProfile?.profile?.firebaseKey === undefined ? (
+            ''
+          ) : (
+            <Link href="/Items/new" passHref>
+              <Button size="lg" className="profile-buttons">
+                New Post
+              </Button>
+            </Link>
+          )}
+        </span>
+        <h1 style={{ color: 'aqua', fontSize: '60px' }}>My Posts</h1>
+        <div className="text-center my-4">
+          <div className="d-flex">
+            {myProfile.posts?.map((post) => (
+              <PostCard key={post.firebaseKey} postObj={post} />
+            ))}
+          </div>
+        </div>
+        <h1 style={{ color: 'aqua', fontSize: '60px' }}>My Trades</h1>
+        <h4 style={{ color: 'aqua', fontSize: '40px' }}>Trade offers</h4>
+        <div className="text-center my-4">
+          <div className="d-flex">{trades.tradesFrom?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
+        </div>
+        <h4 style={{ color: 'aqua', fontSize: '40px' }}>Trade Requests</h4>
+        <Container>
+          <Row>
+            <Col>
+              <div className="text-center my-4">
+                <div className="d-flex">{trades.tradeTo?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
+              </div>
+              <h4 style={{ color: 'aqua', fontSize: '40px' }}>Past Trades</h4>
+              <div className="text-center my-4">
+                <div className="d-flex">{trades.tradeTo?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
+                <div className="d-flex">{trades.tradesFrom?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
+              </div>
+            </Col>
+          </Row>
+        </Container>
       </div>
-      <h4>Trade Requests</h4>
-      <Container>
-        <Row>
-          <Col>
-            <div className="text-center my-4">
-              <div className="d-flex">{trades.tradeTo?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
-            </div>
-            <h4>Past Trades</h4>
-            <div className="text-center my-4">
-              <div className="d-flex">{trades.tradeTo?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
-              <div className="d-flex">{trades.tradesFrom?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.firebaseKey} tradeObj={trade} />))}</div>
-            </div>
-          </Col>
-        </Row>
-      </Container>
-    </>
+      <Footer />
+    </div>
   );
 }

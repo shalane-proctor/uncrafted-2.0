@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import { getPosts } from '../api/itemsData';
 import PostCard from '../components/PostCard';
+import Footer from '../components/Footer';
 // import PostDetails from '../components/PostDetails';
 // import { useAuth } from '../utils/context/authContext';
 
@@ -24,7 +25,7 @@ function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Uncrafted</title>
       </Head>
-      <div className="text-center my-4">
+      <div className="text-center my-4 center-page">
         <div className="d-flex">
           {posts.map((post) => (
             post.draft === true || post.draft === 'on' ? ''
@@ -32,6 +33,7 @@ function Home() {
           ))}
         </div>
       </div>
+      <Footer />
     </>
   );
 }
