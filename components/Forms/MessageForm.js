@@ -44,9 +44,9 @@ export default function MessageForm({
       <h5 style={{ color: 'aqua' }}>Sending message to: {profileToUserName} </h5>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label style={{ color: 'aqua' }}>Message</Form.Label>
-        <Form.Control className="all-my-form-input" type="text" as="textarea" name="messageBody" rows={3} placeholder="" onChange={handleChange} />
+        <Form.Control className="forms-over-image" type="text" as="textarea" name="messageBody" rows={3} placeholder="" onChange={handleChange} />
       </Form.Group>
-      <Button size="lg" className="my-buttons" type="submit">
+      <Button size="lg" className="message-form-button" type="submit">
         Send
       </Button>
     </Form>

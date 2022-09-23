@@ -1,16 +1,16 @@
 @import 'bootstrap/dist/css/bootstrap.css';
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC&family=Gloria+Hallelujah&family=Indie+Flower&family=Shadows+Into+Light&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Gloria+Hallelujah&family=Indie+Flower&family=Shadows+Into+Light&display=swap');
 
 
 html,
 body {
-  padding: 0;
-  margin: 0;
+  
   font-family: 'Amatic SC', cursive !important;
   height: 100%;
   padding: 0;
   margin: 0;
   background: url(/corkboard.png) no-repeat center center fixed !important;
+  font-weight: 700;
   -webkit-background-size: cover !important; /* For WebKit*/
   -moz-background-size: cover !important;    /* Mozilla*/
   -o-background-size: cover !important;      /* Opera*/
@@ -31,11 +31,55 @@ a {
 
 body {
   background-color: #88effd;
+  padding: 0;
+  margin: 0;
+}
+h5 {
+  font-weight: 700;
+}
+p{
+  font-weight: 700;
+}
+.container{
+  margin: 0;
+  padding: 0;
+}
+.center-page {
+  margin-left: 2rem !important;
+  margin-right: 0 !important;
+  width: 100% !important;
+}
+.background-logo{
+  background-image: url(/logo.png) !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  background-size: 700px;
+}
+.background-logo-messages{
+  background-image: url(/logo.png) !important;
+  background-repeat: no-repeat;
+  background-position: center;
+  /* background-attachment: fixed; */
+  background-size: 500px;
 }
 .d-flex {
   flex-wrap: wrap;
+  justify-content: space-evenly;
 }
 .post-card {
+  flex: 0 0 fit-content !important;
+  flex-wrap: wrap !important;
+  justify-content: flex-start !important;
+  min-width: 375px !important;
+  height: auto !important;
+  margin: 20px 5px 20px 0px !important;
+  inline-size: 150px !important;
+  overflow-wrap: break-word !important;
+  background: 0 !important;
+  border: 0 !important;
+}
+.trade-form-post-card {
   flex: 0 0 fit-content !important;
   flex-wrap: wrap !important;
   justify-content: flex-start !important;
@@ -60,7 +104,6 @@ body {
   border-radius: 55 !important;
   width: 17rem !important;
   /* height: 23rem !important; */
-  margin-top: auto;
   margin-top: 3.5rem !important;
   margin-left: 2.7rem !important;
   border: 0 !important;
@@ -69,6 +112,15 @@ body {
 }
 
 .post-card-image {
+  object-fit: cover !important;
+  border-radius: 55 !important;
+  width: 18rem !important;
+  height: 10rem !important;
+  margin-top: 22px !important;
+  margin-right: 1.5rem !important;
+  border: 0 !important;
+}
+.trade-form-post-card-image {
   object-fit: cover !important;
   border-radius: 55 !important;
   width: 18rem !important;
@@ -96,26 +148,13 @@ body {
   box-sizing: border-box;
 }
 .various-details{
-  background: #00d7fdb6 !important;
+  background: #00d7fdc9 !important;
   border: 0 !important;
    width: 100% !important;
    padding: 1.5rem;
    border-radius: 20px;
    color: rgb(75, 78, 81);
    margin-top: 1em;
-}
-@media only screen and (max-width: 600px) {
-  .post-card-image-details {
-    width: 16.5rem !important;
-    margin-top: 3.5rem !important;
-    margin-left: 1.8rem !important;
-  }
-  .post-details-card{
-    min-width: 24rem !important;
-  }
-  .info-post-card-left{
-    width: 23rem !important;
-  }
 }
 .trade-card {
   flex: 0 0 fit-content !important;
@@ -151,6 +190,42 @@ body {
   background: 0 !important;
   border: 0 !important;
 }
+@media only screen and (max-width: 600px) {
+  .center-page{
+    margin: 0% !important;
+    padding: 0% !important;
+    width: 100%;
+  }
+  .post-card-image-details {
+    width: 16.5rem !important;
+    margin-top: 3.5rem !important;
+    margin-left: 1.8rem !important;
+  }
+  .post-details-card{
+    min-width: 24rem !important;
+  }
+  .info-post-card-left{
+    width: 23rem !important;
+  }
+  .trade-card-profile{
+    min-width: 150px !important;
+    height: 185px !important;
+  }
+  .trade-form-post-card{
+    min-width: 200px !important;
+  }
+  .trade-card-select{
+    min-width: 200px !important;
+  }
+  .trade-form-post-card-image{
+    width: 10rem !important;
+    height: 10rem !important;
+  }
+  .various-details{
+  background: #00d7fde0 !important;
+  font-weight: 700 !important;
+}
+}
 .trade-form-current{
  width: 50% !important;
  margin-top: 6rem !important;
@@ -168,6 +243,7 @@ body {
 .all-my-form-labels{
   color: slategrey !important;
   font-family: 'Amatic SC', cursive;
+  font-weight: 400;
 }
 .form-titles{
   color: aqua;
@@ -185,9 +261,49 @@ body {
   margin: 30px !important;
   color: white !important;
 }
+.trade-buttons {
+  background: rgb(143, 68, 255) !important;
+  border:rgb(143, 68, 255) !important;
+  margin: 30px !important;
+  color: white !important;
+}
+.message-form-button {
+  background: rgb(143, 68, 255) !important;
+  border:rgb(143, 68, 255) !important;
+  margin: 30px !important;
+  color: white !important;
+}
 .profile-buttons{
   background: rgb(143, 68, 255) !important;
   border:rgb(143, 68, 255) !important;
   color: white !important;
   margin: 1rem;
+}
+.cancel-decline{
+  background: rgb(255, 85, 179) !important;
+  border:rgb(255, 85, 179) !important;
+  margin: 30px !important;
+  color: white !important;
+}
+.forms-over-image{
+  color: slategrey !important;
+  background: #c4ffd9 !important;
+  font-family: 'Amatic SC', cursive;
+    width:100%;
+    top:20px;
+      z-index: 2;
+  position: sticky !important;
+}
+.more-ledgible{
+  color: white;
+  font-weight: 400;
+  font-family: 'Shadows Into Light', cursive;
+}
+.footer {
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  background-color: #00d7fdb6;
+  width: 100%;
+  height: auto;            /* Footer height */
 }

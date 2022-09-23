@@ -24,7 +24,7 @@ export default function ProfileSection({ profileObj }) {
             <Button className="profile-buttons">Instagram</Button>
           </Link>
         )}
-        <h4>{profileObj.about}</h4>
+        <h4 className="more-ledgible">{profileObj.about}</h4>
         <h5>{profileObj.favoriteCrafts}</h5>
       </Figure>
     </>

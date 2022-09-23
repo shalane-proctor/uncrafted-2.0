@@ -107,7 +107,7 @@ export default function TradeForm({
                     </Card.Title>
                     <Card.Subtitle className="mb-2">{offerTo.userName}</Card.Subtitle>
                     <Link href={`/Profile/${wantedPostObj?.ownerProfileID}`} passHref>
-                      <Button className="mb-2" variant="outline-info">
+                      <Button variant="outline-info">
                         View Profile
                       </Button>
                     </Link>
@@ -121,10 +121,10 @@ export default function TradeForm({
                   </Card.Body>
                 </Card.ImgOverlay>
               </Card>
-              <Card className="post-card">
+              <Card className="trade-form-post-card">
                 <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
                 <Card.ImgOverlay>
-                  <Card.Img src={wantedPostObj.image} className="post-card-image" />
+                  <Card.Img src={wantedPostObj.image} className="trade-form-post-card-image" />
                   <Card.Body>
                     <Card.Title>{wantedPostObj.itemName}</Card.Title>
                     <Card.Text>Color: {wantedPostObj.color}</Card.Text>
@@ -137,7 +137,7 @@ export default function TradeForm({
               </Card>
             </>
           </div>
-          <Button style={{ display: 'flex', justifyContent: 'center' }} className="my-buttons" variant="info" type="submit" size="lg">
+          <Button className="trade-buttons" variant="info" type="submit" size="lg">
             {firebaseKey ? 'Accept' : 'Offer'} Trade
           </Button>
         </div>
@@ -186,7 +186,7 @@ export default function TradeForm({
                     </Card.Title>
                     <Card.Subtitle className="mb-2">{offeredFrom.userName}</Card.Subtitle>
                     <Link href={`/Profile/${offeredPostObj?.ownerProfileID}`} passHref>
-                      <Button className="mb-2" variant="outline-info">
+                      <Button variant="outline-info">
                         View Profile
                       </Button>
                     </Link>
@@ -195,10 +195,10 @@ export default function TradeForm({
               </Card>
               {firebaseKey ? (
                 <>
-                  <Card className="post-card">
+                  <Card className="trade-form-post-card">
                     <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
                     <Card.ImgOverlay>
-                      <Card.Img src={offeredPostObj?.image} className="post-card-image" />
+                      <Card.Img src={offeredPostObj?.image} className="trade-form-post-card-image" />
                       <Card.Body>
                         <Card.Title>{offeredPostObj?.itemName}</Card.Title>
                         <Card.Text>Color: {offeredPostObj?.color}</Card.Text>
@@ -215,7 +215,7 @@ export default function TradeForm({
                   <Card onChange={handleChange} className="trade-card-select">
                     <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
                     <Card.ImgOverlay>
-                      <Card.Img src={selected?.image} className="post-card-image" />
+                      <Card.Img src={selected?.image} className="trade-form-post-card-image" />
                       <Card.Body>
                         <Card.Title>{selected?.itemName}</Card.Title>
                         <Card.Text>Color: {selected?.color}</Card.Text>
@@ -230,12 +230,12 @@ export default function TradeForm({
               )}
             </div>
             {firebaseKey ? (
-              <Button onClick={deleteThisTrade} variant="danger" size="lg">
+              <Button onClick={deleteThisTrade} className="cancel-decline" variant="danger" size="lg">
                 Decline Trade
               </Button>
             ) : (
               <Link href="/" passHref>
-                <Button variant="danger" size="lg">
+                <Button variant="danger" className="cancel-decline" size="lg">
                   Cancel Trade
                 </Button>
               </Link>

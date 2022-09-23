@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable @next/next/no-img-element */
+import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
 import { deleteMessage } from '../api/messagesData';
@@ -15,10 +17,10 @@ export default function MessageCard({ messageObj, onUpdate }) {
       <Card.Header as="h5"> To: {messageObj.profileToUserName}</Card.Header>
       <Card.Body>
         <Card.Title>
-          <Card.Link style={{ fontSize: '1rem' }} href={`Messages/${messageObj.firebaseKey}`}>
-            View
-          </Card.Link>
-          <Card.Link style={{ fontSize: '1rem' }} onClick={deleteThisMessage}>
+          <Link href={`Messages/${messageObj.firebaseKey}`} passhref>
+            <a style={{ fontSize: '1rem', marginRight: '15px', color: 'white' }}>View</a>
+          </Link>
+          <Card.Link style={{ fontSize: '1rem', color: 'magenta' }} onClick={deleteThisMessage}>
             Delete
           </Card.Link>
         </Card.Title>
