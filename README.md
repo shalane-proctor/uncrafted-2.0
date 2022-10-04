@@ -1,7 +1,7 @@
 # Uncrafted
 
 Artists have a tendency to collect unused materials and equipment or buy more than necessary to complete a project. There isn’t a consolidated application that makes trading and selling these products easy.
-![](https://i.pinimg.com/564x/8d/5f/62/8d5f62968c07c376fb2e4d3b12b248d9.jpg)
+![IMG_0990](https://user-images.githubusercontent.com/94003497/193718445-6f9d57c0-ab79-49d0-a1bb-2e3dfe10e976.PNG)
 ### Users
 The user for this app will be artist or crafters who want to trade with other artists or crafters!
 ## Use
