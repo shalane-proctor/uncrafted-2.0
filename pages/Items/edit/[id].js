@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import PostForm from '../../../components/Forms/PostForm';
-import { getSinglePost } from '../../../api/itemsData';
 import Footer from '../../../components/Footer';
+import { getSinglePost } from '../../../api/new/postData';
 
 export default function EditPost() {
   const [editItem, setEditItem] = useState({});
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
 
   useEffect(() => {
-    getSinglePost(firebaseKey).then(setEditItem);
-  }, [firebaseKey]);
+    getSinglePost(id).then(setEditItem);
+  }, [id]);
   return (
     <>
       <Head>

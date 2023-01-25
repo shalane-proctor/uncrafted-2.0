@@ -11,10 +11,12 @@ export default function TradeCard({ tradeObj }) {
       <Card className="trade-card">
         <Card.Img src="/./pinkSticky.png" alt="sticky note" height="150px" width="200px" />
         <Card.ImgOverlay>
-          <div> {tradeObj.pending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
+          <div> {tradeObj.isPending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
           <Card.Body>
-            <Card.Title>{tradeObj.pending === true ? ('New Trade!') : 'Trade'}</Card.Title>
-            <Link href={`/Trades/update/${tradeObj?.firebaseKey}`} passHref>
+            <Card.Title>{tradeObj.isPending === true ? 'New Trade!' : 'Trade'}</Card.Title>
+            <Card.Subtitle className="mb-2 text-muted">Offered ${tradeObj.itemOffered.itemName}</Card.Subtitle>
+            <Card.Subtitle className="mb-2 text-muted">Wanted ${tradeObj.itemWanted.itemName}</Card.Subtitle>
+            <Link href={`/Trades/update/${tradeObj?.id}`} passHref>
               <Button variant="primary">View Trade</Button>
             </Link>
           </Card.Body>
@@ -26,30 +28,43 @@ export default function TradeCard({ tradeObj }) {
 
 TradeCard.propTypes = {
   tradeObj: PropTypes.shape({
-    amount: PropTypes.string,
-    color: PropTypes.string,
-    image: PropTypes.string,
-    itemName: PropTypes.string,
-    firebaseKey: PropTypes.string,
-    pending: PropTypes.bool,
-    completed: PropTypes.bool,
+    id: PropTypes.number,
+    itemWanted: PropTypes.shape({
+      id: PropTypes.number,
+      itemName: PropTypes.string,
+      color: PropTypes.string,
+      amount: PropTypes.string,
+      imageUrl: PropTypes.string,
+      tradePreferences: PropTypes.string,
+      description: PropTypes.string,
+      isDraft: PropTypes.bool,
+      isPending: PropTypes.bool,
+      ownerProfileId: {
+        id: PropTypes.number,
+        uid: PropTypes.number,
+        username: PropTypes.string,
+        profileImageUrl: PropTypes.string,
+      },
+    }),
+    itemOffered: PropTypes.shape({
+      id: PropTypes.number,
+      itemName: PropTypes.string,
+      color: PropTypes.string,
+      amount: PropTypes.string,
+      imageUrl: PropTypes.string,
+      tradePreferences: PropTypes.string,
+      description: PropTypes.string,
+      isDraft: PropTypes.bool,
+      isPending: PropTypes.bool,
+      ownerProfileId: {
+        id: PropTypes.number,
+        uid: PropTypes.number,
+        username: PropTypes.string,
+        profileImageUrl: PropTypes.string,
+      },
+    }),
+    isPending: PropTypes.bool,
   }),
-  // offerFromObj: PropTypes.shape({
-  //   amount: PropTypes.string,
-  //   color: PropTypes.string,
-  //   image: PropTypes.string,
-  //   itemName: PropTypes.string,
-  //   firebaseKey: PropTypes.string,
-  //   pending: PropTypes.bool,
-  // }),
-  // offerToObj: PropTypes.shape({
-  //   amount: PropTypes.string,
-  //   color: PropTypes.string,
-  //   image: PropTypes.string,
-  //   itemName: PropTypes.string,
-  //   firebaseKey: PropTypes.string,
-  //   pending: PropTypes.bool,
-  // }),
 };
 
 TradeCard.defaultProps = {

@@ -4,26 +4,27 @@ import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import { Button, FloatingLabel } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { createProfile, updateProfile } from '../../api/profileData';
+import { createUser, updateUser } from '../../api/new/userData';
 
 const initialState = {
-  about: '',
-  etsy: '',
-  favoriteCrafts: '',
-  firebaseKey: '',
-  instagram: '',
-  profilePicture: '',
+  id: '',
   uid: '',
-  userName: '',
+  username: '',
+  favoriteCraft: '',
+  email: '',
+  about: '',
+  profileImageUrl: '',
+  instagram: '',
+  etsy: '',
 };
-export default function ProfileForm({ profileObj }) {
+export default function ProfileForm({ obj }) {
   const [formInput, setFormInput] = useState();
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
-    if (profileObj.firebaseKey) setFormInput(profileObj);
-  }, [profileObj, user]);
+    if (obj?.id) setFormInput(obj);
+  }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -35,14 +36,14 @@ export default function ProfileForm({ profileObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (profileObj.firebaseKey) {
-      updateProfile(formInput).then(() => router.push('/'));
+    if (obj?.id) {
+      updateUser(formInput).then(() => router.push('/'));
     } else {
       const payload = {
         ...formInput,
         uid: user.uid,
       };
-      createProfile(payload).then(() => {
+      createUser(payload).then(() => {
         router.push('/');
       });
     }
@@ -51,9 +52,9 @@ export default function ProfileForm({ profileObj }) {
   return (
     <>
       <Form onSubmit={handleSubmit}>
-        <h1 className="form-titles">{profileObj.firebaseKey ? 'Update' : 'Create'} your profile</h1>
+        <h1 className="form-titles">{obj?.id ? 'Update' : 'Create'} your profile</h1>
         <FloatingLabel controlId="floatingTextarea" label="Username" className="mb-3 all-my-form-labels">
-          <Form.Control className="all-my-form-input" as="textarea" placeholder="Paint" name="userName" value={formInput?.userName} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="Paint" name="username" value={formInput?.obj?.username} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Favorite Crafts" className="mb-3 all-my-form-labels">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Crafts" name="favoriteCrafts" value={formInput?.favoriteCrafts} onChange={handleChange} required />
@@ -65,13 +66,13 @@ export default function ProfileForm({ profileObj }) {
           <Form.Control className="all-my-form-input" as="textarea" placeholder="instagram" name="instagram" value={formInput?.instagram} onChange={handleChange} />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Profile Picture" className="mb-3 all-my-form-labels">
-          <Form.Control className="all-my-form-input" as="textarea" placeholder="profilePicture" name="profilePicture" value={formInput?.profilePicture} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="profilePicture" name="profileImageUrl" value={formInput?.profileImageUrl} onChange={handleChange} required />
         </FloatingLabel>
         <FloatingLabel className="all-my-form-labels" controlId="floatingTextarea2" label="Tell us about you">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Desription" style={{ height: '100px' }} name="about" value={formInput?.about} onChange={handleChange} required />
         </FloatingLabel>
         <Button variant="info" size="lg" className="my-buttons" type="submit">
-          {profileObj.firebaseKey ? 'Update' : 'Create'} Profile
+          {obj?.id ? 'Update' : 'Create'} Profile
         </Button>
       </Form>
     </>
@@ -79,17 +80,19 @@ export default function ProfileForm({ profileObj }) {
 }
 
 ProfileForm.propTypes = {
-  profileObj: PropTypes.shape({
+  obj: PropTypes.shape({
+    id: PropTypes.number,
+    uid: PropTypes.string,
+    username: PropTypes.string,
+    favoriteCraft: PropTypes.string,
+    email: PropTypes.string,
     about: PropTypes.string,
-    etsy: PropTypes.string,
-    favoriteCrafts: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    profileImageUrl: PropTypes.string,
     instagram: PropTypes.string,
-    profilePicture: PropTypes.string,
-    userName: PropTypes.string,
+    etsy: PropTypes.string,
   }),
 };
 
 ProfileForm.defaultProps = {
-  profileObj: initialState,
+  obj: initialState,
 };

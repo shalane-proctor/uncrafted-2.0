@@ -6,7 +6,7 @@ import Card from 'react-bootstrap/Card';
 import { useAuth } from '../utils/context/authContext';
 
 export default function TradedCard({
-  offerTo, offeredFrom, offeredPostObj, wantedPostObj,
+  tradeObj,
 }) {
   const { user } = useAuth();
   return (
@@ -19,14 +19,14 @@ export default function TradedCard({
               <Card.ImgOverlay>
                 <Card.Body>
                   <Card.Title>
-                    <img className="thumbnail-image" src={offerTo.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+                    <img className="thumbnail-image" src={tradeObj.itemWanted.ownerProfileId.profileImageUrl} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
                   </Card.Title>
-                  <Card.Subtitle className="mb-2">{offerTo.userName}</Card.Subtitle>
-                  <Link href={`/Profile/${wantedPostObj?.ownerProfileID}`} passHref>
+                  <Card.Subtitle className="mb-2">{tradeObj.itemWanted.ownerProfileId.userName}</Card.Subtitle>
+                  <Link href={`/Profile/${tradeObj.itemWanted.ownerProfileId.id}`} passHref>
                     <Button className="mb-2">View Profile</Button>
                   </Link>
-                  {offerTo.uid !== user.uid ? (
-                    <Link href={`/Messages/create/${wantedPostObj.ownerProfileID}`} passHref>
+                  {tradeObj.itemWanted.ownerProfileId.uid !== user.uid ? (
+                    <Link href={`/Messages/create/${tradeObj.itemWanted.ownerProfileId.id}`} passHref>
                       <Button>Send Message</Button>
                     </Link>
                   ) : (
@@ -36,12 +36,12 @@ export default function TradedCard({
               </Card.ImgOverlay>
             </Card>
             <Card className="post-card">
-              <Card.Img src={wantedPostObj.image} className="post-card-image" />
+              <Card.Img src={tradeObj.itemWanted.imageUrl} className="post-card-image" />
               <Card.Body>
-                <Card.Title>{wantedPostObj.itemName}</Card.Title>
-                <Card.Text>Color: {wantedPostObj.color}</Card.Text>
-                <Card.Text>Amount: {wantedPostObj.amount}</Card.Text>
-                <Link href={`/Items/${wantedPostObj.firebaseKey}`} passHref>
+                <Card.Title>{tradeObj.itemWanted.itemName}</Card.Title>
+                <Card.Text>Color: {tradeObj.itemWanted.color}</Card.Text>
+                <Card.Text>Amount: {tradeObj.itemWanted.amount}</Card.Text>
+                <Link href={`/Items/${tradeObj.itemWanted.id}`} passHref>
                   <Button variant="primary">View</Button>
                 </Link>
               </Card.Body>
@@ -55,21 +55,21 @@ export default function TradedCard({
             <Card>
               <Card.Body>
                 <Card.Title>
-                  <img className="thumbnail-image" src={offeredFrom.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+                  <img className="thumbnail-image" src={tradeObj.itemOffered.ownerProfileId.profilePicture} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
                 </Card.Title>
-                <Card.Subtitle className="mb-2">{offeredFrom.userName}</Card.Subtitle>
-                <Link href={`/Profile/${offeredPostObj?.ownerProfileID}`} passHref>
+                <Card.Subtitle className="mb-2">{tradeObj.itemOffered.ownerProfileId.userName}</Card.Subtitle>
+                <Link href={`/Profile/${tradeObj.itemOffered.ownerProfileId.id}`} passHref>
                   <Button className="mb-2">View Profile</Button>
                 </Link>
               </Card.Body>
             </Card>
             <Card className="post-card">
-              <Card.Img src={offeredPostObj?.image} className="post-card-image" />
+              <Card.Img src={tradeObj.itemOffered.imageUrl} className="post-card-image" />
               <Card.Body>
-                <Card.Title>{offeredPostObj?.itemName}</Card.Title>
-                <Card.Text>Color: {offeredPostObj?.color}</Card.Text>
-                <Card.Text>Amount: {offeredPostObj?.amount}</Card.Text>
-                <Link href={`/Items/${offeredPostObj?.firebaseKey}`} passHref>
+                <Card.Title>{tradeObj.itemOffered.itemName}</Card.Title>
+                <Card.Text>Color: {tradeObj.itemOffered.color}</Card.Text>
+                <Card.Text>Amount: {tradeObj.itemOffered.amount}</Card.Text>
+                <Link href={`/Items/${tradeObj.itemOffered.id}`} passHref>
                   <Button variant="primary">View</Button>
                 </Link>
               </Card.Body>
@@ -82,64 +82,51 @@ export default function TradedCard({
 }
 
 TradedCard.propTypes = {
-  firebaseKey: PropTypes.string,
-  offerTo: PropTypes.oneOfType([
-    PropTypes.shape({
-      firebaseKey: PropTypes.string,
-      profilePicture: PropTypes.string,
-      uid: PropTypes.string,
-    }),
-    PropTypes.string,
-  ]),
-  offeredFrom: PropTypes.oneOfType([
-    PropTypes.shape({
-      firebaseKey: PropTypes.string,
-      userName: PropTypes.string,
-      profilePicture: PropTypes.string,
-      uid: PropTypes.string,
-    }),
-  ]),
-  offeredPostObj: PropTypes.oneOfType([
-    PropTypes.arrayOf(
-      PropTypes.shape({
-        ownerProfileID: PropTypes.string,
-      }),
-    ),
-    PropTypes.shape({}),
-  ]),
-  wantedPostObj: PropTypes.shape({
-    amount: PropTypes.string,
-    color: PropTypes.string,
-    image: PropTypes.string,
-    itemName: PropTypes.string,
-    firebaseKey: PropTypes.string,
-    ownerProfileID: PropTypes.string,
-    uid: PropTypes.string,
-  }),
   tradeObj: PropTypes.shape({
-    pending: PropTypes.bool,
-    completed: PropTypes.bool,
+    id: PropTypes.number,
+    itemWanted: PropTypes.shape({
+      id: PropTypes.number,
+      itemName: PropTypes.string,
+      color: PropTypes.string,
+      amount: PropTypes.string,
+      imageUrl: PropTypes.string,
+      tradePreferences: PropTypes.string,
+      description: PropTypes.string,
+      isDraft: PropTypes.bool,
+      isPending: PropTypes.bool,
+      ownerProfileId: {
+        id: PropTypes.number,
+        uid: PropTypes.number,
+        username: PropTypes.string,
+        profileImageUrl: PropTypes.string,
+      },
+    }),
+    itemOffered: PropTypes.shape({
+      id: PropTypes.number,
+      itemName: PropTypes.string,
+      color: PropTypes.string,
+      amount: PropTypes.string,
+      imageUrl: PropTypes.string,
+      tradePreferences: PropTypes.string,
+      description: PropTypes.string,
+      isDraft: PropTypes.bool,
+      isPending: PropTypes.bool,
+      ownerProfileId: {
+        id: PropTypes.number,
+        uid: PropTypes.number,
+        username: PropTypes.string,
+        profileImageUrl: PropTypes.string,
+      },
+    }),
+    isPending: PropTypes.bool,
   }),
 };
 
 TradedCard.defaultProps = {
-  firebaseKey: '',
-  wantedPostObj: {
-    image: 'https://cdn.shopify.com/s/files/1/0969/9128/files/feature4.png?8761787851395034074',
-  },
-  offerTo: {
-    firebaseKey: '',
-  },
-  offeredFrom: {
-    firebaseKey: '',
-  },
-  offeredPostObj: [
-    {
-      pending: true,
-    },
-  ],
   tradeObj: {
-    pending: false,
-    completed: false,
+    id: 0,
+    itemWanted: {},
+    itemOffered: {},
+    isPending: PropTypes.bool,
   },
 };
