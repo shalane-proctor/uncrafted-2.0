@@ -6,8 +6,8 @@ import { Badge } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import { useRouter } from 'next/router';
-import { deletePost } from '../api/itemsData';
 import { useAuth } from '../utils/context/authContext';
+import { deletePost } from '../api/new/postData';
 
 export default function PostDetails({ postObj, profilePicture, userName }) {
   const router = useRouter();

@@ -1,18 +1,20 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { viewTradeDetails } from '../../../api/mergeData';
+import { getTrades } from '../../../api/new/tradeData';
 import Footer from '../../../components/Footer';
 import TradeForm from '../../../components/Forms/TradeForm';
+// import { useAuth } from '../../../utils/context/authContext';
 
 export default function NewTrade() {
-  const [updateItem, setUpdateItem] = useState();
+  const [posts, setPosts] = useState();
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
+  // const { user } = useAuth();
 
   useEffect(() => {
-    viewTradeDetails(firebaseKey).then(setUpdateItem);
-  }, [firebaseKey]);
+    getTrades(id).then(setPosts);
+  }, [id]);
 
   return (
     <>
@@ -20,7 +22,7 @@ export default function NewTrade() {
         <title>Uncrafted - Trade</title>
         <meta name="Trade" content="Single trade page" />
       </Head>
-      <TradeForm firebaseKey={firebaseKey} offerTo={updateItem?.to} offeredFrom={updateItem?.from} offeredPostObj={updateItem?.offer} wantedPostObj={updateItem?.want} trade={updateItem?.tradeObj} />
+      <TradeForm item={posts} />
       <Footer />
     </>
   );

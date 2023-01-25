@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { React, useState, useEffect } from 'react';
-import { viewPostDetails } from '../../api/mergeData';
+import { getSinglePost } from '../../api/new/postData';
 import Footer from '../../components/Footer';
 
 import PostDetails from '../../components/PostDetails';
@@ -11,11 +11,11 @@ export default function ViewThePostDetails() {
   const [postDetail, setPostDetails] = useState({});
   const { user } = useAuth();
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
 
   useEffect(() => {
-    viewPostDetails(firebaseKey).then(setPostDetails);
-  }, [firebaseKey, user]);
+    getSinglePost(id).then(setPostDetails);
+  }, [id, user]);
 
   return (
     <div>
@@ -24,7 +24,7 @@ export default function ViewThePostDetails() {
         <meta name="Individual Posts" content="Individual posts page" />
       </Head>
       <div className="center-page">
-        <PostDetails key={postDetail?.firebaseKey} postObj={postDetail} profilePicture={postDetail?.profileObj?.profilePicture} userName={postDetail?.profileObj?.userName} />
+        <PostDetails key={postDetail?.id} postObj={postDetail} />
       </div>
       <Footer />
     </div>

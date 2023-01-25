@@ -7,17 +7,17 @@ export default function MessageDetails({ messageObj }) {
     <>
       <Card className="various-details">
         <Card.Title>
-          <img className="thumbnail-image" src={messageObj.fromProfile.profilePicture} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {messageObj?.ProfileFromUserName}
+          <img className="thumbnail-image" src={messageObj.sender.profileImageUrl} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {messageObj.sender.username}
         </Card.Title>
         <Card.Title>
-          <img className="thumbnail-image" src={messageObj?.toProfile.profilePicture} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" />
-          Message to: {messageObj?.profileToUserName}
+          <img className="thumbnail-image" src={messageObj.receiver.profileImageUrl} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" />
+          Message to: {messageObj.receiver.username}
         </Card.Title>
       </Card>
       <Card style={{ height: '30rem', marginBottom: '10rem' }} className="various-details">
         <Card.Body>
           <Card.Title>Message:</Card.Title>
-          <Card.Title>{messageObj.messageBody}</Card.Title>
+          <Card.Title>{messageObj.messageContent}</Card.Title>
         </Card.Body>
       </Card>
     </>
@@ -26,34 +26,32 @@ export default function MessageDetails({ messageObj }) {
 
 MessageDetails.propTypes = {
   messageObj: PropTypes.shape({
-    messageBody: PropTypes.string,
-    profileToFirebaseKey: PropTypes.string,
-    profileFromFirebaseKey: PropTypes.string,
-    ProfileFromUserName: PropTypes.string,
-    profileToUserName: PropTypes.string,
-    firebaseKey: PropTypes.string,
-    fromProfile: PropTypes.shape({
-      profilePicture: PropTypes.string,
+    id: PropTypes.number,
+    sender: PropTypes.shape({
+      id: PropTypes.number,
+      uid: PropTypes.string,
+      username: PropTypes.string,
+      favoriteCraft: PropTypes.string,
+      email: PropTypes.string,
+      about: PropTypes.string,
+      profileImageUrl: PropTypes.string,
+      instagram: PropTypes.string,
+      etsy: PropTypes.string,
     }),
-    toProfile: PropTypes.shape({
-      profilePicture: PropTypes.string,
+    receiver: PropTypes.shape({
+      id: PropTypes.number,
+      uid: PropTypes.string,
+      username: PropTypes.string,
+      favoriteCraft: PropTypes.string,
+      email: PropTypes.string,
+      about: PropTypes.string,
+      profileImageUrl: PropTypes.string,
+      instagram: PropTypes.string,
+      etsy: PropTypes.string,
     }),
-  }),
-};
-
-MessageDetails.defaultProps = {
-  messageObj: {
-    messageBody: '',
-    profileToFirebaseKey: '',
-    profileFromFirebaseKey: '',
-    userNameFrom: '',
-    userNameTo: '',
-    firebaseKey: '',
-    fromProfile: {
-      profilePicture: '',
-    },
-    toProfile: {
-      profilePicture: '',
-    },
-  },
+    subject: PropTypes.string,
+    messageContent: PropTypes.string,
+    isNew: PropTypes.bool,
+    connectedToTrade: PropTypes.bool,
+  }).isRequired,
 };

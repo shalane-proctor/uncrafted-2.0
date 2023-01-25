@@ -3,28 +3,28 @@
 import Link from 'next/link';
 import PropTypes from 'prop-types';
 import Card from 'react-bootstrap/Card';
-import { deleteMessage } from '../api/messagesData';
+import { deleteMessage } from '../api/new/messageData';
 
 export default function MessageCard({ messageObj, onUpdate }) {
   const deleteThisMessage = () => {
-    if (window.confirm(`Delete this message between ${messageObj.ProfileFromUserName} and ${messageObj.profileToUserName}?`)) {
-      deleteMessage(messageObj.firebaseKey).then(() => onUpdate());
+    if (window.confirm(`Delete this message between ${messageObj.sender.username} and ${messageObj.receiver.username}?`)) {
+      deleteMessage(messageObj.id).then(() => onUpdate());
     }
   };
   return (
     <Card className="various-details">
-      <Card.Header as="h5">Message From: {messageObj.ProfileFromUserName}</Card.Header>
-      <Card.Header as="h5"> To: {messageObj.profileToUserName}</Card.Header>
+      <Card.Header as="h5">Message From: {messageObj.sender.username}</Card.Header>
+      <Card.Header as="h5"> To: {messageObj.receiver.username}</Card.Header>
       <Card.Body>
         <Card.Title>
-          <Link href={`Messages/${messageObj.firebaseKey}`} passhref>
+          <Link href={`Messages/${messageObj.id}`} passhref>
             <a style={{ fontSize: '1rem', marginRight: '15px', color: 'white' }}>View</a>
           </Link>
           <Card.Link style={{ fontSize: '1rem', color: 'magenta' }} onClick={deleteThisMessage}>
             Delete
           </Card.Link>
         </Card.Title>
-        <Card.Text>{messageObj.messageBody}</Card.Text>
+        <Card.Text>{messageObj.messageContent}</Card.Text>
       </Card.Body>
     </Card>
   );
@@ -32,12 +32,19 @@ export default function MessageCard({ messageObj, onUpdate }) {
 
 MessageCard.propTypes = {
   messageObj: PropTypes.shape({
-    messageBody: PropTypes.string,
-    profileToFirebaseKey: PropTypes.string,
-    profileToUserName: PropTypes.string,
-    profileFromFirebaseKey: PropTypes.string,
-    ProfileFromUserName: PropTypes.string,
-    firebaseKey: PropTypes.string,
+    id: PropTypes.number,
+    sender: PropTypes.shape({
+      id: PropTypes.number,
+      username: PropTypes.string,
+    }),
+    receiver: PropTypes.shape({
+      id: PropTypes.number,
+      username: PropTypes.string,
+    }),
+    subject: PropTypes.string,
+    messageContent: PropTypes.string,
+    isNew: PropTypes.bool,
+    connectedToTrade: PropTypes.bool,
   }).isRequired,
   onUpdate: PropTypes.func.isRequired,
 };

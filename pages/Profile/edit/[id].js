@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { getSingleProfile } from '../../../api/profileData';
 import ProfileForm from '../../../components/Forms/ProfileForm';
 import Footer from '../../../components/Footer';
+import { getSingleUser } from '../../../api/new/userData';
 
-export default function EditPost() {
+export default function EditProfile() {
   const [editMyProfile, setEditMyProfile] = useState({});
   const router = useRouter();
-  const { firebaseKey } = router.query;
+  const { id } = router.query;
 
   useEffect(() => {
-    getSingleProfile(firebaseKey).then(setEditMyProfile);
-  }, [firebaseKey]);
+    getSingleUser(id).then(setEditMyProfile);
+  }, [id]);
 
   return (
     <>
@@ -21,7 +21,7 @@ export default function EditPost() {
         <meta name="update profile" content="Update my profile page" />
       </Head>
       <div className="center-page">
-        <ProfileForm profileObj={editMyProfile} />
+        <ProfileForm obj={editMyProfile} />
       </div>
       <Footer />
     </>
