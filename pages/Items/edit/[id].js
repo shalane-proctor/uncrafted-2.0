@@ -13,6 +13,9 @@ export default function EditPost() {
   useEffect(() => {
     getSinglePost(id).then(setEditItem);
   }, [id]);
+
+  console.log(editItem);
+
   return (
     <>
       <Head>
@@ -20,7 +23,7 @@ export default function EditPost() {
         <meta name="Update post" content="Update post form" />
       </Head>
       <div className="center-page">
-        <PostForm obj={editItem} />
+        <PostForm key={editItem?.id} obj={editItem} />
       </div>
       <Footer />
     </>

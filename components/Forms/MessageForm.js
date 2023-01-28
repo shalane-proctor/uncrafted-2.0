@@ -29,16 +29,21 @@ export default function MessageForm({ id, obj }) {
     const payload = {
       ...formInput,
       sender: user.uid,
-      receiver: receiverUser,
+      receiver: receiverUser.uid,
+      subject: obj.subject,
+      isNew: true,
+      connectedToTrade: false,
     };
     createMessage(payload).then(() => {
       router.push('/messages');
     });
   };
+
+  console.log(obj.receiver);
   return (
     <Form onSubmit={handleSubmit}>
       <h1 style={{ color: 'aqua' }}>Send Message</h1>
-      <h5 style={{ color: 'aqua' }}>Sending message to: {obj?.receiver} </h5>
+      <h5 style={{ color: 'aqua' }}>Sending message to: {obj?.receiver?.username} </h5>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label style={{ color: 'aqua' }}>Message</Form.Label>
         <Form.Control className="forms-over-image" type="text" as="textarea" name="messageContent" rows={3} placeholder="" onChange={handleChange} />
@@ -54,7 +59,9 @@ MessageForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
     sender: PropTypes.shape({}),
-    receiver: PropTypes.shape({}),
+    receiver: PropTypes.shape({
+      username: PropTypes.string,
+    }),
     subject: PropTypes.string,
     messageContent: PropTypes.string,
     isNew: PropTypes.bool,
@@ -67,7 +74,7 @@ MessageForm.defaultProps = {
     id: '',
     sender: '',
     receiver: '',
-    subject: '',
+    subject: 'This is a subject!',
     messageContent: '',
     isNew: true,
     connectedToTrade: false,

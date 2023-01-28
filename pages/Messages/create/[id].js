@@ -6,14 +6,13 @@ import Footer from '../../../components/Footer';
 import MessageForm from '../../../components/Forms/MessageForm';
 
 export default function NewMessage() {
-  const [profiles, setProfiles] = useState();
+  const [profiles, setProfiles] = useState({});
   const router = useRouter();
-  const { id } = router.query;
+  const id = router.query;
 
   useEffect(() => {
     getSingleUser(id).then(setProfiles);
   }, [id]);
-
   return (
     <div>
       <Head>
@@ -21,7 +20,7 @@ export default function NewMessage() {
         <meta name="Create message" content="Create message page" />
       </Head>
       <div className="center-page">
-        <MessageForm obj={profiles} id={id} />
+        <MessageForm obj={profiles} />
       </div>
       <Footer />
     </div>
