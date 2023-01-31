@@ -7,17 +7,17 @@ export default function MessageDetails({ messageObj }) {
     <>
       <Card className="various-details">
         <Card.Title>
-          <img className="thumbnail-image" src={messageObj.sender.profileImageUrl} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {messageObj.sender.username}
+          <img className="thumbnail-image" src={messageObj?.sender?.profile_image_url} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {messageObj?.sender?.username}
         </Card.Title>
         <Card.Title>
-          <img className="thumbnail-image" src={messageObj.receiver.profileImageUrl} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" />
-          Message to: {messageObj.receiver.username}
+          <img className="thumbnail-image" src={messageObj?.receiver?.profile_image_url} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" />
+          Message to: {messageObj?.receiver?.username}
         </Card.Title>
       </Card>
       <Card style={{ height: '30rem', marginBottom: '10rem' }} className="various-details">
         <Card.Body>
           <Card.Title>Message:</Card.Title>
-          <Card.Title>{messageObj.messageContent}</Card.Title>
+          <Card.Title>{messageObj?.messageContent}</Card.Title>
         </Card.Body>
       </Card>
     </>
@@ -34,7 +34,7 @@ MessageDetails.propTypes = {
       favoriteCraft: PropTypes.string,
       email: PropTypes.string,
       about: PropTypes.string,
-      profileImageUrl: PropTypes.string,
+      profile_image_url: PropTypes.string,
       instagram: PropTypes.string,
       etsy: PropTypes.string,
     }),
@@ -45,7 +45,7 @@ MessageDetails.propTypes = {
       favoriteCraft: PropTypes.string,
       email: PropTypes.string,
       about: PropTypes.string,
-      profileImageUrl: PropTypes.string,
+      profile_image_url: PropTypes.string,
       instagram: PropTypes.string,
       etsy: PropTypes.string,
     }),

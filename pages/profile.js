@@ -60,17 +60,19 @@ export default function ProfilePage() {
         </div>
         <h1 style={{ color: 'aqua', fontSize: '60px' }}>My Trades</h1>
         <h4 style={{ color: 'aqua', fontSize: '40px' }}>Trade offers</h4>
-        <div className="text-center my-4">
-          <div className="d-flex">{trades.tradesFrom?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.id} tradeObj={trade} />))}</div>
-        </div>
+        { user.id === trades?.trade_by_user?.id
+          ? (
+            <div className="text-center my-4">
+              <div className="d-flex">{trades?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.id} tradeObj={trade} />))}</div>
+            </div>
+          ) : ''}
         <h4 style={{ color: 'aqua', fontSize: '40px' }}>Trade Requests</h4>
         <Container>
           <Row>
             <Col>
-              <div className="text-center my-4">{trades?.itemWanted === undefined ? <h5 style={{ color: 'white', fontSize: '30px' }}>No trades yet!</h5> : <div className="d-flex">{trades?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.id} tradeObj={trade} />))}</div>}</div>
+              <div className="text-center my-4">{trades?.item_wanted === undefined ? <h5 style={{ color: 'white', fontSize: '30px' }}>No trades yet!</h5> : <div className="d-flex">{trades?.map((trade) => (trade.pending === false ? '' : <TradeCard key={trade.id} tradeObj={trade} />))}</div>}</div>
               <h4 style={{ color: 'aqua', fontSize: '40px' }}>Past Trades</h4>
               <div className="text-center my-4">
-                <div className="d-flex">{trades?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.id} tradeObj={trade} />))}</div>
                 <div className="d-flex">{trades?.map((trade) => (trade.pending === true ? '' : <TradeCard key={trade.id} tradeObj={trade} />))}</div>
               </div>
             </Col>

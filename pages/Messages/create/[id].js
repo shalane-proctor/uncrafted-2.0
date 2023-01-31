@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -8,11 +10,12 @@ import MessageForm from '../../../components/Forms/MessageForm';
 export default function NewMessage() {
   const [profiles, setProfiles] = useState({});
   const router = useRouter();
-  const id = router.query;
+  const { id } = router.query;
 
   useEffect(() => {
     getSingleUser(id).then(setProfiles);
   }, [id]);
+
   return (
     <div>
       <Head>

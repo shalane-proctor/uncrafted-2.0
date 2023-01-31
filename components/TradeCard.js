@@ -4,18 +4,34 @@ import {
   Badge, Button,
 } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
+import { getTradeByUser } from '../api/new/tradeData';
+import { useAuth } from '../utils/context/authContext';
 
 export default function TradeCard({ tradeObj }) {
+  const user = useAuth();
   return (
     <>
       <Card className="trade-card">
-        <Card.Img src="/./pinkSticky.png" alt="sticky note" height="150px" width="200px" />
+        <Card.Img src="/./pinkSticky.png" alt="sticky note" height="300px" width="300px" />
         <Card.ImgOverlay>
-          <div> {tradeObj.isPending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
+          <div> {tradeObj?.is_pending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
           <Card.Body>
-            <Card.Title>{tradeObj.isPending === true ? 'New Trade!' : 'Trade'}</Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">Offered ${tradeObj.itemOffered.itemName}</Card.Subtitle>
-            <Card.Subtitle className="mb-2 text-muted">Wanted ${tradeObj.itemWanted.itemName}</Card.Subtitle>
+            <Card.Title>{tradeObj?.is_pending === true ? 'New Trade!' : 'Trade'}</Card.Title>
+            {user?.uid === getTradeByUser?.uid ? (
+              <div>
+                <Card.Subtitle className="mb-2 text-muted">
+                  You Offered {tradeObj?.item_offered?.item_name} to {tradeObj?.item_wanted?.owner_profile?.username} for {tradeObj?.item_wanted?.item_name}!
+                </Card.Subtitle>
+                <Card.Img src={tradeObj?.item_wanted?.image_url} className="trade-card-image" alt={tradeObj?.item_wanted?.item_name} height="100px" width="100px" />
+              </div>
+            ) : (
+              <div>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {tradeObj?.item_wanted?.owner_profile?.username} offered {tradeObj?.item_offered?.item_name} for {tradeObj?.item_wanted?.item_name}!
+                </Card.Subtitle>
+                <Card.Img src={tradeObj?.item_wanted?.image_url} className="trade-card-image" alt={tradeObj?.item_wanted?.item_name} height="100px" width="100px" />
+              </div>
+            )}
             <Link href={`/Trades/update/${tradeObj?.id}`} passHref>
               <Button variant="primary">View Trade</Button>
             </Link>
@@ -29,41 +45,41 @@ export default function TradeCard({ tradeObj }) {
 TradeCard.propTypes = {
   tradeObj: PropTypes.shape({
     id: PropTypes.number,
-    itemWanted: PropTypes.shape({
+    item_wanted: PropTypes.shape({
       id: PropTypes.number,
-      itemName: PropTypes.string,
+      item_name: PropTypes.string,
       color: PropTypes.string,
       amount: PropTypes.string,
-      imageUrl: PropTypes.string,
-      tradePreferences: PropTypes.string,
+      image_url: PropTypes.string,
+      trade_preferences: PropTypes.string,
       description: PropTypes.string,
-      isDraft: PropTypes.bool,
-      isPending: PropTypes.bool,
-      ownerProfileId: {
+      is_draft: PropTypes.bool,
+      is_pending: PropTypes.bool,
+      owner_profile: PropTypes.shape({
         id: PropTypes.number,
-        uid: PropTypes.number,
+        uid: PropTypes.string,
         username: PropTypes.string,
-        profileImageUrl: PropTypes.string,
-      },
+        profile_image_url: PropTypes.string,
+      }),
     }),
-    itemOffered: PropTypes.shape({
+    item_offered: PropTypes.shape({
       id: PropTypes.number,
-      itemName: PropTypes.string,
+      item_name: PropTypes.string,
       color: PropTypes.string,
       amount: PropTypes.string,
-      imageUrl: PropTypes.string,
-      tradePreferences: PropTypes.string,
+      image_url: PropTypes.string,
+      trade_preferences: PropTypes.string,
       description: PropTypes.string,
-      isDraft: PropTypes.bool,
-      isPending: PropTypes.bool,
-      ownerProfileId: {
+      is_draft: PropTypes.bool,
+      is_pending: PropTypes.bool,
+      owner_profile: PropTypes.shape({
         id: PropTypes.number,
-        uid: PropTypes.number,
+        uid: PropTypes.string,
         username: PropTypes.string,
-        profileImageUrl: PropTypes.string,
-      },
+        profile_image_url: PropTypes.string,
+      }),
     }),
-    isPending: PropTypes.bool,
+    is_pending: PropTypes.bool,
   }),
 };
 
