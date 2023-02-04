@@ -17,6 +17,7 @@ export default function MessagesPage() {
 
   useEffect(() => {
     getAllMessages();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
