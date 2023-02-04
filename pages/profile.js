@@ -50,7 +50,9 @@ export default function ProfilePage() {
           {posts?.id !== [] ? (
             <div className="d-flex">
               {posts?.map((post) => (
-                <PostCard key={post.id} imageUrl={post.image_url} itemName={post.item_name} color={post.color} amount={post.amount} id={post.id} />
+                <div>
+                  <PostCard key={post.id} imageUrl={post.image_url} itemName={post.item_name} color={post.color} amount={post.amount} id={post.id} />
+                </div>
               ))}
             </div>
           ) : (

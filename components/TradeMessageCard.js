@@ -7,7 +7,7 @@ export default function TradeMessageCard({ tradeMessageObj }) {
   return (
     <Card className="various-details">
       <Card.Title>
-        <img className="thumbnail-image" src={tradeMessageObj.message?.receiver?.profile_image_url} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {tradeMessageObj.message?.sender?.username}
+        <img className="thumbnail-image" src={tradeMessageObj.message?.sender?.profile_image_url} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" /> Message From: {tradeMessageObj.message?.sender?.username}
       </Card.Title>
       <Card.Title>
         <img className="thumbnail-image" src={tradeMessageObj.message?.receiver?.profile_image_url} style={{ width: '10%', borderRadius: '50%' }} alt="Profile Pic" />
@@ -37,5 +37,8 @@ TradeMessageCard.propTypes = {
       }),
     }),
     trade: PropTypes.shape({}),
-  }).isRequired,
+  }),
+};
+TradeMessageCard.defaultProps = {
+  tradeMessageObj: {},
 };

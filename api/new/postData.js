@@ -38,7 +38,7 @@ const getSinglePost = (postId) => new Promise((resolve, reject) => {
 const createPost = (post) => new Promise((resolve, reject) => {
   const postObj = {
     posted_by_user: post?.postedByUser,
-    owner_profile: post?.ownerProfile?.id,
+    owner_profile: post?.ownerProfile,
     item_name: post?.itemName,
     color: post?.color,
     amount: post?.amount,

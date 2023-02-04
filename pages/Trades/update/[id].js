@@ -25,7 +25,13 @@ export default function EditTrade() {
         <meta name="Trade" content="Single trade page" />
       </Head>
       <TradeForm item={trade} />
-      <TradeMessageCard tradeMessageObj={tradeMessage} />
+      {tradeMessage === undefined || tradeMessage === null ? '' : (
+        <div>
+          {tradeMessage?.map((message) => (
+            <TradeMessageCard tradeMessageObj={message} />
+          ))}
+        </div>
+      )}
       <Footer />
     </>
   );

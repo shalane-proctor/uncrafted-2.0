@@ -30,7 +30,9 @@ export default function ProfilePage() {
         <div className="text-center my-4">
           <div className="d-flex">
             {posts?.map((post) => (
-              <PostCard key={post.id} id={post.id} imageUrl={post.image_url} itemName={post.item_name} color={post.color} amount={post.amount} />
+              <div>
+                {post.is_draft === true ? '' : <PostCard key={post.id} id={post.id} imageUrl={post.image_url} itemName={post.item_name} color={post.color} amount={post.amount} />}
+              </div>
             ))}
           </div>
         </div>

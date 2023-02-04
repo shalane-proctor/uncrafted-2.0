@@ -121,9 +121,13 @@ export default function TradeForm({
                       <Link href={`/Profile/${item?.itemWanted?.owner_profile?.id}`} passHref>
                         <Button variant="outline-info">View Profile</Button>
                       </Link>
-                      <Link href={`/TradeMessages/create/${item?.id}`} passHref>
-                        <Button variant="outline-info">Send Message</Button>
-                      </Link>
+                      {item?.itemWanted?.owner_profile?.id === user.id ? (
+                        ''
+                      ) : (
+                        <Link href={`/TradeMessages/create/${item?.id}`} passHref>
+                          <Button variant="outline-info">Send Message</Button>
+                        </Link>
+                      )}
                     </Card.Body>
                   </Card.ImgOverlay>
                 </Card>
@@ -206,22 +210,29 @@ export default function TradeForm({
         <div className="trade-form-pending">
           <div className="text-center my-4">
             <div className="d-flex">
-              <Card className="trade-card-profile">
-                <Card.Img src="/./pinkSticky.png" alt="sticky note" height="215px" width="200px" />
-                <Card.ImgOverlay>
-                  <Card.Body>
-                    <Card.Title>
-                      <img className="thumbnail-image" src={user.profile_image_url} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
-                    </Card.Title>
-                    <Card.Subtitle className="mb-2">{user.username}</Card.Subtitle>
-                    <Link href={`/Profile/${user.id}`} passHref>
-                      <Button variant="outline-info">View Profile</Button>
-                    </Link>
-                  </Card.Body>
-                </Card.ImgOverlay>
-              </Card>
               {item?.id ? (
                 <>
+                  <Card className="trade-card-profile">
+                    <Card.Img src="/./pinkSticky.png" alt="sticky note" height="215px" width="200px" />
+                    <Card.ImgOverlay>
+                      <Card.Body>
+                        <Card.Title>
+                          <img className="thumbnail-image" src={item?.itemOffered?.owner_profile?.profile_image_url} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+                        </Card.Title>
+                        <Card.Subtitle className="mb-2">{item?.itemOffered?.owner_profile?.username}</Card.Subtitle>
+                        <Link href={`/Profile/${item?.itemOffered?.owner_profile?.id}`} passHref>
+                          <Button variant="outline-info">View Profile</Button>
+                        </Link>
+                        {item?.itemOffered?.owner_profile?.id === user.id ? (
+                          ''
+                        ) : (
+                          <Link href={`/TradeMessages/create/${item?.id}`} passHref>
+                            <Button variant="outline-info">Send Message</Button>
+                          </Link>
+                        )}
+                      </Card.Body>
+                    </Card.ImgOverlay>
+                  </Card>
                   <Card className="trade-form-post-card">
                     <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
                     <Card.ImgOverlay>
@@ -239,6 +250,20 @@ export default function TradeForm({
                 </>
               ) : (
                 <>
+                  <Card className="trade-card-profile">
+                    <Card.Img src="/./pinkSticky.png" alt="sticky note" height="215px" width="200px" />
+                    <Card.ImgOverlay>
+                      <Card.Body>
+                        <Card.Title>
+                          <img className="thumbnail-image" src={user.profile_image_url} alt="Profile Pic" style={{ width: '30%', borderRadius: '50%' }} />
+                        </Card.Title>
+                        <Card.Subtitle className="mb-2">{user.username}</Card.Subtitle>
+                        <Link href={`/Profile/${user.id}`} passHref>
+                          <Button variant="outline-info">View Profile</Button>
+                        </Link>
+                      </Card.Body>
+                    </Card.ImgOverlay>
+                  </Card>
                   <Card onChange={handleChange} className="trade-card-select">
                     <Card.Img src="/./stickyNote.png" alt="sticky note" height="400px" width="400px" />
                     <Card.ImgOverlay>

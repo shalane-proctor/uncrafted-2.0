@@ -25,7 +25,7 @@ function Home() {
       <div className="text-center my-4 center-page">
         <div className="d-flex">
           {posts.map((post) => (
-            post.draft === true || post.draft === 'on' ? ''
+            post.is_draft === true ? ''
               : <PostCard key={post.id} id={post.id} imageUrl={post.image_url} itemName={post.item_name} color={post.color} amount={post.amount} />
           ))}
         </div>
