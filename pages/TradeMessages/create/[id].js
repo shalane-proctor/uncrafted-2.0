@@ -3,27 +3,26 @@
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { getSingleUser } from '../../../api/new/userData';
+import { getSingleTrade } from '../../../api/new/tradeData';
 import Footer from '../../../components/Footer';
-import MessageForm from '../../../components/Forms/MessageForm';
+import TradeMessageForm from '../../../components/Forms/TradeMessageForm';
 
 export default function NewMessage() {
-  const [profiles, setProfiles] = useState({});
+  const [trade, setTrade] = useState({});
   const router = useRouter();
   const { id } = router.query;
 
   useEffect(() => {
-    getSingleUser(id).then(setProfiles);
+    getSingleTrade(id).then(setTrade);
   }, [id]);
-
   return (
     <div>
       <Head>
-        <title>Uncrafted - My Messages</title>
+        <title>Uncrafted - Trade Message</title>
         <meta name="Create message" content="Create message page" />
       </Head>
       <div className="center-page">
-        <MessageForm obj={profiles} />
+        <TradeMessageForm obj={trade} />
       </div>
       <Footer />
     </div>

@@ -21,7 +21,7 @@ export default function EditProfile() {
         <meta name="update profile" content="Update my profile page" />
       </Head>
       <div className="center-page">
-        <ProfileForm obj={editMyProfile} />
+        <ProfileForm user={editMyProfile} />
       </div>
       <Footer />
     </>

@@ -1,6 +1,21 @@
 import { clientCredentials } from '../../utils/client';
 
-const getUserById = (id) => fetch(`${clientCredentials.databaseURL}/users/${id}`).then((res) => res.json());
+const getMyProfile = (uid) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/user-uid/${uid}/`)
+    .then((response) => response.json())
+    .then((data) => {
+      resolve({
+        username: data.username,
+        favorite_craft: data.favorite_craft,
+        email: data.email,
+        about: data.about,
+        profileImageUrl: data.profile_image_url,
+        instagram: data.instagram,
+        etsy: data.etsy,
+      });
+    })
+    .catch((error) => reject(error));
+});
 
 const getUsers = () => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/user`)
@@ -14,15 +29,15 @@ const getSingleUser = (userId) => new Promise((resolve, reject) => {
     .then((response) => response.json())
     .then((data) => {
       resolve({
-        id: data.id,
-        uid: data.user,
-        username: data.username,
-        favorite_craft: data.favoriteCraft,
-        email: data.email,
-        about: data.about,
-        profile_image_url: data.profileImageUrl,
-        instagram: data.instagram,
-        etsy: data.etsy,
+        id: data?.id,
+        uid: data?.uid,
+        username: data?.username,
+        favorite_craft: data?.favorite_craft,
+        email: data?.email,
+        about: data?.about,
+        profile_image_url: data?.profile_image_url,
+        instagram: data?.instagram,
+        etsy: data?.etsy,
       });
     })
     .catch((error) => reject(error));
@@ -30,6 +45,7 @@ const getSingleUser = (userId) => new Promise((resolve, reject) => {
 
 const createUser = (user) => new Promise((resolve, reject) => {
   const userObj = {
+    uid: user.uid,
     username: user.username,
     favorite_craft: user.favoriteCraft,
     email: user.email,
@@ -49,10 +65,8 @@ const createUser = (user) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updateUser = (user) => new Promise((resolve, reject) => {
+const updateUserProfile = (user) => new Promise((resolve, reject) => {
   const userObj = {
-    id: user.id,
-    uid: user.user,
     username: user.username,
     favorite_craft: user.favoriteCraft,
     email: user.email,
@@ -80,5 +94,5 @@ const deleteUser = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getUsers, getUserById, getSingleUser, createUser, updateUser, deleteUser,
+  getUsers, getMyProfile, getSingleUser, createUser, updateUserProfile, deleteUser,
 };

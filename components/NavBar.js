@@ -3,8 +3,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { signOut } from '../utils/auth';
+// import { useAuth } from '../utils/context/authContext';
 
 export default function NavBar() {
+  // const user = useAuth();
   return (
     <nav className="navbar navbar-expand-md" style={{ background: 'rgb(143, 68, 255)', color: 'white' }}>
       <div className="container-fluid">

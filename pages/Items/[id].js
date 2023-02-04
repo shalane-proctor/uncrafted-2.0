@@ -8,13 +8,13 @@ import PostDetails from '../../components/PostDetails';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function ViewThePostDetails() {
-  const [postDetail, setPostDetails] = useState({});
+  const [post, setPost] = useState({});
   const { user } = useAuth();
   const router = useRouter();
   const { id } = router.query;
 
   useEffect(() => {
-    getSinglePost(id).then(setPostDetails);
+    getSinglePost(id).then(setPost);
   }, [id, user]);
 
   return (
@@ -24,7 +24,7 @@ export default function ViewThePostDetails() {
         <meta name="Individual Posts" content="Individual posts page" />
       </Head>
       <div className="center-page">
-        <PostDetails key={postDetail?.id} postObj={postDetail} />
+        <PostDetails key={post?.id} postObj={post} />
       </div>
       <Footer />
     </div>

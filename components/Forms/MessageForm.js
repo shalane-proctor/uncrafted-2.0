@@ -1,20 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import PropTypes from 'prop-types';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { useAuth } from '../../utils/context/authContext';
-import { getSingleUser } from '../../api/new/userData';
 import { createMessage } from '../../api/new/messageData';
 
-export default function MessageForm({ id, obj }) {
+const initialState = {
+  subject: 'This is a subject!',
+  messageContent: '',
+  isNew: true,
+  connectedToTrade: false,
+};
+export default function MessageForm({ obj }) {
   const [formInput, setFormInput] = useState();
-  const [receiverUser, setReceiverUser] = useState();
   const { user } = useAuth();
   const router = useRouter();
-  useEffect(() => {
-    getSingleUser(id).then(setReceiverUser);
-  }, [id]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,8 +29,11 @@ export default function MessageForm({ id, obj }) {
     e.preventDefault();
     const payload = {
       ...formInput,
-      sender: user.uid,
-      receiver: receiverUser,
+      sender: user?.uid,
+      receiver: obj?.uid,
+      subject: initialState?.subject,
+      isNew: true,
+      connectedToTrade: false,
     };
     createMessage(payload).then(() => {
       router.push('/messages');
@@ -38,10 +42,10 @@ export default function MessageForm({ id, obj }) {
   return (
     <Form onSubmit={handleSubmit}>
       <h1 style={{ color: 'aqua' }}>Send Message</h1>
-      <h5 style={{ color: 'aqua' }}>Sending message to: {obj?.receiver} </h5>
+      <h5 style={{ color: 'aqua' }}>Sending message to: {obj?.username} </h5>
       <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
         <Form.Label style={{ color: 'aqua' }}>Message</Form.Label>
-        <Form.Control className="forms-over-image" type="text" as="textarea" name="messageContent" rows={3} placeholder="" onChange={handleChange} />
+        <Form.Control className="forms-over-image" type="text" as="textarea" name="messageContent" value={formInput?.messageContent} rows={3} placeholder="" onChange={handleChange} />
       </Form.Group>
       <Button size="lg" className="message-form-button" type="submit">
         Send
@@ -50,26 +54,17 @@ export default function MessageForm({ id, obj }) {
   );
 }
 MessageForm.propTypes = {
-  id: PropTypes.number.isRequired,
   obj: PropTypes.shape({
-    id: PropTypes.number,
-    sender: PropTypes.shape({}),
-    receiver: PropTypes.shape({}),
-    subject: PropTypes.string,
-    messageContent: PropTypes.string,
-    isNew: PropTypes.bool,
-    connectedToTrade: PropTypes.bool,
+    uid: PropTypes.number,
+    username: PropTypes.string,
   }),
 };
 
 MessageForm.defaultProps = {
   obj: PropTypes.shape({
-    id: '',
+    uid: '',
+    username: '',
     sender: '',
     receiver: '',
-    subject: '',
-    messageContent: '',
-    isNew: true,
-    connectedToTrade: false,
   }),
 };

@@ -128,6 +128,13 @@ p{
   margin-right: 1.5rem !important;
   border: 0 !important;
 }
+.trade-card-image {
+  object-fit: cover !important;
+  border-radius: 55 !important;
+  width: 8rem !important;
+  height: 8rem !important;
+  border: 0 !important;
+}
 .info-post-card-left{
   float:left !important;
   flex-wrap: wrap !important;

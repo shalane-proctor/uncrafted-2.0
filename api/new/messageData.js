@@ -15,16 +15,23 @@ const getSingleMessage = (messageId) => new Promise((resolve, reject) => {
         sender: data.sender,
         receiver: data.receiver,
         subject: data.subject,
-        message_content: data.messageContent,
-        is_new: data.isNew,
-        connected_to_trade: data.connectedToTrade,
+        messageContent: data.message_content,
+        isNew: data.is_new,
+        connectedToTrade: data.connected_to_trade,
       });
     })
     .catch((error) => reject(error));
 });
 
-const getMessagesByPost = (postId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/message?post=${postId}`)
+const getMessagesBySender = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/message-sender/${userId}/`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getMessagesByReceiver = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/message-receiver/${userId}/`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
@@ -79,5 +86,5 @@ const deleteMessage = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getMessages, getSingleMessage, createMessage, updateMessage, deleteMessage, getMessagesByPost,
+  getMessages, getSingleMessage, createMessage, updateMessage, deleteMessage, getMessagesByReceiver, getMessagesBySender,
 };

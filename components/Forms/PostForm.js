@@ -4,41 +4,34 @@ import PropTypes from 'prop-types';
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
-import { createPosts, updatePosts } from '../../api/old/itemsData';
 import { useAuth } from '../../utils/context/authContext';
-import { getSingleUser } from '../../api/new/userData';
+import { createPost, updatePost } from '../../api/new/postData';
 
 const initialState = {
-  uid: '',
   id: '',
-  postedByUser: '',
-  ownerProfile: '',
   itemName: '',
   color: '',
   amount: '',
   imageUrl: '',
-  tradePreferences: '',
+  tradePreferences: 'Up to offers',
   description: '',
   isDraft: false,
-  isPending: true,
+  isPending: false,
 };
 export default function PostForm({ obj }) {
   const [formInput, setFormInput] = useState();
-  const [currentUser, setCurrentUser] = useState();
-  const [checked, setChecked] = useState(obj?.isDraft);
+  const [isChecked, setIsChecked] = useState(false);
   const router = useRouter();
   const { user } = useAuth();
 
   useEffect(() => {
-    getSingleUser(user.id).then(setCurrentUser);
-    setChecked(obj?.isDraft);
-    if (obj.id) setFormInput(obj, obj?.isDraft);
+    if (obj.id) {
+      setFormInput(obj);
+    }
   }, [obj, user]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    // setChecked(e.target.checked);
-    setChecked((prev) => !prev);
     setFormInput((prevState) => ({
       ...prevState,
       [name]: value,
@@ -48,14 +41,21 @@ export default function PostForm({ obj }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (obj.id) {
-      updatePosts(formInput).then(() => router.push('/'));
+      const payload = {
+        ...formInput,
+        isDraft: isChecked,
+        isPending: false,
+      };
+      updatePost(payload).then(() => router.push('/'));
     } else {
       const payload = {
         ...formInput,
-        uid: user.uid,
-        ownerProfile: currentUser.uid,
+        postedByUser: user.uid,
+        ownerProfile: user.id,
+        isDraft: isChecked,
+        isPending: false,
       };
-      createPosts(payload).then(() => {
+      createPost(payload).then(() => {
         router.push('/');
       });
     }
@@ -77,14 +77,15 @@ export default function PostForm({ obj }) {
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Image" name="imageUrl" value={formInput?.imageUrl} onChange={handleChange} />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea" label="Trade preferences" className="mb-3">
-          <Form.Control className="all-my-form-input" as="textarea" placeholder="preferences" name="tradePreferences" value={formInput?.tradePreferences} onChange={handleChange} required />
+          <Form.Control className="all-my-form-input" as="textarea" placeholder="preferences" name="tradePreferences" value={formInput?.tradePreferences} onChange={handleChange} />
         </FloatingLabel>
         <FloatingLabel controlId="floatingTextarea2" label="Tell us about it">
           <Form.Control className="all-my-form-input" as="textarea" placeholder="Desription" style={{ height: '100px' }} name="description" value={formInput?.description} onChange={handleChange} required />
         </FloatingLabel>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check style={{ color: 'black' }} type="checkbox" label="Draft" name="isDraft" defaultChecked={checked} onChange={handleChange} />
-        </Form.Group>
+        <div>
+          <input type="checkbox" name="isDraft" value="isDraft" onChange={(event) => setIsChecked(event.currentTarget.checked)} checked={isChecked} />
+          <button type="button" onClick={() => setIsChecked(!isChecked)}>Draft</button>
+        </div>
         <Button variant="primary" type="submit" className="my-buttons mb-3">
           {obj.id ? 'Update' : 'Post'} Item
         </Button>
@@ -96,8 +97,8 @@ export default function PostForm({ obj }) {
 PostForm.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
-    postedByUser: PropTypes.string,
-    ownerProfile: PropTypes.string,
+    postedByUser: PropTypes.shape({}),
+    ownerProfile: PropTypes.shape({}),
     itemName: PropTypes.string,
     color: PropTypes.string,
     amount: PropTypes.string,

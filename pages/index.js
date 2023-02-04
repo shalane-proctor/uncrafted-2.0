@@ -3,11 +3,8 @@ import Head from 'next/head';
 import PostCard from '../components/PostCard';
 import Footer from '../components/Footer';
 import { getPosts } from '../api/new/postData';
-// import PostDetails from '../components/PostDetails';
-// import { useAuth } from '../utils/context/authContext';
 
 function Home() {
-  // const { user } = useAuth();
   const [posts, setPosts] = useState([]);
   const getAllPosts = () => {
     getPosts().then(setPosts);
@@ -28,8 +25,8 @@ function Home() {
       <div className="text-center my-4 center-page">
         <div className="d-flex">
           {posts.map((post) => (
-            post.draft === true || post.draft === 'on' ? ''
-              : <PostCard key={post.id} postObj={post} />
+            post.is_draft === true ? ''
+              : <PostCard key={post.id} id={post.id} imageUrl={post.image_url} itemName={post.item_name} color={post.color} amount={post.amount} />
           ))}
         </div>
       </div>

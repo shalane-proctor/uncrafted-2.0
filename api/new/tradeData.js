@@ -7,15 +7,37 @@ const getTrades = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getTradesByPost = (postId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/trade-post/${postId}/`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getTradeByUser = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/trade-user/${userId}/`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getTradeByRequested = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/trade-wanted/${userId}/`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 const getSingleTrade = (tradeId) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/trade/${tradeId}`)
     .then((response) => response.json())
     .then((data) => {
       resolve({
         id: data.id,
-        item_wanted: data.itemWanted,
-        item_offered: data.itemOffered,
-        is_pending: data.isPending,
+        tradeByUser: data.trade_by_user,
+        itemWanted: data.item_wanted,
+        itemOffered: data.item_offered,
+        isPending: data.is_pending,
       });
     })
     .catch((error) => reject(error));
@@ -23,9 +45,10 @@ const getSingleTrade = (tradeId) => new Promise((resolve, reject) => {
 
 const createTrade = (trade) => new Promise((resolve, reject) => {
   const tradeObj = {
-    item_wanted: trade.itemWanted,
-    item_offered: trade.itemOffered,
-    is_pending: trade.isPending,
+    trade_by_user: trade?.tradeByUser,
+    item_wanted: trade?.itemWanted,
+    item_offered: trade?.itemOffered,
+    is_pending: trade?.isPending,
   };
   fetch(`${clientCredentials.databaseURL}/trade`, {
     method: 'POST',
@@ -40,10 +63,11 @@ const createTrade = (trade) => new Promise((resolve, reject) => {
 
 const updateTrade = (trade) => new Promise((resolve, reject) => {
   const tradeObj = {
-    id: trade.id,
-    item_wanted: trade.itemWanted,
-    item_offered: trade.itemOffered,
-    is_pending: trade.isPending,
+    id: trade?.id,
+    trade_by_user: trade?.tradeByUser,
+    item_wanted: trade?.itemWanted,
+    item_offered: trade?.itemOffered,
+    is_pending: trade?.isPending,
   };
   fetch(`${clientCredentials.databaseURL}/trade/${trade.id}`, {
     method: 'PUT',
@@ -64,5 +88,5 @@ const deleteTrade = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getTrades, getSingleTrade, createTrade, updateTrade, deleteTrade,
+  getTrades, getSingleTrade, createTrade, updateTrade, deleteTrade, getTradesByPost, getTradeByUser, getTradeByRequested,
 };

@@ -7,6 +7,13 @@ const getTradeMessage = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getTradeMessageTrade = (tradeId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/trademessage-trade/${tradeId}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 const getSingleTradeMessage = (tradeMessageId) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/trademessage/${tradeMessageId}`)
     .then((response) => response.json())
@@ -22,7 +29,7 @@ const getSingleTradeMessage = (tradeMessageId) => new Promise((resolve, reject) 
 
 const createTradeMessage = (tradeMessage) => new Promise((resolve, reject) => {
   const tradeMessageObj = {
-    message: Number(tradeMessage.massage),
+    message: Number(tradeMessage.message),
     trade: Number(tradeMessage.trade),
   };
   fetch(`${clientCredentials.databaseURL}/trademessage`, {
@@ -61,5 +68,5 @@ const deleteTradeMessage = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getTradeMessage, getSingleTradeMessage, createTradeMessage, updateTradeMessage, deleteTradeMessage,
+  getTradeMessage, getSingleTradeMessage, createTradeMessage, updateTradeMessage, deleteTradeMessage, getTradeMessageTrade,
 };
