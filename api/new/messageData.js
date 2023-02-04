@@ -23,8 +23,15 @@ const getSingleMessage = (messageId) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const getMessagesByUser = (userId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/message-user/${userId}/`)
+const getMessagesBySender = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/message-sender/${userId}/`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getMessagesByReceiver = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/message-receiver/${userId}/`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
@@ -79,5 +86,5 @@ const deleteMessage = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getMessages, getSingleMessage, createMessage, updateMessage, deleteMessage, getMessagesByUser,
+  getMessages, getSingleMessage, createMessage, updateMessage, deleteMessage, getMessagesByReceiver, getMessagesBySender,
 };

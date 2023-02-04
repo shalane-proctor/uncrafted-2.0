@@ -45,10 +45,10 @@ const getSingleTrade = (tradeId) => new Promise((resolve, reject) => {
 
 const createTrade = (trade) => new Promise((resolve, reject) => {
   const tradeObj = {
-    trade_by_user: trade.tradeByUser,
-    item_wanted: trade.itemWanted,
-    item_offered: trade.itemOffered,
-    is_pending: trade.isPending,
+    trade_by_user: trade?.tradeByUser,
+    item_wanted: trade?.itemWanted,
+    item_offered: trade?.itemOffered,
+    is_pending: trade?.isPending,
   };
   fetch(`${clientCredentials.databaseURL}/trade`, {
     method: 'POST',
@@ -63,11 +63,11 @@ const createTrade = (trade) => new Promise((resolve, reject) => {
 
 const updateTrade = (trade) => new Promise((resolve, reject) => {
   const tradeObj = {
-    id: trade.id,
-    trade_by_user: trade.tradeByUser,
-    item_wanted: trade.itemWanted,
-    item_offered: trade.itemOffered,
-    is_pending: trade.isPending,
+    id: trade?.id,
+    trade_by_user: trade?.tradeByUser,
+    item_wanted: trade?.itemWanted,
+    item_offered: trade?.itemOffered,
+    is_pending: trade?.isPending,
   };
   fetch(`${clientCredentials.databaseURL}/trade/${trade.id}`, {
     method: 'PUT',

@@ -18,7 +18,6 @@ export default function PostDetails({ postObj }) {
     }
   };
 
-  console.log(postObj);
   return (
     <>
       <Card className="post-details-card">

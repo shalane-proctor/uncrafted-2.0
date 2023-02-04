@@ -14,8 +14,6 @@ export default function EditPost() {
     getSinglePost(id).then(setEditItem);
   }, [id]);
 
-  console.log(editItem);
-
   return (
     <>
       <Head>

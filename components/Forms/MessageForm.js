@@ -39,7 +39,6 @@ export default function MessageForm({ obj }) {
       router.push('/messages');
     });
   };
-  console.log(user);
   return (
     <Form onSubmit={handleSubmit}>
       <h1 style={{ color: 'aqua' }}>Send Message</h1>

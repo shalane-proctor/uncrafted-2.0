@@ -29,7 +29,7 @@ const getSingleTradeMessage = (tradeMessageId) => new Promise((resolve, reject) 
 
 const createTradeMessage = (tradeMessage) => new Promise((resolve, reject) => {
   const tradeMessageObj = {
-    message: Number(tradeMessage.massage),
+    message: Number(tradeMessage.message),
     trade: Number(tradeMessage.trade),
   };
   fetch(`${clientCredentials.databaseURL}/trademessage`, {

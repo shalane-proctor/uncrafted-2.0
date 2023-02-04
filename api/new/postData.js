@@ -38,7 +38,7 @@ const getSinglePost = (postId) => new Promise((resolve, reject) => {
 const createPost = (post) => new Promise((resolve, reject) => {
   const postObj = {
     posted_by_user: post?.postedByUser,
-    owner_profile: post?.ownerProfile,
+    owner_profile: post?.ownerProfile?.id,
     item_name: post?.itemName,
     color: post?.color,
     amount: post?.amount,
@@ -61,8 +61,8 @@ const createPost = (post) => new Promise((resolve, reject) => {
 
 const updatePost = (post) => new Promise((resolve, reject) => {
   const postObj = {
-    // id: post?.id,
-    posted_by_user: post?.postedByUser,
+    id: post?.id,
+    posted_by_user: post?.postedByUser?.id,
     owner_profile: post?.ownerProfile?.id,
     item_name: post?.itemName,
     color: post?.color,
@@ -72,6 +72,29 @@ const updatePost = (post) => new Promise((resolve, reject) => {
     description: post?.description,
     is_draft: post?.isDraft,
     is_pending: post?.isPending,
+  };
+  fetch(`${clientCredentials.databaseURL}/post/${post.id}`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(postObj),
+  })
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
+});
+
+const updateTradePost = (post) => new Promise((resolve, reject) => {
+  const postObj = {
+    id: post?.id,
+    posted_by_user: post?.posted_by_user?.id,
+    owner_profile: post?.owner_profile,
+    item_name: post?.item_name,
+    color: post?.color,
+    amount: post?.amount,
+    image_url: post?.image_url,
+    trade_preferences: post?.trade_preferences,
+    description: post?.description,
+    is_draft: post?.is_draft,
+    is_pending: post?.is_pending,
   };
   fetch(`${clientCredentials.databaseURL}/post/${post.id}`, {
     method: 'PUT',
@@ -92,5 +115,5 @@ const deletePost = (id) => new Promise((resolve, reject) => {
 });
 
 export {
-  getPosts, getSinglePost, createPost, updatePost, deletePost, getPostsByUser,
+  getPosts, getSinglePost, createPost, updatePost, deletePost, getPostsByUser, updateTradePost,
 };

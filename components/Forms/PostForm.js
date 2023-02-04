@@ -60,6 +60,7 @@ export default function PostForm({ obj }) {
       });
     }
   };
+
   return (
     <>
       <Form onSubmit={handleSubmit} style={{ color: 'slategrey' }}>

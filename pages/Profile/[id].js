@@ -18,8 +18,6 @@ export default function ProfilePage() {
     getPostsByUser(id).then(setPosts);
   }, [id]);
 
-  console.log(profile, posts);
-
   return (
     <div className="background-logo">
       <Head>

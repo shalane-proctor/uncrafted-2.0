@@ -4,7 +4,6 @@ import {
   Badge, Button,
 } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
-import { getTradeByUser } from '../api/new/tradeData';
 import { useAuth } from '../utils/context/authContext';
 
 export default function TradeCard({ tradeObj }) {
@@ -17,7 +16,7 @@ export default function TradeCard({ tradeObj }) {
           <div> {tradeObj?.is_pending === true ? <Badge bg="dark">PENDING</Badge> : ''}</div>
           <Card.Body>
             <Card.Title>{tradeObj?.is_pending === true ? 'New Trade!' : 'Trade'}</Card.Title>
-            {user?.uid === getTradeByUser?.uid ? (
+            {user?.user?.id === tradeObj.trade_by_user?.id ? (
               <div>
                 <Card.Subtitle className="mb-2 text-muted">
                   You Offered {tradeObj?.item_offered?.item_name} to {tradeObj?.item_wanted?.owner_profile?.username} for {tradeObj?.item_wanted?.item_name}!
@@ -27,9 +26,9 @@ export default function TradeCard({ tradeObj }) {
             ) : (
               <div>
                 <Card.Subtitle className="mb-2 text-muted">
-                  {tradeObj?.item_wanted?.owner_profile?.username} offered {tradeObj?.item_offered?.item_name} for {tradeObj?.item_wanted?.item_name}!
+                  {tradeObj?.item_offered?.owner_profile?.username} offered {tradeObj?.item_offered?.item_name} for {tradeObj?.item_offered?.item_name}!
                 </Card.Subtitle>
-                <Card.Img src={tradeObj?.item_wanted?.image_url} className="trade-card-image" alt={tradeObj?.item_wanted?.item_name} height="100px" width="100px" />
+                <Card.Img src={tradeObj?.item_offered?.image_url} className="trade-card-image" alt={tradeObj?.item_offered?.item_name} height="100px" width="100px" />
               </div>
             )}
             <Link href={`/Trades/update/${tradeObj?.id}`} passHref>
@@ -45,6 +44,9 @@ export default function TradeCard({ tradeObj }) {
 TradeCard.propTypes = {
   tradeObj: PropTypes.shape({
     id: PropTypes.number,
+    trade_by_user: PropTypes.shape({
+      id: PropTypes.number,
+    }),
     item_wanted: PropTypes.shape({
       id: PropTypes.number,
       item_name: PropTypes.string,
